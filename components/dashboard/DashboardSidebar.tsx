@@ -88,7 +88,7 @@ export default function DashboardSidebar({ isCollapsed, onToggle }: DashboardSid
                     className={cn(
                       "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
                       item.current
-                        ? "bg-blue-600 text-white"
+                        ? "bg-[#4A48FF] text-white"
                         : "text-gray-700 hover:bg-gray-100"
                     )}
                   >

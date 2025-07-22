@@ -241,9 +241,21 @@ export default function DashboardPage() {
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <CardTitle className="text-lg font-semibold">Call Volume Over Time</CardTitle>
-                      <ToggleGroup type="single" value={callVolumeView} onValueChange={(value) => value && setCallVolumeView(value)}>
-                        <ToggleGroupItem value="weekly" size="sm">Weekly View</ToggleGroupItem>
-                        <ToggleGroupItem value="monthly" size="sm">Monthly View</ToggleGroupItem>
+                      <ToggleGroup type="single" value={callVolumeView} onValueChange={(value) => value && setCallVolumeView(value)} >
+                        <ToggleGroupItem
+                          value="weekly"
+                          size="sm"
+                          className="px-4 py-2 text-sm font-semibold rounded-md transition-all data-[state]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 hover:data-[state=off]:bg-gray-50"
+                        >
+                          Weekly View
+                        </ToggleGroupItem>
+                        <ToggleGroupItem
+                          value="monthly"
+                          size="sm"
+                          className="px-4 py-2 text-sm font-semibold rounded-md transition-all data-[state=on]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 hover:data-[state=off]:bg-gray-50"
+                        >
+                          Monthly View
+                        </ToggleGroupItem>
                       </ToggleGroup>
                     </div>
                     <p className="text-sm text-gray-500">Long-term trends in call volume</p>
