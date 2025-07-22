@@ -22,10 +22,10 @@ const CallIntentChart = () => {
       {
         data: [30, 45, 15, 10],
         backgroundColor: [
-          '#3B82F6', // Blue for Appointments
-          '#EF4444', // Red for Inquiries
-          '#10B981', // Green for Messages
-          '#F59E0B', // Orange for Transfers
+          '#3B82F6', // Blue for Appointments (30%)
+          '#EF4444', // Red for Inquiries (45%)
+          '#10B981', // Green for Messages (15%)
+          '#F59E0B', // Orange for Transfers (10%)
         ],
         borderWidth: 0,
         cutout: '60%',
@@ -80,20 +80,20 @@ const CallIntentChart = () => {
   return (
     <div className="flex items-center justify-between h-64 lg:h-80">
       <div className="flex-1 flex justify-center">
-        <div className="w-48 h-48">
+        <div className="w-52 h-52">
           <Doughnut data={data} options={options as any} />
         </div>
       </div>
 
       {/* Legend */}
-      <div className="flex-shrink-0 ml-6 space-y-3">
+      <div className="flex-shrink-0 ml-8 space-y-4">
         {legendData.map((item, index) => (
           <div key={index} className="flex items-center space-x-3 text-sm">
             <div
               className="w-3 h-3 rounded-full"
               style={{ backgroundColor: item.color }}
             />
-            <span className="text-gray-700">{item.name}</span>
+            <span className="text-gray-700 font-medium">{item.name}</span>
           </div>
         ))}
       </div>
