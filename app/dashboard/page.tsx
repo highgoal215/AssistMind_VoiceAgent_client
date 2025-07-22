@@ -234,35 +234,42 @@ export default function DashboardPage() {
 
 
             {/* Charts Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-2">
+                {/* Call Volume Over Time */}
+                <Card>
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-lg font-semibold">Call Volume Over Time</CardTitle>
+                      <ToggleGroup type="single" value={callVolumeView} onValueChange={(value) => value && setCallVolumeView(value)}>
+                        <ToggleGroupItem value="weekly" size="sm">Weekly View</ToggleGroupItem>
+                        <ToggleGroupItem value="monthly" size="sm">Monthly View</ToggleGroupItem>
+                      </ToggleGroup>
+                    </div>
+                    <p className="text-sm text-gray-500">Long-term trends in call volume</p>
+                  </CardHeader>
+                  <CardContent>
+                    <CallVolumeChart timeRange={timeRange} />
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="lg:col-span-1">
+                {/* Call Intent Breakdown */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg font-semibold">Call Intent Breakdown</CardTitle>
+                    <p className="text-sm text-gray-500">Breakdown of common call reasons</p>
+                  </CardHeader>
+                  <CardContent>
+                    <CallIntentChart />
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+
+            {/* Second Row Charts */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Call Volume Over Time */}
-              <Card>
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg font-semibold">Call Volume Over Time</CardTitle>
-                    <ToggleGroup type="single" value={callVolumeView} onValueChange={(value) => value && setCallVolumeView(value)}>
-                      <ToggleGroupItem value="weekly" size="sm">Weekly View</ToggleGroupItem>
-                      <ToggleGroupItem value="monthly" size="sm">Monthly View</ToggleGroupItem>
-                    </ToggleGroup>
-                  </div>
-                  <p className="text-sm text-gray-500">Long-term trends in call volume</p>
-                </CardHeader>
-                <CardContent>
-                  <CallVolumeChart timeRange={timeRange} />
-                </CardContent>
-              </Card>
-
-              {/* Call Intent Breakdown */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg font-semibold">Call Intent Breakdown</CardTitle>
-                  <p className="text-sm text-gray-500">Breakdown of common call reasons</p>
-                </CardHeader>
-                <CardContent>
-                  <CallIntentChart />
-                </CardContent>
-              </Card>
-
               {/* Call Activity */}
               <Card>
                 <CardHeader>

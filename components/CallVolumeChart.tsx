@@ -37,15 +37,15 @@ const CallVolumeChart = ({ timeRange }: CallVolumeChartProps) => {
         label: 'Call Volume',
         data: [15, 25, 35, 30, 55, 40, 20],
         borderColor: '#3B82F6',
-        backgroundColor: 'rgba(59, 130, 246, 0.3)',
+        backgroundColor: 'rgba(59, 130, 246, 0.2)',
         borderWidth: 2,
         fill: true,
         tension: 0.4,
         pointBackgroundColor: '#3B82F6',
         pointBorderColor: '#ffffff',
         pointBorderWidth: 2,
-        pointRadius: 4,
-        pointHoverRadius: 5,
+        pointRadius: 5,
+        pointHoverRadius: 6,
         pointHoverBackgroundColor: '#3B82F6',
         pointHoverBorderColor: '#ffffff',
         pointHoverBorderWidth: 2,
@@ -103,28 +103,28 @@ const CallVolumeChart = ({ timeRange }: CallVolumeChartProps) => {
           display: false,
         },
       },
-      y: {
-        min: 0,
-        max: 60,
-        ticks: {
-          stepSize: 15,
-          color: '#6B7280',
-          font: {
-            size: 12,
+              y: {
+          min: 0,
+          max: 60,
+          ticks: {
+            stepSize: 15,
+            color: '#6B7280',
+            font: {
+              size: 12,
+            },
+            callback: function(value: any) {
+              return value === 0 ? '00' : value.toString()
+            },
           },
-          callback: function(value: any) {
-            return value === 0 ? '00' : value.toString()
+          grid: {
+            color: '#E5E7EB',
+            borderColor: '#E5E7EB',
+            borderDash: [5, 5],
+          },
+          border: {
+            display: false,
           },
         },
-        grid: {
-          color: '#E5E7EB',
-          borderColor: '#E5E7EB',
-          borderDash: [3, 3],
-        },
-        border: {
-          display: false,
-        },
-      },
     },
     interaction: {
       intersect: false,
