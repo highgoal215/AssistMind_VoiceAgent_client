@@ -32,7 +32,7 @@ const CallActivityChart = () => {
       {
         type: 'bar' as const,
         label: 'Call Volume',
-        data: [23, 37, 32, 18, 30, 38, 22],
+        data: [20, 35, 32, 25, 28, 30, 22],
         backgroundColor: 'rgba(139, 92, 246, 0.3)', // Light purple-blue
         borderColor: 'rgba(139, 92, 246, 0.3)',
         borderWidth: 0,
@@ -43,7 +43,7 @@ const CallActivityChart = () => {
       {
         type: 'line' as const,
         label: 'Avg. Call Duration',
-        data: [2.5, 3.2, 3.2, 3.5, 2.9, 3.1, 2.7],
+        data: [2.8, 3.1, 3.2, 2.9, 3.0, 3.3, 2.6],
         borderColor: '#4A48FF',
         backgroundColor: '#4A48FF',
         borderWidth: 2,

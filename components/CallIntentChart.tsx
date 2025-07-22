@@ -20,12 +20,12 @@ const CallIntentChart = () => {
     labels: ['Appointments', 'Inquiries', 'Messages', 'Transfers'],
     datasets: [
       {
-        data: [30, 45, 15, 10],
+        data: [45, 30, 15, 10],
         backgroundColor: [
-          '#3B82F6', // Blue for Appointments
-          '#EF4444', // Red for Inquiries
-          '#10B981', // Green for Messages
-          '#F59E0B', // Orange for Transfers
+          '#EF4444', // Red for Appointments (45%)
+          '#3B82F6', // Blue for Inquiries (30%)
+          '#10B981', // Green for Messages (15%)
+          '#F59E0B', // Orange for Transfers (10%)
         ],
         borderWidth: 0,
         cutout: '60%',
@@ -71,8 +71,8 @@ const CallIntentChart = () => {
   }
 
   const legendData = [
-    { name: 'Appointments', color: '#3B82F6', value: 30, percentage: 30 },
-    { name: 'Inquiries', color: '#EF4444', value: 45, percentage: 45 },
+    { name: 'Appointments', color: '#EF4444', value: 45, percentage: 45 },
+    { name: 'Inquiries', color: '#3B82F6', value: 30, percentage: 30 },
     { name: 'Messages', color: '#10B981', value: 15, percentage: 15 },
     { name: 'Transfers', color: '#F59E0B', value: 10, percentage: 10 },
   ]

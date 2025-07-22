@@ -35,7 +35,7 @@ const CallVolumeChart = ({ timeRange }: CallVolumeChartProps) => {
     datasets: [
       {
         label: 'Call Volume',
-        data: [18, 35, 38, 32, 58, 48, 20],
+        data: [15, 25, 35, 30, 55, 40, 20],
         borderColor: '#3B82F6',
         backgroundColor: 'rgba(59, 130, 246, 0.3)',
         borderWidth: 2,
