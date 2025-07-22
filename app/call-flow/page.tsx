@@ -74,6 +74,8 @@ export default function CallFlowBuilderPage() {
       content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut...'
     }
   ])
+  const [draggedNode, setDraggedNode] = useState<string | null>(null)
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
 
   const handleViewModeChange = (mode: string) => {
     setViewMode(mode)
@@ -111,6 +113,39 @@ export default function CallFlowBuilderPage() {
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault()
+  }
+
+  const handleNodeMouseDown = (e: React.MouseEvent, nodeId: string) => {
+    e.preventDefault()
+    const node = nodes.find(n => n.id === nodeId)
+    if (!node) return
+
+    const rect = e.currentTarget.getBoundingClientRect()
+    const offsetX = e.clientX - rect.left
+    const offsetY = e.clientY - rect.top
+
+    setDraggedNode(nodeId)
+    setDragOffset({ x: offsetX, y: offsetY })
+  }
+
+  const handleCanvasMouseMove = (e: React.MouseEvent) => {
+    if (!draggedNode) return
+
+    const canvas = e.currentTarget
+    const rect = canvas.getBoundingClientRect()
+    const x = e.clientX - rect.left - dragOffset.x
+    const y = e.clientY - rect.top - dragOffset.y
+
+    setNodes(prev => prev.map(node => 
+      node.id === draggedNode 
+        ? { ...node, x: Math.max(0, x), y: Math.max(0, y) }
+        : node
+    ))
+  }
+
+  const handleCanvasMouseUp = () => {
+    setDraggedNode(null)
+    setDragOffset({ x: 0, y: 0 })
   }
 
   const clearCanvas = () => {
@@ -195,6 +230,9 @@ export default function CallFlowBuilderPage() {
               className="flex-1 bg-white relative overflow-auto"
               onDrop={handleCanvasDrop}
               onDragOver={handleDragOver}
+              onMouseMove={handleCanvasMouseMove}
+              onMouseUp={handleCanvasMouseUp}
+              onMouseLeave={handleCanvasMouseUp}
             >
               {nodes.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-gray-500">
@@ -216,6 +254,8 @@ export default function CallFlowBuilderPage() {
                       y={node.y}
                       content={node.content}
                       onClick={() => console.log('Node clicked:', node.id)}
+                      onMouseDown={(e: React.MouseEvent) => handleNodeMouseDown(e, node.id)}
+                      isDragging={draggedNode === node.id}
                     />
                   ))}
                   

@@ -11,7 +11,9 @@ interface CallFlowNodeProps {
   y: number
   content?: string
   isSelected?: boolean
+  isDragging?: boolean
   onClick?: () => void
+  onMouseDown?: (e: React.MouseEvent) => void
 }
 
 const nodeIcons = {
@@ -32,15 +34,18 @@ export default function CallFlowNode({
   y,
   content,
   isSelected = false,
-  onClick
+  isDragging = false,
+  onClick,
+  onMouseDown
 }: CallFlowNodeProps) {
   return (
     <div
-      className={`absolute cursor-pointer transition-all duration-200 ${
+      className={`absolute cursor-move transition-all duration-200 ${
         isSelected ? 'ring-2 ring-blue-500 ring-offset-2' : ''
-      }`}
+      } ${isDragging ? 'z-50' : 'z-10'}`}
       style={{ left: x, top: y }}
       onClick={onClick}
+      onMouseDown={onMouseDown}
     >
       <div className={`p-4 rounded-lg border-2 min-w-[200px] max-w-[300px] ${color} text-white shadow-lg hover:shadow-xl transition-shadow`}>
         <div className="flex items-center space-x-2 mb-2">
