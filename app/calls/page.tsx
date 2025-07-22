@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import {
   Bell,
   Moon,
@@ -15,7 +15,8 @@ import {
   Flag,
   ChevronLeft,
   ChevronRight,
-  ArrowUpDown
+  ArrowUpDown,
+  X
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -23,6 +24,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger } from '@/components/ui/dropdown-menu'
 import DashboardSidebar from '@/components/dashboard/DashboardSidebar'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -122,6 +124,9 @@ export default function CallsPage() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
+  const [selectedCallType, setSelectedCallType] = useState('All')
+  const [selectedStatus, setSelectedStatus] = useState('All')
+  const [selectedDateRange, setSelectedDateRange] = useState('All')
 
   const filteredCalls = mockCalls.filter(call =>
     call.caller.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -176,11 +181,11 @@ export default function CallsPage() {
               <Card className="bg-white shadow-sm">
                 <CardContent className="p-6">
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-[#EEEEFF] rounded-full flex items-center justify-center">
-                      <Phone className="w-6 h-6 text-[#4A48FF]" />
+                    <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                      <Phone className="w-6 h-6 text-purple-600" />
                     </div>
                     <div>
-                      <p className="text-sm font-manrope text-gray-600">Total Calls</p>
+                      <p className="text-sm font-medium text-gray-600">Total Calls</p>
                       <p className="text-2xl font-bold text-gray-900">{totalCalls}</p>
                     </div>
                   </div>
@@ -190,11 +195,11 @@ export default function CallsPage() {
               <Card className="bg-white shadow-sm">
                 <CardContent className="p-6">
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-[#EEEEFF] rounded-full flex items-center justify-center">
-                      <Clock className="w-6 h-6 text-[#4A48FF]" />
+                    <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                      <Clock className="w-6 h-6 text-purple-600" />
                     </div>
                     <div>
-                      <p className="text-sm font-manrope text-gray-600">Average Duration</p>
+                      <p className="text-sm font-medium text-gray-600">Average Duration</p>
                       <p className="text-2xl font-bold text-gray-900">{averageDuration}</p>
                     </div>
                   </div>
@@ -204,11 +209,11 @@ export default function CallsPage() {
               <Card className="bg-white shadow-sm">
                 <CardContent className="p-6">
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-[#EEEEFF] rounded-full flex items-center justify-center">
-                      <User className="w-6 h-6 text-[#4A48FF]" />
+                    <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                      <User className="w-6 h-6 text-purple-600" />
                     </div>
                     <div>
-                      <p className="text-sm font-manrope text-gray-600">Unique Callers</p>
+                      <p className="text-sm font-medium text-gray-600">Unique Callers</p>
                       <p className="text-2xl font-bold text-gray-900">{uniqueCallers.toString().padStart(2, '0')}</p>
                     </div>
                   </div>
@@ -220,10 +225,10 @@ export default function CallsPage() {
             <Card className="bg-white shadow-sm">
               <div className="p-6 border-b border-gray-200">
                 <div className="flex justify-between items-center">
-                  <div className="flex w-full gap-6 flex-col justify-start ">
-                    <h2 className="text-xl font-semibold text-gray-900 ">Call Log</h2>
-                    <div className='flex justify-between items-center '>
-                      <div className="flex items-center space-x-2 ">
+                  <div className="flex flex-col w-full gap-4 ">
+                    <h2 className="text-xl font-semibold text-gray-900">Call Log</h2>
+                    <div className="flex justify-between space-x-2 ">
+                      <div className='flex items-center space-x-3 '>
                         <Input
                           placeholder="Search..."
                           value={searchTerm}
@@ -234,11 +239,96 @@ export default function CallsPage() {
                           <Search className="w-4 h-4" />
                         </Button>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <Button variant="outline" size="sm">
-                          Filter
-                         <Image src="/images/call/mage_filter.svg" alt="filter" width={16} height={16} className='w-1/2 h-1/2' />
-                        </Button>
+                      <div className="flex items-center space-x-3 ">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="outline" size="sm">
+
+                              Filter
+                              <Image src="/images/call/mage_filter.svg" alt="filter" width={16} height={16} className='w-1/2 h-1/2' />
+                              <ChevronDown className="w-4 h-4 ml-2" />
+                              {(selectedCallType !== 'All' || selectedStatus !== 'All' || selectedDateRange !== 'All') && (
+                                <Badge variant="secondary" className="ml-2 h-5 px-1.5 text-xs">
+                                  {[selectedCallType, selectedStatus, selectedDateRange].filter(v => v !== 'All').length}
+                                </Badge>
+                              )}
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent className="w-48">
+                            <DropdownMenuSub>
+                              <DropdownMenuSubTrigger>
+                                <span>Call</span>
+                                {selectedCallType !== 'All' && (
+                                  <Badge variant="outline" className="ml-2 h-5 px-1.5 text-xs">
+                                    {selectedCallType}
+                                  </Badge>
+                                )}
+                                
+                              </DropdownMenuSubTrigger>
+                              <DropdownMenuSubContent>
+                                <DropdownMenuItem onClick={() => setSelectedCallType('All')}>
+                                  All
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => setSelectedCallType('Incoming')}>
+                                  Incoming
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => setSelectedCallType('Outgoing')}>
+                                  Outgoing
+                                </DropdownMenuItem>
+                              </DropdownMenuSubContent>
+                            </DropdownMenuSub>
+                            <DropdownMenuSub>
+                              <DropdownMenuSubTrigger>
+                                <span>Status</span>
+                                {selectedStatus !== 'All' && (
+                                  <Badge variant="outline" className="ml-2 h-5 px-1.5 text-xs">
+                                    {selectedStatus}
+                                  </Badge>
+                                )}
+                               
+                              </DropdownMenuSubTrigger>
+                              <DropdownMenuSubContent>
+                                <DropdownMenuItem onClick={() => setSelectedStatus('Completed')}>
+                                  Completed
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => setSelectedStatus('Missed')}>
+                                  Missed
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => setSelectedStatus('Transferred')}>
+                                  Transferred
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => setSelectedStatus('Failed')}>
+                                  Failed
+                                </DropdownMenuItem>
+                              </DropdownMenuSubContent>
+                            </DropdownMenuSub>
+                            <DropdownMenuSub>
+                              <DropdownMenuSubTrigger>
+                                <span>Date range</span>
+                                {selectedDateRange !== 'All' && (
+                                  <Badge variant="outline" className="ml-2 h-5 px-1.5 text-xs">
+                                    {selectedDateRange}
+                                  </Badge>
+                                )}
+                              
+                              </DropdownMenuSubTrigger>
+                              <DropdownMenuSubContent>
+                                <DropdownMenuItem onClick={() => setSelectedDateRange('Today')}>
+                                  Today
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => setSelectedDateRange('7 days')}>
+                                  7 days
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => setSelectedDateRange('30 days')}>
+                                  30 days
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => setSelectedDateRange('custom')}>
+                                  custom
+                                </DropdownMenuItem>
+                              </DropdownMenuSubContent>
+                            </DropdownMenuSub>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
                         <Button variant="outline" size="sm">
                           Export
                           <ChevronDown className="w-4 h-4 ml-2" />
@@ -254,23 +344,23 @@ export default function CallsPage() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="font-manrope">CALLER</TableHead>
-                      <TableHead className="font-manrope">NUMBER</TableHead>
-                      <TableHead className="font-manrope">DATE & TIME</TableHead>
-                      <TableHead className="font-manrope">
+                      <TableHead className="font-medium">CALLER</TableHead>
+                      <TableHead className="font-medium">NUMBER</TableHead>
+                      <TableHead className="font-medium">DATE & TIME</TableHead>
+                      <TableHead className="font-medium">
                         <div className="flex items-center space-x-1">
                           <span>DURATION</span>
                           <ArrowUpDown className="w-4 h-4" />
                         </div>
                       </TableHead>
-                      <TableHead className="font-manrope">TYPE</TableHead>
-                      <TableHead className="font-manrope">
+                      <TableHead className="font-medium">TYPE</TableHead>
+                      <TableHead className="font-medium">
                         <div className="flex items-center space-x-1">
                           <span>STATUS</span>
                           <ArrowUpDown className="w-4 h-4" />
                         </div>
                       </TableHead>
-                      <TableHead className="font-manrope">ACTIONS</TableHead>
+                      <TableHead className="font-medium">ACTIONS</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -280,7 +370,7 @@ export default function CallsPage() {
                         className="hover:bg-gray-50 cursor-pointer"
                         onClick={() => window.location.href = `/calls/${call.id}`}
                       >
-                        <TableCell className="font-manrope">{call.caller}</TableCell>
+                        <TableCell className="font-medium">{call.caller}</TableCell>
                         <TableCell>{call.number}</TableCell>
                         <TableCell>{call.dateTime}</TableCell>
                         <TableCell>{call.duration}</TableCell>
@@ -330,7 +420,7 @@ export default function CallsPage() {
                   <div className="flex items-center space-x-2">
                     <Button
                       size="sm"
-                      className="bg-[#4A48FF] hover:bg-[#4A48FF] text-white"
+                      className="bg-[#4A48FF] hover:bg-purple-700 text-white"
                     >
                       1
                     </Button>
