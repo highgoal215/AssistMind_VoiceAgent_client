@@ -1,11 +1,11 @@
 "use client"
 
 import React from 'react'
-import { 
-  Search, 
-  Bell, 
-  Moon, 
-  RefreshCw, 
+import {
+  Search,
+  Bell,
+  Moon,
+  RefreshCw,
   Download,
   ChevronDown,
   Phone,
@@ -77,42 +77,45 @@ export default function DashboardPage() {
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar */}
-      <DashboardSidebar 
-        isCollapsed={sidebarCollapsed} 
-        onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
+      <DashboardSidebar
+        isCollapsed={sidebarCollapsed}
+        onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
       />
-      
+
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
         <header className="bg-white border-b border-gray-200 px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <h1 className="text-xl font-semibold text-gray-900">Assist Mind AI</h1>
+            <div className="flex items-center ">
+              <Search className=" relative left-8 top-1/2 transform -translate-y-1/ text-gray-400 h-4 w-4" />
+              <Input
+                placeholder="Search"
+                className="pl-10 w-64 bg-gray-100 border-gray-200"
+              />
             </div>
-            
+
             <div className="flex items-center space-x-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                <Input
-                  placeholder="Search..."
-                  className="pl-10 w-64"
-                />
-              </div>
-              
-              <Button variant="ghost" size="icon">
-                <Moon className="h-5 w-5" />
+
+              <Button variant="outline" className="bg-gray-100 border-gray-200 text-gray-900 hover:bg-gray-200">
+                <Moon className="h-4 w-4 mr-2" />
+                Dark
               </Button>
-              
+
               <Button variant="ghost" size="icon" className="relative">
                 <Bell className="h-5 w-5" />
-                <span className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full"></span>
+                <span className="absolute -top-1 -right-1 h-5 w-5 bg-blue-500 text-white text-xs rounded-full flex items-center justify-center font-medium">
+                  2
+                </span>
               </Button>
-              
-              <Avatar className="h-8 w-8">
-                <AvatarImage src="/images/user-profile.jpg" />
-                <AvatarFallback>U</AvatarFallback>
-              </Avatar>
+
+              <div className="flex items-center space-x-2">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage src="/images/user-profile.jpg" />
+                  <AvatarFallback>U</AvatarFallback>
+                </Avatar>
+                <ChevronDown className="h-4 w-4 text-gray-600" />
+              </div>
             </div>
           </div>
         </header>
@@ -120,74 +123,13 @@ export default function DashboardPage() {
         {/* Dashboard Content */}
         <main className="flex-1 overflow-auto p-6">
           <div className="space-y-6">
-            {/* Analytics Overview */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-gray-600">Minutes Used</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-2xl font-bold text-gray-900">18/30</div>
-                      <div className="text-sm text-gray-500">23% of quota used</div>
-                    </div>
-                    <div className="text-green-500 text-sm font-medium">+2.3%</div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-gray-600">Total Calls</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-2xl font-bold text-gray-900">145</div>
-                      <div className="text-sm text-gray-500">voice interactions</div>
-                    </div>
-                    <div className="text-green-500 text-sm font-medium">+2.3%</div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-gray-600">Answer Rate</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-2xl font-bold text-gray-900">96.8%</div>
-                      <div className="text-sm text-gray-500">calls successfully answered</div>
-                    </div>
-                    <div className="text-green-500 text-sm font-medium">+2.3%</div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-gray-600">Booking Rate</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-2xl font-bold text-gray-900">68.5%</div>
-                      <div className="text-sm text-gray-500">calls successfully answered</div>
-                    </div>
-                    <div className="text-green-500 text-sm font-medium">+2.3%</div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Controls */}
+            {/* Analytics Dashboard Header */}
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
+              <h2 className="text-2xl font-bold text-gray-900">Analytics Dashboard</h2>
+              
+              <div className="flex items-center space-x-2">
                 <Select value={timeRange} onValueChange={setTimeRange}>
-                  <SelectTrigger className="w-40">
+                  <SelectTrigger className="h-9 px-3 bg-white border-gray-200 text-sm">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -196,19 +138,100 @@ export default function DashboardPage() {
                     <SelectItem value="90days">Last 90 Days</SelectItem>
                   </SelectContent>
                 </Select>
-              </div>
-              
-              <div className="flex items-center space-x-2">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="h-9 px-3 bg-white border-gray-200 text-sm">
                   <RefreshCw className="h-4 w-4 mr-2" />
                   Refresh
                 </Button>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="h-9 px-3 bg-white border-gray-200 text-sm">
                   <Download className="h-4 w-4 mr-2" />
                   Export
                 </Button>
               </div>
             </div>
+            {/* Analytics Overview */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <Card>
+                <CardHeader className="pb-2 relative">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-sm font-medium text-gray-600">Minutes Used</CardTitle>
+                    <div className="flex items-center space-x-1 bg-green-100 text-green-600 px-2 py-1 rounded-full text-sm font-medium">
+                      <span>+2.3%</span>
+                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div>
+                    <div className="text-2xl font-bold text-gray-900">18/30</div>
+                    <div className="text-sm text-gray-500">23% of quota used</div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="pb-2 relative">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-sm font-medium text-gray-600">Total Calls</CardTitle>
+                    <div className="flex items-center space-x-1 bg-green-100 text-green-600 px-2 py-1 rounded-full text-sm font-medium">
+                      <span>+2.3%</span>
+                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div>
+                    <div className="text-2xl font-bold text-gray-900">145</div>
+                    <div className="text-sm text-gray-500">voice interactions</div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="pb-2 relative">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-sm font-medium text-gray-600">Answer Rate</CardTitle>
+                    <div className="flex items-center space-x-1 bg-green-100 text-green-600 px-2 py-1 rounded-full text-sm font-medium">
+                      <span>+2.3%</span>
+                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div>
+                    <div className="text-2xl font-bold text-gray-900">96.8%</div>
+                    <div className="text-sm text-gray-500">calls successfully answered</div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="pb-2 relative">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-sm font-medium text-gray-600">Booking Rate</CardTitle>
+                    <div className="flex items-center space-x-1 bg-green-100 text-green-600 px-2 py-1 rounded-full text-sm font-medium">
+                      <span>+2.3%</span>
+                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div>
+                    <div className="text-2xl font-bold text-gray-900">68.5%</div>
+                    <div className="text-sm text-gray-500">calls successfully answered</div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+
 
             {/* Charts Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

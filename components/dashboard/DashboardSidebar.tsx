@@ -23,6 +23,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import Image from 'next/image'
 
 const navigationItems = [
   { name: 'Dashboard', icon: LayoutDashboard, href: '/dashboard', current: true },
@@ -51,11 +52,8 @@ export default function DashboardSidebar({ isCollapsed, onToggle }: DashboardSid
       {/* Logo Section */}
       <div className="p-4 border-b border-gray-200">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <Globe className="w-5 h-5 text-white" />
-            </div>
-            {!isCollapsed && <span className="text-lg font-semibold text-gray-900">AssistMind AI</span>}
+          <div className="flex items-center space-x-2 ">
+            {!isCollapsed && <Image src="/images/logo2.svg" alt="AssistMind AI" width={30} height={30} className='w-full h-full'/>}
           </div>
           <Tooltip>
             <TooltipTrigger asChild>
