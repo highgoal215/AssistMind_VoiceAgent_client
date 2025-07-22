@@ -98,27 +98,7 @@ export default function JsonConfigPage() {
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
         <header className="bg-white border-b border-gray-200 px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Link href="/call-flow">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="bg-white border-gray-200 text-gray-700 hover:bg-gray-50"
-                >
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back to Visual Editor
-                </Button>
-              </Link>
-              <Button
-                onClick={() => {}}
-                className="bg-[#4A48FF] hover:bg-[#3A38FF] text-white"
-              >
-                <Save className="h-4 w-4 mr-2" />
-                Save Flow
-              </Button>
-            </div>
-
+          <div className="flex items-center justify-end">
             <div className="flex items-center space-x-4">
               <Button variant="outline" className="bg-gray-100 border-gray-200 text-gray-900 hover:bg-gray-200">
                 <Moon className="h-4 w-4 mr-2" />
@@ -259,13 +239,15 @@ export default function JsonConfigPage() {
                     <X className="h-4 w-4 mr-2" />
                     Clear
                   </Button>
-                  <Button
-                    size="sm"
-                    className="bg-[#4A48FF] hover:bg-[#3A38FF] text-white h-9 px-4"
-                  >
-                    <ArrowLeft className="h-4 w-4 mr-2" />
-                    Back
-                  </Button>
+                  <Link href="/call-flow">
+                    <Button
+                      size="sm"
+                      className="bg-[#4A48FF] hover:bg-[#3A38FF] text-white h-9 px-4"
+                    >
+                      <ArrowLeft className="h-4 w-4 mr-2" />
+                      Back
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
