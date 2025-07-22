@@ -56,7 +56,7 @@ export default function HearAgentPage() {
 
               {/* Audio Player Section */}
               <div className="bg-white rounded-lg p-6 lg:p-4 mb-8 lg:mb-0 shadow-sm border border-gray-100 w-full lg:max-w-none lg:w-full">
-                <h3 className="font-medium lg:font-bold text-gray-900 mb-4 lg:mb-6 font-manrope lg:text-lg">Agent Intro Sample</h3>
+                <h3 className="font-manrope lg:font-bold text-gray-900 mb-4 lg:mb-6 font-manrope lg:text-lg">Agent Intro Sample</h3>
 
                 <div className="flex items-center space-x-4 lg:space-x-6 p-2 lg:p-2 bg-white rounded-lg lg:rounded-lg shadow-sm border border-gray-100">
                   <button

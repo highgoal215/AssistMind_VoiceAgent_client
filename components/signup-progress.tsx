@@ -18,7 +18,7 @@ export function SignupProgress({ currentStep, totalSteps = 4 }: SignupProgressPr
             <div key={step} className="flex flex-col items-center">
               <div
                 className={cn(
-                  "w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium relative",
+                  "w-10 h-10 rounded-full flex items-center justify-center text-sm font-manrope relative",
                   step <= currentStep
                     ? "bg-[#4A48FF] text-white"
                     : "bg-gray-300 text-gray-600"

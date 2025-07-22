@@ -104,7 +104,7 @@ export default function DashboardPage() {
 
               <Button variant="ghost" size="icon" className="relative">
                 <Bell className="h-5 w-5" />
-                <span className="absolute -top-1 -right-1 h-5 w-5 bg-blue-500 text-white text-xs rounded-full flex items-center justify-center font-medium">
+                <span className="absolute -top-1 -right-1 h-5 w-5 bg-blue-500 text-white text-xs rounded-full flex items-center justify-center font-manrope">
                   2
                 </span>
               </Button>
@@ -126,7 +126,7 @@ export default function DashboardPage() {
             {/* Analytics Dashboard Header */}
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold text-gray-900">Analytics Dashboard</h2>
-              
+
               <div className="flex items-center space-x-2">
                 <Select value={timeRange} onValueChange={setTimeRange}>
                   <SelectTrigger className="h-9 px-3 bg-white border-gray-200 text-sm">
@@ -153,8 +153,8 @@ export default function DashboardPage() {
               <Card>
                 <CardHeader className="pb-2 relative">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-sm font-medium text-gray-600">Minutes Used</CardTitle>
-                    <div className="flex items-center space-x-1 bg-green-100 text-green-600 px-2 py-1 rounded-full text-sm font-medium">
+                    <CardTitle className="text-sm font-manrope text-gray-600">Minutes Used</CardTitle>
+                    <div className="flex items-center space-x-1 bg-green-100 text-green-600 px-2 py-1 rounded-full text-sm font-manrope">
                       <span>+2.3%</span>
                       <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -173,8 +173,8 @@ export default function DashboardPage() {
               <Card>
                 <CardHeader className="pb-2 relative">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-sm font-medium text-gray-600">Total Calls</CardTitle>
-                    <div className="flex items-center space-x-1 bg-green-100 text-green-600 px-2 py-1 rounded-full text-sm font-medium">
+                    <CardTitle className="text-sm font-manrope text-gray-600">Total Calls</CardTitle>
+                    <div className="flex items-center space-x-1 bg-green-100 text-green-600 px-2 py-1 rounded-full text-sm font-manrope">
                       <span>+2.3%</span>
                       <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -193,8 +193,8 @@ export default function DashboardPage() {
               <Card>
                 <CardHeader className="pb-2 relative">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-sm font-medium text-gray-600">Answer Rate</CardTitle>
-                    <div className="flex items-center space-x-1 bg-green-100 text-green-600 px-2 py-1 rounded-full text-sm font-medium">
+                    <CardTitle className="text-sm font-manrope text-gray-600">Answer Rate</CardTitle>
+                    <div className="flex items-center space-x-1 bg-green-100 text-green-600 px-2 py-1 rounded-full text-sm font-manrope">
                       <span>+2.3%</span>
                       <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -213,8 +213,8 @@ export default function DashboardPage() {
               <Card>
                 <CardHeader className="pb-2 relative">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-sm font-medium text-gray-600">Booking Rate</CardTitle>
-                    <div className="flex items-center space-x-1 bg-green-100 text-green-600 px-2 py-1 rounded-full text-sm font-medium">
+                    <CardTitle className="text-sm font-manrope text-gray-600">Booking Rate</CardTitle>
+                    <div className="flex items-center space-x-1 bg-green-100 text-green-600 px-2 py-1 rounded-full text-sm font-manrope">
                       <span>+2.3%</span>
                       <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -324,27 +324,25 @@ export default function DashboardPage() {
                             <td className="py-3 px-4 text-sm text-gray-900">{record.dateTime}</td>
                             <td className="py-3 px-4 text-sm text-gray-900">{record.duration}</td>
                             <td className="py-3 px-4">
-                              <Badge 
-                                variant="secondary" 
-                                className={`text-xs px-2 py-1 rounded-full ${
-                                  record.status === 'Incoming' 
-                                    ? 'bg-purple-100 text-purple-700' 
+                              <Badge
+                                variant="secondary"
+                                className={`text-xs px-2 py-1 rounded-full ${record.status === 'Incoming'
+                                    ? 'bg-purple-100 text-purple-700'
                                     : 'bg-green-100 text-green-700'
-                                }`}
+                                  }`}
                               >
                                 {record.status}
                               </Badge>
                             </td>
                             <td className="py-3 px-4">
-                              <Badge 
-                                variant="secondary" 
-                                className={`text-xs px-2 py-1 rounded-full ${
-                                  record.result === 'Missed' 
+                              <Badge
+                                variant="secondary"
+                                className={`text-xs px-2 py-1 rounded-full ${record.result === 'Missed'
                                     ? 'bg-red-100 text-red-700'
                                     : record.result === 'Completed'
-                                    ? 'bg-green-100 text-green-700'
-                                    : 'bg-orange-100 text-orange-700'
-                                }`}
+                                      ? 'bg-green-100 text-green-700'
+                                      : 'bg-orange-100 text-orange-700'
+                                  }`}
                               >
                                 {record.result}
                               </Badge>

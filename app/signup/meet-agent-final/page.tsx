@@ -82,9 +82,9 @@ export default function MeetAgentFinalPage() {
         {/* Mobile Header - Only visible on mobile */}
         <div className="lg:hidden flex items-center justify-center mb-8 px-6 pt-12">
           <div className="flex items-center pb-[44px]">
-            <Image 
-              src="/images/logo2.svg" 
-              alt="logo" 
+            <Image
+              src="/images/logo2.svg"
+              alt="logo"
               width={100}
               height={100}
               className="w-full h-full"
@@ -170,7 +170,7 @@ export default function MeetAgentFinalPage() {
                               className="w-16 h-16 rounded-lg object-cover"
                             />
                             <div className="flex-1 min-w-0">
-                              <h3 className="font-medium text-gray-900 text-sm mb-1 lg:mb-0 lg:mt-0 font-manrope">{business.name}</h3>
+                              <h3 className="font-manrope text-gray-900 text-sm mb-1 lg:mb-0 lg:mt-0 font-manrope">{business.name}</h3>
                               <p className="text-xs text-gray-500 mb-2 lg:mb-1 lg:mt-1 font-manrope">{business.address}</p>
                               <div className="flex items-center space-x-4 mb-2 lg:mb-0 lg:mt-2">
                                 <div className="flex items-center">
@@ -204,7 +204,7 @@ export default function MeetAgentFinalPage() {
               <div className="flex justify-center items-center w-full pt-[40px] lg:pt-[40px]">
                 <Button
                   onClick={handleNext}
-                  className="w-full lg:w-[193px] h-12 lg:h-[56px] bg-blue-600 hover:bg-blue-700 text-white py-3 lg:py-0 rounded-lg lg:rounded-none text-base font-medium font-manrope"
+                  className="w-full lg:w-[193px] h-12 lg:h-[56px] bg-blue-600 hover:bg-blue-700 text-white py-3 lg:py-0 rounded-lg lg:rounded-none text-base font-manrope font-manrope"
                   disabled={!agentName}
                 >
                   Next
