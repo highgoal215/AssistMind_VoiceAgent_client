@@ -281,9 +281,9 @@ export default function DashboardPage() {
             </div>
 
             {/* Second Row Charts */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="flex w-full">
               {/* Call Activity */}
-              <Card>
+              <Card className='flex flex-col w-full'>
                 <CardHeader>
                   <CardTitle className="text-lg font-semibold">Call Activity</CardTitle>
                   <p className="text-sm text-gray-500">Daily overview: call volume + avg. call duration</p>
@@ -292,9 +292,10 @@ export default function DashboardPage() {
                   <CallActivityChart />
                 </CardContent>
               </Card>
-
+            </div>
+            <div className='flex flex-col w-full'>
               {/* Call Records */}
-              <Card>
+              <Card className='flex flex-col'>
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div>
@@ -305,29 +306,53 @@ export default function DashboardPage() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3">
-                    {callRecords.map((record, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                        <div className="flex items-center space-x-3">
-                          <div className="flex flex-col">
-                            <span className="text-sm font-medium text-gray-900">{record.callerId}</span>
-                            <span className="text-xs text-gray-500">{record.dateTime}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-4">
-                          <div className="flex items-center space-x-1">
-                            <Clock className="h-3 w-3 text-gray-400" />
-                            <span className="text-sm text-gray-600">{record.duration}</span>
-                          </div>
-                          <Badge variant="secondary" className="text-xs">
-                            {record.status}
-                          </Badge>
-                          <span className={`text-sm font-medium ${record.resultColor}`}>
-                            {record.result}
-                          </span>
-                        </div>
-                      </div>
-                    ))}
+                  <div className="flex flex-col justify-between items-center overflow-x-auto">
+                    <table className="w-full">
+                      <thead>
+                        <tr className="bg-gray-50">
+                          <th className="text-left py-3 px-4 text-xs font-semibold text-gray-700 uppercase tracking-wider">CALLER ID</th>
+                          <th className="text-left py-3 px-4 text-xs font-semibold text-gray-700 uppercase tracking-wider">DATE & TIME</th>
+                          <th className="text-left py-3 px-4 text-xs font-semibold text-gray-700 uppercase tracking-wider">DURATION</th>
+                          <th className="text-left py-3 px-4 text-xs font-semibold text-gray-700 uppercase tracking-wider">STATUS</th>
+                          <th className="text-left py-3 px-4 text-xs font-semibold text-gray-700 uppercase tracking-wider">STATUS</th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200">
+                        {callRecords.map((record, index) => (
+                          <tr key={index} className="hover:bg-gray-50">
+                            <td className="py-3 px-4 text-sm text-gray-900">{record.callerId}</td>
+                            <td className="py-3 px-4 text-sm text-gray-900">{record.dateTime}</td>
+                            <td className="py-3 px-4 text-sm text-gray-900">{record.duration}</td>
+                            <td className="py-3 px-4">
+                              <Badge 
+                                variant="secondary" 
+                                className={`text-xs px-2 py-1 rounded-full ${
+                                  record.status === 'Incoming' 
+                                    ? 'bg-purple-100 text-purple-700' 
+                                    : 'bg-green-100 text-green-700'
+                                }`}
+                              >
+                                {record.status}
+                              </Badge>
+                            </td>
+                            <td className="py-3 px-4">
+                              <Badge 
+                                variant="secondary" 
+                                className={`text-xs px-2 py-1 rounded-full ${
+                                  record.result === 'Missed' 
+                                    ? 'bg-red-100 text-red-700'
+                                    : record.result === 'Completed'
+                                    ? 'bg-green-100 text-green-700'
+                                    : 'bg-orange-100 text-orange-700'
+                                }`}
+                              >
+                                {record.result}
+                              </Badge>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
                 </CardContent>
               </Card>

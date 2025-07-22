@@ -50,7 +50,7 @@ export default function DashboardSidebar({ isCollapsed, onToggle }: DashboardSid
         isCollapsed ? "w-16" : "w-64"
       )}>
       {/* Logo Section */}
-      <div className="p-4 border-b border-gray-200">
+      <div className="p-[20px] border-b border-gray-200 ">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2 ">
             {!isCollapsed && <Image src="/images/logo2.svg" alt="AssistMind AI" width={30} height={30} className='w-full h-full'/>}
