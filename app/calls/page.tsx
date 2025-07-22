@@ -25,7 +25,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import DashboardSidebar from '@/components/dashboard/DashboardSidebar'
 import Link from 'next/link'
-
+import Image from 'next/image'
 interface Call {
   id: string
   caller: string
@@ -236,8 +236,8 @@ export default function CallsPage() {
                       </div>
                       <div className="flex items-center space-x-3">
                         <Button variant="outline" size="sm">
-                          <Filter className="w-4 h-4 mr-2" />
                           Filter
+                         <Image src="/images/call/mage_filter.svg" alt="filter" width={16} height={16} className='w-1/2 h-1/2' />
                         </Button>
                         <Button variant="outline" size="sm">
                           Export
