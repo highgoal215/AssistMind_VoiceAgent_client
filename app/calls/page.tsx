@@ -16,7 +16,9 @@ import {
   ChevronLeft,
   ChevronRight,
   ArrowUpDown,
-  X
+  X,
+  Play,
+  Trash2
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -127,6 +129,8 @@ export default function CallsPage() {
   const [selectedCallType, setSelectedCallType] = useState('All')
   const [selectedStatus, setSelectedStatus] = useState('All')
   const [selectedDateRange, setSelectedDateRange] = useState('All')
+  const [actionMenuOpen, setActionMenuOpen] = useState<string | null>(null)
+  const [noteMenuOpen, setNoteMenuOpen] = useState<string | null>(null)
 
   const filteredCalls = mockCalls.filter(call =>
     call.caller.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -391,16 +395,56 @@ export default function CallsPage() {
                                 <Eye className="w-4 h-4" />
                               </Button>
                             </Link>
-                            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                              <MoreVertical className="w-4 h-4" />
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              className={`h-8 w-8 p-0 ${call.isFlagged ? 'text-red-500' : 'text-gray-400'}`}
-                            >
-                              <Flag className="w-4 h-4" />
-                            </Button>
+                            
+                            {/* Action Menu Dropdown */}
+                            <DropdownMenu open={actionMenuOpen === call.id} onOpenChange={(open) => setActionMenuOpen(open ? call.id : null)}>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                                  <MoreVertical className="w-4 h-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent className="w-48 bg-white rounded-lg shadow-lg border border-gray-200">
+                                <DropdownMenuItem className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 cursor-pointer">
+                                  <Play className="w-4 h-4" />
+                                  <span className="text-sm font-medium">Play audio</span>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 cursor-pointer">
+                                  <Trash2 className="w-4 h-4" />
+                                  <span className="text-sm font-medium">Delete Record</span>
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                            
+                            {/* Note Menu Dropdown */}
+                            <DropdownMenu open={noteMenuOpen === call.id} onOpenChange={(open) => setNoteMenuOpen(open ? call.id : null)}>
+                              <DropdownMenuTrigger asChild>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className={`h-8 w-8 p-0 ${call.isFlagged ? 'text-red-500' : 'text-gray-400'}`}
+                                >
+                                  <Flag className="w-4 h-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent className="w-80 bg-white rounded-lg shadow-lg border border-gray-200 p-4">
+                                <div className="relative">
+                                  <div className="text-sm text-gray-700 leading-relaxed">
+                                    <p className="font-semibold mb-2">Note:</p>
+                                    <p>This is your AI agent's</p>
+                                    <p>default behavior — automatically</p>
+                                    <p>generated based on your setup.</p>
+                                    <p>You can tweak it below or launch</p>
+                                    <p>your agent as is.</p>
+                                  </div>
+                                  <div className="absolute -bottom-2 -right-2">
+                                    <Avatar className="h-8 w-8 border-2 border-yellow-400">
+                                      <AvatarImage src="/images/user-profile.jpg" />
+                                      <AvatarFallback>U</AvatarFallback>
+                                    </Avatar>
+                                  </div>
+                                </div>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
                           </div>
                         </TableCell>
                       </TableRow>
