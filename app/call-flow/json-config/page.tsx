@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Bell,
   Moon,
@@ -21,13 +21,16 @@ import {
   Zap,
   Plus,
   Minus,
-  Maximize
+  Maximize,
+  CheckCircle,
+  AlertCircle
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Textarea } from '@/components/ui/textarea'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { Alert, AlertDescription } from '@/components/ui/alert'
 import DashboardSidebar from '@/components/dashboard/DashboardSidebar'
 import Link from 'next/link'
 
@@ -43,9 +46,87 @@ export default function JsonConfigPage() {
     "totalConnections": 0
   }
 }`)
+  const [isValid, setIsValid] = useState(true)
+  const [validationMessage, setValidationMessage] = useState('')
+  const [showSuccess, setShowSuccess] = useState(false)
+
+  // Load saved flow data on component mount
+  useEffect(() => {
+    const savedFlow = localStorage.getItem('callFlow')
+    if (savedFlow) {
+      try {
+        const parsed = JSON.parse(savedFlow)
+        setJsonConfig(JSON.stringify(parsed, null, 2))
+        setIsValid(true)
+        setValidationMessage('')
+      } catch (error) {
+        console.error('Error loading saved flow:', error)
+      }
+    }
+  }, [])
+
+  const validateJson = (jsonString: string) => {
+    try {
+      const parsed = JSON.parse(jsonString)
+      
+      // Basic structure validation
+      if (!parsed.nodes || !Array.isArray(parsed.nodes)) {
+        setValidationMessage('Invalid structure: "nodes" must be an array')
+        return false
+      }
+      
+      if (!parsed.connections || !Array.isArray(parsed.connections)) {
+        setValidationMessage('Invalid structure: "connections" must be an array')
+        return false
+      }
+      
+      // Node validation
+      for (const node of parsed.nodes) {
+        if (!node.id || !node.type || !node.title) {
+          setValidationMessage('Invalid node: missing required fields (id, type, title)')
+          return false
+        }
+        
+        if (!['start', 'response', 'question', 'transfer', 'action'].includes(node.type)) {
+          setValidationMessage(`Invalid node type: ${node.type}. Must be one of: start, response, question, transfer, action`)
+          return false
+        }
+      }
+      
+      // Connection validation
+      for (const connection of parsed.connections) {
+        if (!connection.id || !connection.from || !connection.to) {
+          setValidationMessage('Invalid connection: missing required fields (id, from, to)')
+          return false
+        }
+        
+        const fromNodeExists = parsed.nodes.some((node: any) => node.id === connection.from)
+        const toNodeExists = parsed.nodes.some((node: any) => node.id === connection.to)
+        
+        if (!fromNodeExists || !toNodeExists) {
+          setValidationMessage('Invalid connection: referenced node does not exist')
+          return false
+        }
+      }
+      
+      setValidationMessage('JSON is valid!')
+      return true
+    } catch (error) {
+      setValidationMessage(`Invalid JSON: ${error instanceof Error ? error.message : 'Unknown error'}`)
+      return false
+    }
+  }
+
+  const handleJsonChange = (value: string) => {
+    setJsonConfig(value)
+    const valid = validateJson(value)
+    setIsValid(valid)
+  }
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(jsonConfig)
+    setShowSuccess(true)
+    setTimeout(() => setShowSuccess(false), 2000)
   }
 
   const downloadJson = () => {
@@ -60,21 +141,68 @@ export default function JsonConfigPage() {
     URL.revokeObjectURL(url)
   }
 
+  const uploadJson = () => {
+    const input = document.createElement('input')
+    input.type = 'file'
+    input.accept = '.json'
+    input.onchange = (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0]
+      if (file) {
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          const content = e.target?.result as string
+          setJsonConfig(content)
+          validateJson(content)
+        }
+        reader.readAsText(file)
+      }
+    }
+    input.click()
+  }
+
   const formatJson = () => {
     try {
       const parsed = JSON.parse(jsonConfig)
-      setJsonConfig(JSON.stringify(parsed, null, 2))
+      const formatted = JSON.stringify(parsed, null, 2)
+      setJsonConfig(formatted)
+      setIsValid(true)
+      setValidationMessage('JSON formatted successfully!')
     } catch (error) {
-      console.error('Invalid JSON:', error)
+      setIsValid(false)
+      setValidationMessage('Cannot format invalid JSON')
     }
   }
 
-  const validateJson = () => {
+  const clearJson = () => {
+    const defaultConfig = `{
+  "nodes": [],
+  "connections": [],
+  "metadata": {
+    "version": "1.0",
+    "createdAt": "${new Date().toISOString()}",
+    "totalNodes": 0,
+    "totalConnections": 0
+  }
+}`
+    setJsonConfig(defaultConfig)
+    setIsValid(true)
+    setValidationMessage('JSON cleared')
+  }
+
+  const saveToLocalStorage = () => {
+    if (!isValid) {
+      setValidationMessage('Cannot save invalid JSON')
+      return
+    }
+    
     try {
-      JSON.parse(jsonConfig)
-      return true
+      const parsed = JSON.parse(jsonConfig)
+      localStorage.setItem('callFlow', JSON.stringify(parsed))
+      setShowSuccess(true)
+      setValidationMessage('Flow saved successfully!')
+      setTimeout(() => setShowSuccess(false), 2000)
     } catch (error) {
-      return false
+      setValidationMessage('Error saving flow')
     }
   }
 
@@ -215,6 +343,24 @@ export default function JsonConfigPage() {
                   <Button
                     variant="outline"
                     size="sm"
+                    onClick={uploadJson}
+                    className="bg-white border-gray-200 text-gray-700 hover:bg-gray-50 h-9 px-4"
+                  >
+                    <Upload className="h-4 w-4 mr-2" />
+                    Upload
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={downloadJson}
+                    className="bg-white border-gray-200 text-gray-700 hover:bg-gray-50 h-9 px-4"
+                  >
+                    <Download className="h-4 w-4 mr-2" />
+                    Download
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
                     onClick={copyToClipboard}
                     className="bg-white border-gray-200 text-gray-700 hover:bg-gray-50 h-9 px-4"
                   >
@@ -224,20 +370,29 @@ export default function JsonConfigPage() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setJsonConfig(`{
-  "nodes": [],
-  "connections": [],
-  "metadata": {
-    "version": "1.0",
-    "createdAt": "2025-07-11T09:21:44.687Z",
-    "totalNodes": 0,
-    "totalConnections": 0
-  }
-}`)}
+                    onClick={formatJson}
+                    className="bg-white border-gray-200 text-gray-700 hover:bg-gray-50 h-9 px-4"
+                  >
+                    <Edit className="h-4 w-4 mr-2" />
+                    Format
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={clearJson}
                     className="bg-white border-gray-200 text-gray-700 hover:bg-gray-50 h-9 px-4"
                   >
                     <X className="h-4 w-4 mr-2" />
                     Clear
+                  </Button>
+                  <Button
+                    size="sm"
+                    onClick={saveToLocalStorage}
+                    disabled={!isValid}
+                    className="bg-[#4A48FF] hover:bg-[#3A38FF] text-white h-9 px-4 disabled:opacity-50"
+                  >
+                    <Save className="h-4 w-4 mr-2" />
+                    Save
                   </Button>
                   <Link href="/call-flow">
                     <Button
@@ -252,11 +407,27 @@ export default function JsonConfigPage() {
               </div>
             </div>
 
+            {/* Validation Alert */}
+            {validationMessage && (
+              <div className="px-6 py-2">
+                <Alert className={isValid ? "border-green-200 bg-green-50" : "border-red-200 bg-red-50"}>
+                  {isValid ? (
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                  ) : (
+                    <AlertCircle className="h-4 w-4 text-red-600" />
+                  )}
+                  <AlertDescription className={isValid ? "text-green-800" : "text-red-800"}>
+                    {validationMessage}
+                  </AlertDescription>
+                </Alert>
+              </div>
+            )}
+
             {/* JSON Content Area */}
             <div className="flex-1 bg-gray-900 relative overflow-auto p-6">
               <Textarea
                 value={jsonConfig}
-                onChange={(e) => setJsonConfig(e.target.value)}
+                onChange={(e) => handleJsonChange(e.target.value)}
                 className="font-mono text-sm h-full w-full resize-none bg-gray-900 text-green-400 border-gray-700 focus:border-gray-600"
                 placeholder="Enter your JSON configuration here..."
               />

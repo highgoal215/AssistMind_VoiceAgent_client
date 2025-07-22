@@ -47,7 +47,9 @@ export default function CallFlowNode({
       onClick={onClick}
       onMouseDown={onMouseDown}
     >
-      <div className={`p-4 rounded-lg border-2 min-w-[200px] max-w-[300px] ${color} text-white shadow-lg hover:shadow-xl transition-shadow`}>
+      <div className={`p-4 rounded-lg border-2 min-w-[200px] max-w-[300px] ${color} text-white shadow-lg hover:shadow-xl transition-shadow ${
+        isSelected ? 'shadow-2xl' : ''
+      }`}>
         <div className="flex items-center space-x-2 mb-2">
           {nodeIcons[type]}
           <span className="font-medium">{title}</span>
