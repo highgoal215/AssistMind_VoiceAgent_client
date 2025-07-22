@@ -113,8 +113,8 @@ const getStatusColor = (status: string) => {
 }
 
 const getTypeColor = (type: string) => {
-  return type === 'incoming' 
-    ? 'bg-purple-100 text-purple-800' 
+  return type === 'incoming'
+    ? 'bg-purple-100 text-purple-800'
     : 'bg-gray-100 text-gray-800'
 }
 
@@ -169,18 +169,18 @@ export default function CallsPage() {
         </header>
 
         {/* Main Content */}
-        <main className="flex-1 overflow-auto p-6 ">
-          <div className="border border-red-500 mx-auto space-y-6">
+        <main className="flex-1 overflow-auto p-6">
+          <div className="mx-auto space-y-6">
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Card className="bg-white shadow-sm">
                 <CardContent className="p-6">
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                      <Phone className="w-6 h-6 text-purple-600" />
+                    <div className="w-12 h-12 bg-[#EEEEFF] rounded-full flex items-center justify-center">
+                      <Phone className="w-6 h-6 text-[#4A48FF]" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-gray-600">Total Calls</p>
+                      <p className="text-sm font-manrope text-gray-600">Total Calls</p>
                       <p className="text-2xl font-bold text-gray-900">{totalCalls}</p>
                     </div>
                   </div>
@@ -190,11 +190,11 @@ export default function CallsPage() {
               <Card className="bg-white shadow-sm">
                 <CardContent className="p-6">
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                      <Clock className="w-6 h-6 text-purple-600" />
+                    <div className="w-12 h-12 bg-[#EEEEFF] rounded-full flex items-center justify-center">
+                      <Clock className="w-6 h-6 text-[#4A48FF]" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-gray-600">Average Duration</p>
+                      <p className="text-sm font-manrope text-gray-600">Average Duration</p>
                       <p className="text-2xl font-bold text-gray-900">{averageDuration}</p>
                     </div>
                   </div>
@@ -204,11 +204,11 @@ export default function CallsPage() {
               <Card className="bg-white shadow-sm">
                 <CardContent className="p-6">
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                      <User className="w-6 h-6 text-purple-600" />
+                    <div className="w-12 h-12 bg-[#EEEEFF] rounded-full flex items-center justify-center">
+                      <User className="w-6 h-6 text-[#4A48FF]" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-gray-600">Unique Callers</p>
+                      <p className="text-sm font-manrope text-gray-600">Unique Callers</p>
                       <p className="text-2xl font-bold text-gray-900">{uniqueCallers.toString().padStart(2, '0')}</p>
                     </div>
                   </div>
@@ -220,28 +220,33 @@ export default function CallsPage() {
             <Card className="bg-white shadow-sm">
               <div className="p-6 border-b border-gray-200">
                 <div className="flex justify-between items-center">
-                  <h2 className="text-xl font-semibold text-gray-900">Call Log</h2>
-                  <div className="flex items-center space-x-3">
-                    <div className="flex items-center space-x-2">
-                      <Input
-                        placeholder="Search..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-64"
-                      />
-                      <Button size="sm" className="bg-purple-600 hover:bg-purple-700">
-                        <Search className="w-4 h-4" />
-                      </Button>
+                  <div className="flex w-full gap-6 flex-col justify-start ">
+                    <h2 className="text-xl font-semibold text-gray-900 ">Call Log</h2>
+                    <div className='flex justify-between items-center '>
+                      <div className="flex items-center space-x-2 ">
+                        <Input
+                          placeholder="Search..."
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                          className="w-64"
+                        />
+                        <Button size="sm" className="bg-[#4A48FF] hover:bg-[#3A38FF]">
+                          <Search className="w-4 h-4" />
+                        </Button>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <Button variant="outline" size="sm">
+                          <Filter className="w-4 h-4 mr-2" />
+                          Filter
+                        </Button>
+                        <Button variant="outline" size="sm">
+                          Export
+                          <ChevronDown className="w-4 h-4 ml-2" />
+                        </Button>
+                      </div>
                     </div>
-                    <Button variant="outline" size="sm">
-                      <Filter className="w-4 h-4 mr-2" />
-                      Filter
-                    </Button>
-                    <Button variant="outline" size="sm">
-                      Export
-                      <ChevronDown className="w-4 h-4 ml-2" />
-                    </Button>
                   </div>
+
                 </div>
               </div>
 
@@ -249,29 +254,33 @@ export default function CallsPage() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="font-medium">CALLER</TableHead>
-                      <TableHead className="font-medium">NUMBER</TableHead>
-                      <TableHead className="font-medium">DATE & TIME</TableHead>
-                      <TableHead className="font-medium">
+                      <TableHead className="font-manrope">CALLER</TableHead>
+                      <TableHead className="font-manrope">NUMBER</TableHead>
+                      <TableHead className="font-manrope">DATE & TIME</TableHead>
+                      <TableHead className="font-manrope">
                         <div className="flex items-center space-x-1">
                           <span>DURATION</span>
                           <ArrowUpDown className="w-4 h-4" />
                         </div>
                       </TableHead>
-                      <TableHead className="font-medium">TYPE</TableHead>
-                      <TableHead className="font-medium">
+                      <TableHead className="font-manrope">TYPE</TableHead>
+                      <TableHead className="font-manrope">
                         <div className="flex items-center space-x-1">
                           <span>STATUS</span>
                           <ArrowUpDown className="w-4 h-4" />
                         </div>
                       </TableHead>
-                      <TableHead className="font-medium">ACTIONS</TableHead>
+                      <TableHead className="font-manrope">ACTIONS</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {filteredCalls.map((call) => (
-                      <TableRow key={call.id} className="hover:bg-gray-50">
-                        <TableCell className="font-medium">{call.caller}</TableCell>
+                      <TableRow
+                        key={call.id}
+                        className="hover:bg-gray-50 cursor-pointer"
+                        onClick={() => window.location.href = `/calls/${call.id}`}
+                      >
+                        <TableCell className="font-manrope">{call.caller}</TableCell>
                         <TableCell>{call.number}</TableCell>
                         <TableCell>{call.dateTime}</TableCell>
                         <TableCell>{call.duration}</TableCell>
@@ -286,7 +295,7 @@ export default function CallsPage() {
                           </Badge>
                         </TableCell>
                         <TableCell>
-                          <div className="flex items-center space-x-2">
+                          <div className="flex items-center space-x-2" onClick={(e) => e.stopPropagation()}>
                             <Link href={`/calls/${call.id}`}>
                               <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
                                 <Eye className="w-4 h-4" />
@@ -295,9 +304,9 @@ export default function CallsPage() {
                             <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
                               <MoreVertical className="w-4 h-4" />
                             </Button>
-                            <Button 
-                              variant="ghost" 
-                              size="sm" 
+                            <Button
+                              variant="ghost"
+                              size="sm"
                               className={`h-8 w-8 p-0 ${call.isFlagged ? 'text-red-500' : 'text-gray-400'}`}
                             >
                               <Flag className="w-4 h-4" />
@@ -317,11 +326,11 @@ export default function CallsPage() {
                     <ChevronLeft className="w-4 h-4 mr-2" />
                     Previous
                   </Button>
-                  
+
                   <div className="flex items-center space-x-2">
-                    <Button 
-                      size="sm" 
-                      className="bg-purple-600 hover:bg-purple-700 text-white"
+                    <Button
+                      size="sm"
+                      className="bg-[#4A48FF] hover:bg-[#4A48FF] text-white"
                     >
                       1
                     </Button>

@@ -52,7 +52,7 @@ const mockCallDetail: CallDetail = {
   id: '1',
   caller: 'Dev Kooper',
   number: '(647) 1255 125',
-  dateTime: '15 May 2025, 12.00pm',
+  dateTime: '15 May 2025, 12:00pm',
   duration: '1m 12s',
   type: 'incoming',
   status: 'answered',
@@ -80,8 +80,20 @@ const mockCallDetail: CallDetail = {
     {
       id: '4',
       speaker: 'caller',
-      content: 'Okay',
+      content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepteur sint occaecat cupidatat non proident.',
       timestamp: '00:35'
+    },
+    {
+      id: '5',
+      speaker: 'ai',
+      content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      timestamp: '00:45'
+    },
+    {
+      id: '6',
+      speaker: 'caller',
+      content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut enim ad minim veniam, quis nostrud exercitation.',
+      timestamp: '00:55'
     }
   ]
 }
@@ -105,20 +117,6 @@ export default function CallDetailPage() {
     return colors[status as keyof typeof colors] || 'bg-gray-100 text-gray-800'
   }
 
-  const getSentimentColor = (sentiment: string) => {
-    const colors = {
-      positive: 'bg-green-100 text-green-800',
-      negative: 'bg-purple-100 text-purple-800',
-      neutral: 'bg-gray-100 text-gray-800'
-    }
-    return colors[sentiment as keyof typeof colors] || 'bg-gray-100 text-gray-800'
-  }
-
-  const getSentimentIcon = (sentiment: string) => {
-    if (sentiment === 'negative') return <ThumbsDown className="w-4 h-4" />
-    return null
-  }
-
   const handlePlayPause = () => {
     setIsPlaying(!isPlaying)
   }
@@ -140,13 +138,7 @@ export default function CallDetailPage() {
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
         <header className="bg-white border-b border-gray-200 px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/calls">
-              <Button variant="ghost" size="sm" className="text-gray-600">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Calls
-              </Button>
-            </Link>
+          <div className="flex items-center justify-end">
             <div className="flex items-center space-x-4">
               <Button variant="outline" className="bg-gray-100 border-gray-200 text-gray-900 hover:bg-gray-200">
                 <Moon className="h-4 w-4 mr-2" />
@@ -184,7 +176,7 @@ export default function CallDetailPage() {
                       <AvatarFallback className="text-lg">{call.caller.charAt(0)}</AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
-                      <div className="flex items-center space-x-2 mb-2">
+                      <div className="mb-2">
                         <Badge className="bg-purple-100 text-purple-800">
                           {call.type.charAt(0).toUpperCase() + call.type.slice(1)}
                         </Badge>
@@ -221,7 +213,11 @@ export default function CallDetailPage() {
                         <Button variant="outline" size="sm" className="flex-1">
                           Audio
                         </Button>
-                        <Button variant="outline" size="sm" className="flex-1">
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="flex-1 bg-blue-50 border-blue-200 text-blue-700"
+                        >
                           Transcript
                         </Button>
                         <Button variant="destructive" size="sm">
@@ -246,14 +242,6 @@ export default function CallDetailPage() {
                       {call.status.charAt(0).toUpperCase() + call.status.slice(1)}
                     </Badge>
                   </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-gray-700">Call sentiment</span>
-                    <Badge className={getSentimentColor(call.sentiment)}>
-                      {getSentimentIcon(call.sentiment)}
-                      <span className="ml-1">{call.sentiment.charAt(0).toUpperCase() + call.sentiment.slice(1)}</span>
-                    </Badge>
-                  </div>
 
                   <div className="space-y-3">
                     <div>
@@ -273,19 +261,11 @@ export default function CallDetailPage() {
                       />
                     </div>
                   </div>
-
-                  <Button 
-                    onClick={handleSaveToContacts}
-                    className="w-full bg-blue-600 hover:bg-blue-700"
-                  >
-                    <Save className="w-4 h-4 mr-2" />
-                    Save to contacts
-                  </Button>
                 </CardContent>
               </Card>
             </div>
 
-            {/* Transcript/Summary Tabs */}
+            {/* Transcript/Summary Section */}
             <Card className="bg-white shadow-sm">
               <CardContent className="p-0">
                 <Tabs value={currentTab} onValueChange={setCurrentTab}>
@@ -316,7 +296,7 @@ export default function CallDetailPage() {
                           }`}
                         >
                           <Avatar className="w-8 h-8">
-                            <AvatarFallback className="text-sm">
+                            <AvatarFallback className="text-sm bg-pink-100 text-pink-600">
                               {message.speaker === 'ai' ? 'B' : 'D'}
                             </AvatarFallback>
                           </Avatar>
