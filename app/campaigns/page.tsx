@@ -25,6 +25,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import DashboardSidebar from '../../components/dashboard/DashboardSidebar'
+import Link from 'next/link'
 
 export default function CampaignsPage() {
   const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
@@ -549,9 +550,11 @@ export default function CampaignsPage() {
 
                           {/* Action Buttons */}
                           <div className="flex items-center space-x-2 pt-2 ">
-                            <Button className="flex-1 bg-[#4A48FF] hover:bg-[#9392eb] text-white text-sm">
-                              View Details
-                            </Button>
+                            <Link href={`/campaigns/${campaign.id}`} className="flex-1">
+                              <Button className="w-full bg-[#4A48FF] hover:bg-[#9392eb] text-white text-sm">
+                                View Details
+                              </Button>
+                            </Link>
                             <Button variant="outline" size="icon" className="h-9 w-9">
                               {campaign.status === 'Paused' ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
                             </Button>
