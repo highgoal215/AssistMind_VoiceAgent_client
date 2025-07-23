@@ -16,7 +16,8 @@ import {
   Menu,
   MoreVertical,
   Play,
-  Pause
+  Pause,
+  Upload
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -32,6 +33,8 @@ export default function CampaignsPage() {
   const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
   const [activeTab, setActiveTab] = React.useState('campaigns')
+  const [campaignStep, setCampaignStep] = React.useState(1)
+  const [uploadMethod, setUploadMethod] = React.useState('file-upload')
 
   // Handle body scroll when mobile menu is open
   React.useEffect(() => {
@@ -257,7 +260,7 @@ export default function CampaignsPage() {
           </div>
         </header>
 
-                {/* Campaigns Content */}
+        {/* Campaigns Content */}
         <main className="flex-1 overflow-auto p-4 lg:p-6">
           <div className="space-y-6">
             {/* Navigation Tabs */}
@@ -573,17 +576,23 @@ export default function CampaignsPage() {
               <div className="bg-white rounded-lg p-8 shadow-sm max-w-4xl mx-auto">
                 {/* Campaign Information Header */}
                 <div className="flex flex-col justify-start text-center mb-8 ">
-                  <h2 className="flex text-2xl font-bold  text-gray-900 mb-2">Campaign Information</h2>
-                  <p className="flex text-gray-500">Set up your campaign details and messaging</p>
+                  <h2 className="flex text-2xl font-bold  text-gray-900 mb-2">
+                    {campaignStep === 1 ? 'Campaign Information' : campaignStep === 2 ? 'Recipient Upload' : 'Campaign Review'}
+                  </h2>
+                  <p className="flex text-gray-500">
+                    {campaignStep === 1 ? 'Set up your campaign details and messaging' : 
+                     campaignStep === 2 ? 'Add recipients via file upload or manual entry' : 
+                     'Review and launch your campaign'}
+                  </p>
                 </div>
 
                 {/* Progress Steps */}
                 <div className="flex justify-start items-center mb-8">
                   <div className="flex items-center">
-                    {/* Step 1 - Active */}
+                    {/* Step 1 */}
                     <div className="relative">
-                      <div className="w-12 h-12 bg-[#EDEDFF] rounded-full flex items-center justify-center">
-                        <div className="w-10 h-10 bg-[#4A48FF] text-white rounded-full flex items-center justify-center text-sm font-bold">
+                      <div className={`w-12 h-12 ${campaignStep >= 1 ? 'bg-[#EDEDFF]' : 'bg-gray-50'} rounded-full flex items-center justify-center`}>
+                        <div className={`w-10 h-10 ${campaignStep >= 1 ? 'bg-[#4A48FF] text-white' : 'bg-gray-200 text-gray-500'} rounded-full flex items-center justify-center text-sm font-bold`}>
                           1
                         </div>
                       </div>
@@ -592,10 +601,10 @@ export default function CampaignsPage() {
                     {/* Connecting Line */}
                     <div className="w-16 h-0.5 bg-gray-200 mx-2"></div>
                     
-                    {/* Step 2 - Inactive */}
+                    {/* Step 2 */}
                     <div className="relative">
-                      <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center">
-                        <div className="w-10 h-10 bg-gray-200 text-gray-500 rounded-full flex items-center justify-center text-sm font-bold">
+                      <div className={`w-12 h-12 ${campaignStep >= 2 ? 'bg-[#EDEDFF]' : 'bg-gray-50'} rounded-full flex items-center justify-center`}>
+                        <div className={`w-10 h-10 ${campaignStep >= 2 ? 'bg-[#4A48FF] text-white' : 'bg-gray-200 text-gray-500'} rounded-full flex items-center justify-center text-sm font-bold`}>
                           2
                         </div>
                       </div>
@@ -604,10 +613,10 @@ export default function CampaignsPage() {
                     {/* Connecting Line */}
                     <div className="w-16 h-0.5 bg-gray-200 mx-2"></div>
                     
-                    {/* Step 3 - Inactive */}
+                    {/* Step 3 */}
                     <div className="relative">
-                      <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center">
-                        <div className="w-10 h-10 bg-gray-200 text-gray-500 rounded-full flex items-center justify-center text-sm font-bold">
+                      <div className={`w-12 h-12 ${campaignStep >= 3 ? 'bg-[#EDEDFF]' : 'bg-gray-50'} rounded-full flex items-center justify-center`}>
+                        <div className={`w-10 h-10 ${campaignStep >= 3 ? 'bg-[#4A48FF] text-white' : 'bg-gray-200 text-gray-500'} rounded-full flex items-center justify-center text-sm font-bold`}>
                           3
                         </div>
                       </div>
@@ -615,125 +624,203 @@ export default function CampaignsPage() {
                   </div>
                 </div>
 
-                {/* Campaign Name */}
-                <div className="mb-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Campaign Name
-                  </label>
-                  <Input
-                    defaultValue="Campaign - Jul 8"
-                    className="w-full bg-white border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
-                  />
-                </div>
+                {/* Step 1 Content - Campaign Information */}
+                {campaignStep === 1 && (
+                  <>
+                    {/* Campaign Name */}
+                    <div className="mb-6">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Campaign Name
+                      </label>
+                      <Input
+                        defaultValue="Campaign - Jul 8"
+                        className="w-full bg-white border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                      />
+                    </div>
 
-                {/* Opening Message */}
-                <div className="mb-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Opening Message
-                  </label>
-                  <Input
-                    defaultValue="Hi [[name]], this is call from..."
-                    className="w-full bg-white border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF] mb-2"
-                  />
-                  <p className="text-sm text-gray-500 mb-3">Use merge tags for personalization</p>
-                  
-                  {/* Quick Insert Buttons */}
-                  <div className="mb-4">
-                    <p className="text-sm font-medium text-gray-700 mb-2">Quick Insert:</p>
-                    <div className="flex space-x-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
-                      >
-                        name
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
-                      >
-                        phone_number
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
-                      >
-                        appointment_date
-                      </Button>
+                    {/* Opening Message */}
+                    <div className="mb-6">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Opening Message
+                      </label>
+                      <Input
+                        defaultValue="Hi [[name]], this is call from..."
+                        className="w-full bg-white border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF] mb-2"
+                      />
+                      <p className="text-sm text-gray-500 mb-3">Use merge tags for personalization</p>
+                      
+                      {/* Quick Insert Buttons */}
+                      <div className="mb-4">
+                        <p className="text-sm font-medium text-gray-700 mb-2">Quick Insert:</p>
+                        <div className="flex space-x-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
+                          >
+                            name
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
+                          >
+                            phone_number
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
+                          >
+                            appointment_date
+                          </Button>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
 
-                {/* Caller Instructions */}
-                <div className="mb-8">
-                  <div className="flex items-center mb-2">
-                    <label className="block text-sm font-medium text-gray-700">
-                      Caller Instructions
-                    </label>
-                    <div className="ml-2 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
-                      <span className="text-white text-xs">i</span>
+                    {/* Caller Instructions */}
+                    <div className="mb-8">
+                      <div className="flex items-center mb-2">
+                        <label className="block text-sm font-medium text-gray-700">
+                          Caller Instructions
+                        </label>
+                        <div className="ml-2 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
+                          <span className="text-white text-xs">i</span>
+                        </div>
+                      </div>
+                      <div className="relative">
+                        <Textarea
+                          placeholder="Define the AI agents personality..."
+                          className="w-full h-32 border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF] resize-none pr-12"
+                        />
+                        <div className="absolute bottom-2 right-2 text-xs text-gray-400">
+                          0/5000
+                        </div>
+                      </div>
+                      <p className="text-sm text-gray-500 mt-2">Include: Tone, Personality, Environment, Goal, Guardrails</p>
+                      
+                      {/* Quick Insert Buttons for Caller Instructions */}
+                      <div className="mt-4">
+                        <p className="text-sm font-medium text-gray-700 mb-2">Quick Insert:</p>
+                        <div className="flex space-x-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
+                          >
+                            name
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
+                          >
+                            phone_number
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
+                          >
+                            language
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
+                          >
+                            appointment_date
+                          </Button>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="relative">
-                    <Textarea
-                      placeholder="Define the AI agents personality..."
-                      className="w-full h-32 border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF] resize-none pr-12"
-                    />
-                    <div className="absolute bottom-2 right-2 text-xs text-gray-400">
-                      0/5000
+                  </>
+                )}
+
+                {/* Step 2 Content - Recipient Upload */}
+                {campaignStep === 2 && (
+                  <>
+                    {/* Upload Method Selection */}
+                    <div className="mb-6">
+                      <div className="flex space-x-4 mb-4">
+                        <Button
+                          onClick={() => setUploadMethod('file-upload')}
+                          className={`px-6 py-2 rounded-md ${
+                            uploadMethod === 'file-upload'
+                              ? 'bg-[#4A48FF] text-white'
+                              : 'bg-white text-gray-700 border border-gray-300'
+                          }`}
+                        >
+                          File Upload
+                        </Button>
+                        <Button
+                          onClick={() => setUploadMethod('manual-input')}
+                          className={`px-6 py-2 rounded-md ${
+                            uploadMethod === 'manual-input'
+                              ? 'bg-[#4A48FF] text-white'
+                              : 'bg-white text-gray-700 border border-gray-300'
+                          }`}
+                        >
+                          Manual Input
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          className="text-gray-700 hover:text-gray-900"
+                        >
+                          <Download className="h-4 w-4 mr-2" />
+                          Download Sample File
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-                  <p className="text-sm text-gray-500 mt-2">Include: Tone, Personality, Environment, Goal, Guardrails</p>
-                  
-                  {/* Quick Insert Buttons for Caller Instructions */}
-                  <div className="mt-4">
-                    <p className="text-sm font-medium text-gray-700 mb-2">Quick Insert:</p>
-                    <div className="flex space-x-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
-                      >
-                        name
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
-                      >
-                        phone_number
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
-                      >
-                        language
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
-                      >
-                        appointment_date
-                      </Button>
+
+                    {/* File Upload Area */}
+                    <div className="mb-6">
+                      <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                        <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                        <h3 className="text-lg font-bold text-gray-900 mb-2">Upload recipient file</h3>
+                        <p className="text-gray-600 mb-4">Drag and drop your CSV or Excel file here, or click to browse</p>
+                        <Button
+                          variant="outline"
+                          className="border-gray-300 text-gray-700 hover:bg-gray-50"
+                        >
+                          Choose File
+                        </Button>
+                        <p className="text-sm text-gray-500 mt-2">csv, .xlsx (max 25MB)</p>
+                      </div>
                     </div>
-                  </div>
-                </div>
+
+                    {/* Template Information */}
+                    <div className="mb-8">
+                      <p className="text-gray-700">Template includes: name, phone_number</p>
+                    </div>
+                  </>
+                )}
 
                 {/* Action Buttons */}
                 <div className="flex justify-end space-x-4">
+                  {campaignStep > 1 && (
+                    <Button
+                      variant="outline"
+                      onClick={() => setCampaignStep(campaignStep - 1)}
+                      className="bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
+                    >
+                      Back
+                    </Button>
+                  )}
                   <Button
                     variant="outline"
-                    className="bg-gray-100 border-gray-300 text-gray-700 hover:bg-gray-200"
+                    className="bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
                   >
                     Cancel
                   </Button>
-                  <Button className="bg-[#4A48FF] hover:bg-[#3a38ef] text-white">
-                    Next
-                  </Button>
+                  {campaignStep < 3 && (
+                    <Button 
+                      onClick={() => setCampaignStep(campaignStep + 1)}
+                      className="bg-[#4A48FF] hover:bg-[#3a38ef] text-white"
+                    >
+                      Next
+                    </Button>
+                  )}
                 </div>
               </div>
             )}
