@@ -49,7 +49,7 @@ export default function Header({ onMobileMenuToggle }: HeaderProps) {
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 " />
                     <Input
                       placeholder="Search"
-                      className="pl-10 w-full bg-gray-100 border-gray-200 text-sm"
+                      className="pl-10 w-full bg-gray-100 border-gray-200 text-sm font-semibold font-manrope"
                     />
                   </div>
                 </div>
@@ -59,7 +59,7 @@ export default function Header({ onMobileMenuToggle }: HeaderProps) {
             {/* Right Side Actions */}
             <div className="flex items-center space-x-2 lg:space-x-4">
               {/* Dark Mode Button - Hidden on mobile */}
-              <Button variant="outline" className="hidden lg:flex bg-gray-100 border-gray-200 text-gray-900 hover:bg-gray-200">
+              <Button variant="outline" className="hidden lg:flex bg-gray-100 border-gray-200 text-gray-900 hover:bg-gray-200 font-bold font-manrope">
                 <Moon className="h-4 w-4 mr-2" />
                 Dark
               </Button>

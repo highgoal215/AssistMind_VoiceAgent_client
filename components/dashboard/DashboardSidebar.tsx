@@ -94,8 +94,8 @@ export default function DashboardSidebar({
           "flex-1 py-6",
           isCollapsed ? "px-2" : "px-4"
         )}>
-          <div className="mb-4">
-            {!isCollapsed && <h3 className="text-sm font-manrope text-gray-400 uppercase tracking-wider">Menu</h3>}
+          <div className="mb-1">
+            {!isCollapsed && <h3 className="text-sm font-manrope font-semibold text-gray-400 ">Menu</h3>}
           </div>
           <ul className="space-y-2">
             {navigationItems.map((item) => {
@@ -108,11 +108,11 @@ export default function DashboardSidebar({
                         href={item.href}
                         onClick={onMobileClose}
                         className={cn(
-                          "flex items-center space-x-3 rounded-lg text-sm font-manrope transition-colors",
+                          "flex items-center space-x-3 rounded-lg text-md font-manrope font-bold transition-colors",
                           isCollapsed ? "px-2 py-3 justify-center" : "px-3 py-2",
                           isActive
                             ? "bg-[#4A48FF] text-white"
-                            : "text-gray-800 hover:bg-[#c0bff0] hover:text-black font-manrope font-bold"
+                            : "text-gray-800 hover:bg-gray-300 hover:text-black font-manrope font-bold"
                         )}
                       >
                         <Image 
