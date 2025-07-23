@@ -29,7 +29,7 @@ export default function AIAgentPage() {
   const [welcomeMessage, setWelcomeMessage] = useState('Hi, I\'m {{agent_name}} from {{company_name}}. How can I help you today?')
   const [selectedVoice, setSelectedVoice] = useState('female-calm')
   const [language, setLanguage] = useState('English')
-
+  const [agentprofileStep, setAgentProfileStep] = React.useState(1)
   // Handle body scroll when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -120,48 +120,50 @@ export default function AIAgentPage() {
 
         {/* AI Agent Content */}
         <main className="flex-1 overflow-auto p-4 lg:p-6">
-          <div className="mx-auto">
+          <div className="mx-auto max-w-6xl">
             {/* Main White Card */}
             <Card className="bg-white shadow-sm">
-              <CardContent className="p-4 lg:p-8">
+              <CardContent className="p-6 lg:p-8">
                 {/* Header Section */}
-                <div className="mb-6 lg:mb-8">
+                <div className="mb-8">
                   {/* Title */}
-                  <h1 className="text-xl lg:text-2xl font-bold text-gray-900 mb-4 lg:mb-6">
+                  <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-6">
                     Let's Finalize Your Agent Setup!
                   </h1>
 
                   {/* Progress Steps */}
-                  <div className="flex justify-center mb-6 lg:mb-8">
-                    <div className="relative flex items-center w-full max-w-md">
-                      {/* Main horizontal line */}
-                      <div className="w-full h-[2px] bg-gray-300 rounded-full" />
-
-                      {/* Progress circles positioned above the line */}
-                      <div className="absolute flex justify-between w-full">
-                        {/* Step 1: Agent Profile (Active) */}
-                        <div className="flex flex-col items-center">
-                          <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-full flex items-center justify-center text-sm font-bold relative bg-[#4A48FF] text-white">
-                            <div className="absolute inset-0 bg-[#4A48FF] rounded-full scale-150 opacity-30" />
-                            <span className="relative z-10">1</span>
+                  <div className="flex justify-between items-center shadow-lg border border-gray-200">
+                    <div className="flex items-center  ">
+                      {/* Step 1 */}
+                      <div className="relative">
+                        <div className={`w-12 h-12 ${agentprofileStep >= 1 ? 'bg-[#EDEDFF]' : 'bg-gray-50'} rounded-full flex items-center justify-center`}>
+                          <div className={`w-10 h-10 ${agentprofileStep >= 1 ? 'bg-[#4A48FF] text-white' : 'bg-gray-200 text-gray-500'} rounded-full flex items-center justify-center text-sm font-bold`}>
+                            1
                           </div>
-                          <span className="mt-2 lg:mt-3 text-xs lg:text-sm font-manrope text-gray-900">Agent Profile</span>
                         </div>
+                      </div>
 
-                        {/* Step 2: Business Details (Inactive) */}
-                        <div className="flex flex-col items-center">
-                          <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-full flex items-center justify-center text-sm font-bold relative bg-gray-300 text-gray-600">
-                            <span className="relative z-10">2</span>
+                      {/* Connecting Line */}
+                      <div className="w-16 h-0.5 bg-gray-200 mx-2"></div>
+
+                      {/* Step 2 */}
+                      <div className="relative">
+                        <div className={`w-12 h-12 ${agentprofileStep >= 2 ? 'bg-[#EDEDFF]' : 'bg-gray-50'} rounded-full flex items-center justify-center`}>
+                          <div className={`w-10 h-10 ${agentprofileStep >= 2 ? 'bg-[#4A48FF] text-white' : 'bg-gray-200 text-gray-500'} rounded-full flex items-center justify-center text-sm font-bold`}>
+                            2
                           </div>
-                          <span className="mt-2 lg:mt-3 text-xs lg:text-sm font-manrope text-gray-900">Business Details</span>
                         </div>
+                      </div>
 
-                        {/* Step 3: Final Review & Launch (Inactive) */}
-                        <div className="flex flex-col items-center">
-                          <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-full flex items-center justify-center text-sm font-bold relative bg-gray-300 text-gray-600">
-                            <span className="relative z-10">3</span>
+                      {/* Connecting Line */}
+                      <div className="w-16 h-0.5 bg-gray-200 mx-2"></div>
+
+                      {/* Step 3 */}
+                      <div className="relative">
+                        <div className={`w-12 h-12 ${agentprofileStep >= 3 ? 'bg-[#EDEDFF]' : 'bg-gray-50'} rounded-full flex items-center justify-center`}>
+                          <div className={`w-10 h-10 ${agentprofileStep >= 3 ? 'bg-[#4A48FF] text-white' : 'bg-gray-200 text-gray-500'} rounded-full flex items-center justify-center text-sm font-bold`}>
+                            3
                           </div>
-                          <span className="mt-2 lg:mt-3 text-xs lg:text-sm font-manrope text-gray-900">Final Review & Launch</span>
                         </div>
                       </div>
                     </div>
@@ -169,25 +171,20 @@ export default function AIAgentPage() {
                 </div>
 
                 {/* Main Content Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                   {/* Left Column - Agent Profile */}
-                  <div className="space-y-4 lg:space-y-6">
+                  <div className="space-y-6">
                     {/* Agent Avatar */}
                     <div>
-                      <label className="block text-sm font-manrope text-gray-700 mb-3 lg:mb-4">
+                      <label className="block text-sm font-medium text-gray-700 mb-4">
                         Agent Avatar
                       </label>
                       <div className="flex items-center space-x-4">
-                        <div className="relative">
-                          <Avatar className="w-12 h-12 lg:w-16 lg:h-16">
-                            <AvatarImage src="/images/user-profile.jpg" />
-                            <AvatarFallback className="bg-blue-600 text-white text-lg">A</AvatarFallback>
-                          </Avatar>
-                          <div className="absolute -bottom-1 -right-1 w-5 h-5 lg:w-6 lg:h-6 bg-blue-600 rounded-full flex items-center justify-center cursor-pointer hover:bg-blue-700">
-                            <span className="text-white text-xs font-bold">A</span>
-                          </div>
-                        </div>
-                        <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white text-sm">
+                        <Avatar className="w-16 h-16">
+                          <AvatarImage src="/images/user-profile.jpg" />
+                          <AvatarFallback className="bg-blue-600 text-white text-lg">A</AvatarFallback>
+                        </Avatar>
+                        <Button variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50">
                           <Upload className="h-4 w-4 mr-2" />
                           Upload
                         </Button>
@@ -196,19 +193,19 @@ export default function AIAgentPage() {
 
                     {/* Agent Name */}
                     <div>
-                      <label className="block text-sm font-manrope text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         What's your agent's name?
                       </label>
                       <Input
                         value={agentName}
                         onChange={(e) => setAgentName(e.target.value)}
-                        className="border-gray-300 focus:border-purple-600 focus:ring-purple-600"
+                        className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
                       />
                     </div>
 
                     {/* Role */}
                     <div>
-                      <label className="block text-sm font-manrope text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         Role
                       </label>
                       <div className="flex flex-wrap gap-2 mb-2">
@@ -228,7 +225,7 @@ export default function AIAgentPage() {
                           </Badge>
                         ))}
                       </div>
-                      <Button variant="outline" size="sm" className="text-gray-500">
+                      <Button variant="outline" size="sm" className="text-gray-500 border-gray-300">
                         <ChevronDownIcon className="h-4 w-4 mr-1" />
                         Add more roles
                       </Button>
@@ -236,27 +233,27 @@ export default function AIAgentPage() {
 
                     {/* Welcome Message */}
                     <div>
-                      <label className="block text-sm font-manrope text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         Welcome Message
                       </label>
                       <Textarea
                         value={welcomeMessage}
                         onChange={(e) => setWelcomeMessage(e.target.value)}
-                        className="border-purple-600 focus:border-purple-600 focus:ring-purple-600 min-h-[100px]"
+                        className="border-[#4A48FF] focus:border-[#4A48FF] focus:ring-[#4A48FF] min-h-[100px]"
                         placeholder="Enter your welcome message..."
                       />
                     </div>
                   </div>
 
                   {/* Right Column - Voice and Language */}
-                  <div className="space-y-4 lg:space-y-6">
+                  <div className="space-y-6">
                     {/* Voice Selection */}
                     <div>
-                      <label className="block text-sm font-manrope text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         Choose your agent's voice
                       </label>
                       <Select value={selectedVoice} onValueChange={setSelectedVoice}>
-                        <SelectTrigger className="border-gray-300 focus:border-purple-600 focus:ring-purple-600">
+                        <SelectTrigger className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -271,7 +268,7 @@ export default function AIAgentPage() {
 
                     {/* Language */}
                     <div>
-                      <label className="block text-sm font-manrope text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         Language
                       </label>
                       <Input
@@ -284,19 +281,19 @@ export default function AIAgentPage() {
 
                     {/* Preview Voice */}
                     <div>
-                      <label className="block text-sm font-manrope text-gray-700 mb-3 lg:mb-4">
+                      <label className="block text-sm font-medium text-gray-700 mb-4">
                         Preview Voice
                       </label>
                       <div className="flex items-center space-x-4">
                         <Button
                           size="icon"
-                          className="w-10 h-10 lg:w-12 lg:h-12 bg-blue-600 hover:bg-blue-700 rounded-full"
+                          className="w-12 h-12 bg-[#4A48FF] hover:bg-[#3a39e8] rounded-full"
                         >
-                          <Play className="h-4 w-4 lg:h-5 lg:w-5 text-white ml-0.5" />
+                          <Play className="h-5 w-5 text-white ml-0.5" />
                         </Button>
                         <div className="flex-1">
                           <div className="w-full bg-gray-200 rounded-full h-2">
-                            <div className="bg-blue-600 h-2 rounded-full" style={{ width: '30%' }}></div>
+                            <div className="bg-[#4A48FF] h-2 rounded-full" style={{ width: '30%' }}></div>
                           </div>
                         </div>
                         <span className="text-sm text-gray-500">1m 12s</span>
@@ -306,10 +303,39 @@ export default function AIAgentPage() {
                 </div>
 
                 {/* Next Button */}
-                <div className="flex justify-end mt-6 lg:mt-8">
-                  <Button className="bg-[#4A48FF] hover:bg-purple-700 text-white px-6 lg:px-8 py-2 lg:py-3 text-base lg:text-lg font-manrope rounded-lg">
-                    Next
-                  </Button>
+                <div className="flex justify-end mt-8">
+                  {/* Action Buttons */}
+                  <div className="flex justify-end space-x-4">
+                    {agentprofileStep > 1 && (
+                      <Button
+                        variant="outline"
+                        onClick={() => setAgentProfileStep(agentprofileStep - 1)}
+                        className="px-6 py-2 rounded-lg bg-white border-gray-300 text-gray-900 hover:bg-gray-50"
+                      >
+                        Back
+                      </Button>
+                    )}
+                    <Button
+                      variant="outline"
+                      className="px-6 py-2 rounded-lg bg-white border-gray-300 text-gray-900 hover:bg-gray-50"
+                    >
+                      Cancel
+                    </Button>
+                    {agentprofileStep < 3 ? (
+                      <Button
+                        onClick={() => setAgentProfileStep(agentprofileStep + 1)}
+                        className="px-6 py-2 rounded-lg bg-[#4A48FF] hover:bg-[#3a38ef] text-white"
+                      >
+                        Next
+                      </Button>
+                    ) : (
+                      <Button
+                        className="px-6 py-2 rounded-lg bg-[#4A48FF] hover:bg-[#3a38ef] text-white"
+                      >
+                        Launch Campaign
+                      </Button>
+                    )}
+                  </div>
                 </div>
               </CardContent>
             </Card>
