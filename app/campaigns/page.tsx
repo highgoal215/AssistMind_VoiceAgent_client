@@ -17,7 +17,9 @@ import {
   MoreVertical,
   Play,
   Pause,
-  Upload
+  Upload,
+  Plus,
+  Trash2
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -35,6 +37,9 @@ export default function CampaignsPage() {
   const [activeTab, setActiveTab] = React.useState('campaigns')
   const [campaignStep, setCampaignStep] = React.useState(1)
   const [uploadMethod, setUploadMethod] = React.useState('file-upload')
+  const [recipients, setRecipients] = React.useState([
+    { id: 1, name: '', phoneNumber: '' }
+  ])
 
   // Handle body scroll when mobile menu is open
   React.useEffect(() => {
@@ -93,7 +98,8 @@ export default function CampaignsPage() {
 
   const callMetrics = [
     {
-      title: 'Total Calls', value: '365', icon: Phone, iconBg: 'bg-[#EDEDFF]', iconColor: 'text-[#4A48FF]' },
+      title: 'Total Calls', value: '365', icon: Phone, iconBg: 'bg-[#EDEDFF]', iconColor: 'text-[#4A48FF]'
+    },
     { title: 'Completed', value: '365', icon: CheckCircle, iconBg: 'bg-[#EDEDFF]', iconColor: 'text-[#4A48FF]' },
     { title: 'Completion Rate', value: '100%', icon: RefreshCw, iconBg: 'bg-[#EDEDFF]', iconColor: 'text-[#4A48FF]' },
     { title: 'Success Rate', value: '73.2%', icon: CheckCircle, iconBg: 'bg-[#EDEDFF]', iconColor: 'text-[#4A48FF]' },
@@ -270,11 +276,10 @@ export default function CampaignsPage() {
                   key={tab.id}
                   variant="ghost"
                   onClick={() => setActiveTab(tab.id)}
-                  className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
-                    activeTab === tab.id
+                  className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${activeTab === tab.id
                       ? "bg-[#EDEDFF] text-blue-700"
                       : "text-gray-900 hover:bg-gray-50"
-                  }`}
+                    }`}
                 >
                   {tab.label}
                 </Button>
@@ -444,7 +449,7 @@ export default function CampaignsPage() {
                         <Search className="h-4 w-4" />
                       </Button>
                     </div>
-                    
+
                     <div className="flex items-center space-x-3">
                       <Select>
                         <SelectTrigger className="w-32 bg-white border-gray-200 text-sm">
@@ -459,7 +464,7 @@ export default function CampaignsPage() {
                           <SelectItem value="paused">Paused</SelectItem>
                         </SelectContent>
                       </Select>
-                      
+
                       <Select>
                         <SelectTrigger className="w-32 bg-white border-gray-200 text-sm">
                           <SelectValue placeholder="Last 7 days" />
@@ -472,7 +477,7 @@ export default function CampaignsPage() {
                           <SelectItem value="30days">Last 1 Year</SelectItem>
                         </SelectContent>
                       </Select>
-                      
+
                       <Select>
                         <SelectTrigger className="w-32 bg-white border-gray-200 text-sm">
                           <SelectValue placeholder="Newest" />
@@ -483,7 +488,7 @@ export default function CampaignsPage() {
                           <SelectItem value="name">A To Z</SelectItem>
                         </SelectContent>
                       </Select>
-                      
+
                       <Button variant="outline" size="sm" className="h-9 px-3 bg-white border-gray-200 text-sm">
                         <RefreshCw className="h-4 w-4 mr-2" />
                         Refresh
@@ -537,7 +542,7 @@ export default function CampaignsPage() {
                               <span className="font-semibold text-gray-900">{campaign.progress}%</span>
                             </div>
                             <div className="w-full bg-gray-200 rounded-full h-2">
-                              <div 
+                              <div
                                 className="bg-[#4A48FF] h-2 rounded-full transition-all duration-300"
                                 style={{ width: `${campaign.progress}%` }}
                               ></div>
@@ -575,19 +580,19 @@ export default function CampaignsPage() {
             {activeTab === 'new-campaign' && (
               <div className="bg-white rounded-lg p-8 shadow-sm max-w-4xl mx-auto">
                 {/* Campaign Information Header */}
-                <div className="flex flex-col justify-start text-center mb-8 ">
-                  <h2 className="flex text-2xl font-bold  text-gray-900 mb-2">
+                <div className="flex flex-col justify-start mb-8">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">
                     {campaignStep === 1 ? 'Campaign Information' : campaignStep === 2 ? 'Recipient Upload' : 'Campaign Review'}
                   </h2>
-                  <p className="flex text-gray-500">
-                    {campaignStep === 1 ? 'Set up your campaign details and messaging' : 
-                     campaignStep === 2 ? 'Add recipients via file upload or manual entry' : 
-                     'Review and launch your campaign'}
+                  <p className="text-gray-500">
+                    {campaignStep === 1 ? 'Set up your campaign details and messaging' :
+                      campaignStep === 2 ? 'Add recipients via file upload or manual entry' :
+                        'Review and launch your campaign'}
                   </p>
                 </div>
 
                 {/* Progress Steps */}
-                <div className="flex justify-start items-center mb-8">
+                <div className="flex justify-starter items-center mb-8">
                   <div className="flex items-center">
                     {/* Step 1 */}
                     <div className="relative">
@@ -597,10 +602,10 @@ export default function CampaignsPage() {
                         </div>
                       </div>
                     </div>
-                    
+
                     {/* Connecting Line */}
                     <div className="w-16 h-0.5 bg-gray-200 mx-2"></div>
-                    
+
                     {/* Step 2 */}
                     <div className="relative">
                       <div className={`w-12 h-12 ${campaignStep >= 2 ? 'bg-[#EDEDFF]' : 'bg-gray-50'} rounded-full flex items-center justify-center`}>
@@ -609,10 +614,10 @@ export default function CampaignsPage() {
                         </div>
                       </div>
                     </div>
-                    
+
                     {/* Connecting Line */}
                     <div className="w-16 h-0.5 bg-gray-200 mx-2"></div>
-                    
+
                     {/* Step 3 */}
                     <div className="relative">
                       <div className={`w-12 h-12 ${campaignStep >= 3 ? 'bg-[#EDEDFF]' : 'bg-gray-50'} rounded-full flex items-center justify-center`}>
@@ -648,7 +653,7 @@ export default function CampaignsPage() {
                         className="w-full bg-white border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF] mb-2"
                       />
                       <p className="text-sm text-gray-500 mb-3">Use merge tags for personalization</p>
-                      
+
                       {/* Quick Insert Buttons */}
                       <div className="mb-4">
                         <p className="text-sm font-medium text-gray-700 mb-2">Quick Insert:</p>
@@ -698,7 +703,7 @@ export default function CampaignsPage() {
                         </div>
                       </div>
                       <p className="text-sm text-gray-500 mt-2">Include: Tone, Personality, Environment, Goal, Guardrails</p>
-                      
+
                       {/* Quick Insert Buttons for Caller Instructions */}
                       <div className="mt-4">
                         <p className="text-sm font-medium text-gray-700 mb-2">Quick Insert:</p>
@@ -741,58 +746,138 @@ export default function CampaignsPage() {
                 {campaignStep === 2 && (
                   <>
                     {/* Upload Method Selection */}
-                    <div className="mb-6">
-                      <div className="flex space-x-4 mb-4">
+                    <div className="sm:flex  justify-between mb-6">
+                      <div className="flex items-center space-x-4 mb-4">
                         <Button
                           onClick={() => setUploadMethod('file-upload')}
-                          className={`px-6 py-2 rounded-md ${
-                            uploadMethod === 'file-upload'
+                          className={`px-6 py-3 rounded-lg text-sm font-medium ${uploadMethod === 'file-upload'
                               ? 'bg-[#4A48FF] text-white'
-                              : 'bg-white text-gray-700 border border-gray-300'
-                          }`}
+                              : 'bg-white text-gray-900 border border-gray-300 hover:bg-gray-50'
+                            }`}
                         >
                           File Upload
                         </Button>
                         <Button
                           onClick={() => setUploadMethod('manual-input')}
-                          className={`px-6 py-2 rounded-md ${
-                            uploadMethod === 'manual-input'
+                          className={`px-6 py-3 rounded-lg text-sm font-medium ${uploadMethod === 'manual-input'
                               ? 'bg-[#4A48FF] text-white'
-                              : 'bg-white text-gray-700 border border-gray-300'
-                          }`}
+                              : 'bg-white text-gray-900 border border-gray-300 hover:bg-gray-50'
+                            }`}
                         >
                           Manual Input
                         </Button>
+                      </div>
+                      <div className='flex'>
                         <Button
-                          variant="ghost"
-                          className="text-gray-700 hover:text-gray-900"
+                          variant="outline"
+                          onClick={() => {
+                            const newRecipient = {
+                              id: Date.now(),
+                              name: '',
+                              phoneNumber: ''
+                            }
+                            setRecipients([...recipients, newRecipient])
+                          }}
+                          className="px-4 py-3 rounded-lg  border-gray-300 text-gray-900 hover:bg-gray-50 text-sm font-medium"
                         >
-                          <Download className="h-4 w-4 mr-2" />
-                          Download Sample File
+                          <Plus className="h-4 w-4 mr-2" />
+                          Add Recipient
                         </Button>
                       </div>
                     </div>
 
                     {/* File Upload Area */}
-                    <div className="mb-6">
-                      <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-                        <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                        <h3 className="text-lg font-bold text-gray-900 mb-2">Upload recipient file</h3>
-                        <p className="text-gray-600 mb-4">Drag and drop your CSV or Excel file here, or click to browse</p>
-                        <Button
-                          variant="outline"
-                          className="border-gray-300 text-gray-700 hover:bg-gray-50"
-                        >
-                          Choose File
-                        </Button>
-                        <p className="text-sm text-gray-500 mt-2">csv, .xlsx (max 25MB)</p>
-                      </div>
-                    </div>
+                    {uploadMethod === 'file-upload' && (
+                      <>
+                        <div className="mb-6">
+                          <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                            <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                            <h3 className="text-lg font-bold text-gray-900 mb-2">Upload recipient file</h3>
+                            <p className="text-gray-600 mb-4">Drag and drop your CSV or Excel file here, or click to browse</p>
+                            <Button
+                              variant="outline"
+                              className="border-gray-300 text-gray-700 hover:bg-gray-50"
+                            >
+                              Choose File
+                            </Button>
+                            <p className="text-sm text-gray-500 mt-2">csv, .xlsx (max 25MB)</p>
+                          </div>
+                        </div>
 
-                    {/* Template Information */}
-                    <div className="mb-8">
-                      <p className="text-gray-700">Template includes: name, phone_number</p>
-                    </div>
+                        {/* Template Information */}
+                        <div className="mb-8">
+                          <p className="text-gray-700">Template includes: name, phone_number</p>
+                        </div>
+                      </>
+                    )}
+
+                    {/* Manual Input Area */}
+                    {uploadMethod === 'manual-input' && (
+                      <>
+                        {/* Manual Input Fields */}
+                        <div className="mb-6">
+                          {recipients.map((recipient, index) => (
+                            <div key={recipient.id} className="flex items-end space-x-4 mb-4">
+                              <div className="flex-1">
+                                <label className="block text-sm font-medium text-gray-900 mb-2">
+                                  Name
+                                </label>
+                                <Input
+                                  placeholder="Enter Name"
+                                  value={recipient.name}
+                                  onChange={(e) => {
+                                    const newRecipients = [...recipients]
+                                    newRecipients[index].name = e.target.value
+                                    setRecipients(newRecipients)
+                                  }}
+                                  className="w-full bg-white border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF] rounded-lg"
+                                />
+                              </div>
+                              <div className="flex-1">
+                                <label className="block text-sm font-medium text-gray-900 mb-2">
+                                  Phone Number
+                                </label>
+                                <Input
+                                  placeholder="Enter number"
+                                  value={recipient.phoneNumber}
+                                  onChange={(e) => {
+                                    const newRecipients = [...recipients]
+                                    newRecipients[index].phoneNumber = e.target.value
+                                    setRecipients(newRecipients)
+                                  }}
+                                  className="w-full bg-white border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF] rounded-lg"
+                                />
+                              </div>
+                              {recipients.length > 1 && (
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  onClick={() => {
+                                    const newRecipients = recipients.filter((_, i) => i !== index)
+                                    setRecipients(newRecipients)
+                                  }}
+                                  className="text-red-500 hover:text-red-700 hover:bg-red-50 h-10 w-10"
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Summary Section */}
+                        <div className="mb-8">
+                          <div className="bg-[#EDEDFF] rounded-lg p-4">
+                            <h3 className="text-sm font-bold text-gray-900 mb-2">Summary</h3>
+                            <div className="flex space-x-6 text-sm text-gray-900">
+                              <span>Recipient Count: {recipients.length}</span>
+                              <span>Input Method: Manual</span>
+                              <span>Status: Draft</span>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </>
                 )}
 
@@ -802,21 +887,21 @@ export default function CampaignsPage() {
                     <Button
                       variant="outline"
                       onClick={() => setCampaignStep(campaignStep - 1)}
-                      className="bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
+                      className="px-6 py-2 rounded-lg bg-white border-gray-300 text-gray-900 hover:bg-gray-50"
                     >
                       Back
                     </Button>
                   )}
                   <Button
                     variant="outline"
-                    className="bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
+                    className="px-6 py-2 rounded-lg bg-white border-gray-300 text-gray-900 hover:bg-gray-50"
                   >
                     Cancel
                   </Button>
                   {campaignStep < 3 && (
-                    <Button 
+                    <Button
                       onClick={() => setCampaignStep(campaignStep + 1)}
-                      className="bg-[#4A48FF] hover:bg-[#3a38ef] text-white"
+                      className="px-6 py-2 rounded-lg bg-[#4A48FF] hover:bg-[#3a38ef] text-white"
                     >
                       Next
                     </Button>
