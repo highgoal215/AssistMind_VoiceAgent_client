@@ -33,6 +33,7 @@ import { Badge } from '@/components/ui/badge'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import DashboardSidebar from '../../components/dashboard/DashboardSidebar'
 import Image from 'next/image'
+import Link from 'next/link'
 export default function MessagesPage() {
   const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
@@ -424,9 +425,11 @@ export default function MessagesPage() {
                         </p>
 
                         {/* View Button */}
-                        <Button variant="outline" size="icon" className="h-8 w-8 border-gray-300 hover:bg-gray-50 flex-shrink-0">
-                          <Eye className="h-4 w-4 text-gray-600" />
-                        </Button>
+                        <Link href="/messages/1">
+                          <Button variant="outline" size="icon" className="h-8 w-8 border-gray-300 hover:bg-gray-50 flex-shrink-0">
+                            <Eye className="h-4 w-4 text-gray-600" />
+                          </Button>
+                        </Link>
                       </div>
                     </div>
                   </div>
