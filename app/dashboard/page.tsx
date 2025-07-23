@@ -12,7 +12,8 @@ import {
   Clock,
   CheckCircle,
   XCircle,
-  MessageSquare
+  MessageSquare,
+  Menu
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -30,6 +31,20 @@ export default function DashboardPage() {
   const [timeRange, setTimeRange] = React.useState('7days')
   const [callVolumeView, setCallVolumeView] = React.useState('weekly')
   const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
+
+  // Handle body scroll when mobile menu is open
+  React.useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.classList.add('mobile-menu-open')
+    } else {
+      document.body.classList.remove('mobile-menu-open')
+    }
+
+    return () => {
+      document.body.classList.remove('mobile-menu-open')
+    }
+  }, [isMobileMenuOpen])
 
   const callRecords = [
     {
@@ -80,28 +95,45 @@ export default function DashboardPage() {
       <DashboardSidebar
         isCollapsed={sidebarCollapsed}
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+        isMobileOpen={isMobileMenuOpen}
+        onMobileClose={() => setIsMobileMenuOpen(false)}
       />
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden lg:ml-0">
         {/* Header */}
-        <header className="bg-white border-b border-gray-200 px-6 py-4">
+        <header className="bg-white border-b border-gray-200 px-4 lg:px-6 py-4 border">
           <div className="flex items-center justify-between">
-            <div className="flex items-center ">
-              <Search className=" relative left-8 top-1/2 transform -translate-y-1/ text-gray-400 h-4 w-4" />
-              <Input
-                placeholder="Search"
-                className="pl-10 w-64 bg-gray-100 border-gray-200"
-              />
+            {/* Mobile Menu Button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="lg:hidden mr-2"
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
+
+            {/* Search Bar */}
+            <div className="flex items-center flex-1 max-w-sm lg:max-w-md">
+              <div className="relative w-full">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Input
+                  placeholder="Search"
+                  className="pl-10 w-full bg-gray-100 border-gray-200 text-sm"
+                />
+              </div>
             </div>
 
-            <div className="flex items-center space-x-4">
-
-              <Button variant="outline" className="bg-gray-100 border-gray-200 text-gray-900 hover:bg-gray-200">
+            {/* Right Side Actions */}
+            <div className="flex items-center space-x-2 lg:space-x-4">
+              {/* Dark Mode Button - Hidden on mobile */}
+              <Button variant="outline" className="hidden lg:flex bg-gray-100 border-gray-200 text-gray-900 hover:bg-gray-200">
                 <Moon className="h-4 w-4 mr-2" />
                 Dark
               </Button>
 
+              {/* Notifications */}
               <Button variant="ghost" size="icon" className="relative">
                 <Bell className="h-5 w-5" />
                 <span className="absolute -top-1 -right-1 h-5 w-5 bg-blue-500 text-white text-xs rounded-full flex items-center justify-center font-manrope">
@@ -109,25 +141,26 @@ export default function DashboardPage() {
                 </span>
               </Button>
 
+              {/* User Profile */}
               <div className="flex items-center space-x-2">
                 <Avatar className="h-8 w-8">
                   <AvatarImage src="/images/user-profile.jpg" />
                   <AvatarFallback>U</AvatarFallback>
                 </Avatar>
-                <ChevronDown className="h-4 w-4 text-gray-600" />
+                <ChevronDown className="h-4 w-4 text-gray-600 hidden lg:block" />
               </div>
             </div>
           </div>
         </header>
 
         {/* Dashboard Content */}
-        <main className="flex-1 overflow-auto p-6">
+        <main className="flex-1 overflow-auto p-4 lg:p-6">
           <div className="space-y-6">
             {/* Analytics Dashboard Header */}
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
               <h2 className="text-2xl font-bold text-gray-900">Analytics Dashboard</h2>
 
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2 ">
                 <Select value={timeRange} onValueChange={setTimeRange}>
                   <SelectTrigger className="h-9 px-3 bg-white border-gray-200 text-sm">
                     <SelectValue />
@@ -148,8 +181,9 @@ export default function DashboardPage() {
                 </Button>
               </div>
             </div>
+
             {/* Analytics Overview */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
               <Card>
                 <CardHeader className="pb-2 relative">
                   <div className="flex items-center justify-between">
@@ -185,7 +219,7 @@ export default function DashboardPage() {
                 <CardContent>
                   <div>
                     <div className="text-2xl font-bold text-gray-900">145</div>
-                    <div className="text-sm text-gray-500">voice interactions</div>
+                    <div className="text-sm text-gray-500">Voice interactions (inbound + outbound)</div>
                   </div>
                 </CardContent>
               </Card>
@@ -205,7 +239,7 @@ export default function DashboardPage() {
                 <CardContent>
                   <div>
                     <div className="text-2xl font-bold text-gray-900">96.8%</div>
-                    <div className="text-sm text-gray-500">calls successfully answered</div>
+                    <div className="text-sm text-gray-500">% of calls successfully answered</div>
                   </div>
                 </CardContent>
               </Card>
@@ -214,9 +248,9 @@ export default function DashboardPage() {
                 <CardHeader className="pb-2 relative">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-sm font-manrope text-gray-600">Booking Rate</CardTitle>
-                    <div className="flex items-center space-x-1 bg-green-100 text-green-600 px-2 py-1 rounded-full text-sm font-manrope">
-                      <span>+2.3%</span>
-                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                    <div className="flex items-center space-x-1 bg-red-100 text-red-600 px-2 py-1 rounded-full text-sm font-manrope">
+                      <span>-2.3%</span>
+                      <svg className="w-3 h-3 transform rotate-180" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                       </svg>
                     </div>
@@ -225,13 +259,11 @@ export default function DashboardPage() {
                 <CardContent>
                   <div>
                     <div className="text-2xl font-bold text-gray-900">68.5%</div>
-                    <div className="text-sm text-gray-500">calls successfully answered</div>
+                    <div className="text-sm text-gray-500">% of calls successfully answered</div>
                   </div>
                 </CardContent>
               </Card>
             </div>
-
-
 
             {/* Charts Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -239,8 +271,11 @@ export default function DashboardPage() {
                 {/* Call Volume Over Time */}
                 <Card>
                   <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-lg font-semibold">Call Volume Over Time</CardTitle>
+                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
+                      <div>
+                        <CardTitle className="text-lg font-semibold">Call Volume Over Time</CardTitle>
+                        <p className="text-sm text-gray-500">Long-term trends in call volume</p>
+                      </div>
                       <ToggleGroup type="single" value={callVolumeView} onValueChange={(value) => value && setCallVolumeView(value)} >
                         <ToggleGroupItem
                           value="weekly"
@@ -258,7 +293,6 @@ export default function DashboardPage() {
                         </ToggleGroupItem>
                       </ToggleGroup>
                     </div>
-                    <p className="text-sm text-gray-500">Long-term trends in call volume</p>
                   </CardHeader>
                   <CardContent>
                     <CallVolumeChart timeRange={timeRange} />
@@ -297,7 +331,7 @@ export default function DashboardPage() {
               {/* Call Records */}
               <Card className='flex flex-col'>
                 <CardHeader>
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
                     <div>
                       <CardTitle className="text-lg font-semibold">Call Records</CardTitle>
                       <p className="text-sm text-gray-500">Latest call interactions</p>
@@ -314,7 +348,7 @@ export default function DashboardPage() {
                           <th className="text-left py-3 px-4 text-xs font-semibold text-gray-700 uppercase tracking-wider">DATE & TIME</th>
                           <th className="text-left py-3 px-4 text-xs font-semibold text-gray-700 uppercase tracking-wider">DURATION</th>
                           <th className="text-left py-3 px-4 text-xs font-semibold text-gray-700 uppercase tracking-wider">STATUS</th>
-                          <th className="text-left py-3 px-4 text-xs font-semibold text-gray-700 uppercase tracking-wider">STATUS</th>
+                          <th className="text-left py-3 px-4 text-xs font-semibold text-gray-700 uppercase tracking-wider">RESULT</th>
                         </tr>
                       </thead>
                       <tbody className="bg-white divide-y divide-gray-200">

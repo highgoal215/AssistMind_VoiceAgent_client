@@ -42,22 +42,46 @@ const navigationItems = [
 interface DashboardSidebarProps {
   isCollapsed: boolean
   onToggle: () => void
+  isMobileOpen?: boolean
+  onMobileClose?: () => void
 }
 
-export default function DashboardSidebar({ isCollapsed, onToggle }: DashboardSidebarProps) {
+export default function DashboardSidebar({ 
+  isCollapsed, 
+  onToggle, 
+  isMobileOpen = false, 
+  onMobileClose 
+}: DashboardSidebarProps) {
   const pathname = usePathname()
 
   return (
     <TooltipProvider>
+      {/* Mobile Overlay */}
+      {isMobileOpen && (
+        <div 
+          className="fixed inset-0 bg-[#FFFFFF]  bg-opacity-50 z-40 lg:hidden"
+          onClick={onMobileClose}
+        />
+      )}
+      
+      {/* Sidebar */}
       <div className={cn(
-        "bg-white border-r border-gray-200 flex flex-col h-full transition-all duration-300 hidden lg:flex",
-        isCollapsed ? "w-16" : "w-64"
+        "bg-[#FFFFFF] flex flex-col h-full transition-all duration-300 fixed lg:relative z-50",
+        isCollapsed ? "w-16" : "w-64",
+        isMobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
       )}>
         {/* Logo Section */}
-        <div className="p-[20px] border-b border-gray-200 ">
+        <div className="p-[20px] border-b border-l border-gray-200 ">
+          {!isCollapsed}
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2 ">
-              {!isCollapsed && <Image src="/images/logo2.svg" alt="AssistMind AI" width={30} height={30} className='w-full h-full' />}
+            <div className="flex items-center space-x-2">
+              {!isCollapsed ? (
+                <div className="flex items-center space-x-2">
+                  <Image src="/images/logo2.svg" alt="AssistMind AI" width={30} height={30} className='w-full h-full' />
+                </div>
+              ) : (
+                <Image src="/images/logo2.svg" alt="AssistMind AI" width={30} height={30} className='w-8 h-8' />
+              )}
             </div>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -65,7 +89,7 @@ export default function DashboardSidebar({ isCollapsed, onToggle }: DashboardSid
                   variant="ghost"
                   size="icon"
                   onClick={onToggle}
-                  className="h-8 w-8"
+                  className="h-8 w-8 text-white hover:bg-gray-800"
                 >
                   {isCollapsed ? <PanelLeft className="h-5 w-5" /> : <PanelLeftClose className="h-4 w-4" />}
                 </Button>
@@ -83,7 +107,7 @@ export default function DashboardSidebar({ isCollapsed, onToggle }: DashboardSid
           isCollapsed ? "px-2" : "px-4"
         )}>
           <div className="mb-4">
-            {!isCollapsed && <h3 className="text-sm font-manrope text-gray-500 uppercase tracking-wider">Menu</h3>}
+            {!isCollapsed && <h3 className="text-sm font-manrope text-gray-400 uppercase tracking-wider">Menu</h3>}
           </div>
           <ul className="space-y-2">
             {navigationItems.map((item) => {
@@ -94,17 +118,18 @@ export default function DashboardSidebar({ isCollapsed, onToggle }: DashboardSid
                     <TooltipTrigger asChild>
                       <Link
                         href={item.href}
+                        onClick={onMobileClose}
                         className={cn(
                           "flex items-center space-x-3 rounded-lg text-sm font-manrope transition-colors",
                           isCollapsed ? "px-2 py-3 justify-center" : "px-3 py-2",
                           isActive
                             ? "bg-[#4A48FF] text-white"
-                            : "text-gray-700 hover:bg-gray-100"
+                            : "text-gray-800 hover:bg-[#4A48FF] hover:text-black font-manrope font-bold"
                         )}
                       >
                         <item.icon className={cn(
                           isCollapsed ? "w-5 h-5" : "w-4 h-4",
-                          isActive ? "text-white" : "text-gray-700"
+                          isActive ? "text-white" : "text-gray-400"
                         )} />
                         {!isCollapsed && <span>{item.name}</span>}
                       </Link>
