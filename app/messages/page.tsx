@@ -189,14 +189,23 @@ export default function MessagesPage() {
                         {/* Type Filter */}
                         <Popover open={activeFilter === 'type'} onOpenChange={(open) => setActiveFilter(open ? 'type' : null)}>
                           <PopoverTrigger asChild>
-                            <div className={`flex items-center justify-between p-3 rounded-lg cursor-pointer transition-colors ${
-                              activeFilter === 'type' ? 'border border-purple-300 bg-purple-50' : 'hover:bg-gray-50'
-                            }`}>
+                            <div 
+                              className={`flex items-center justify-between p-3 rounded-lg cursor-pointer transition-colors ${
+                                activeFilter === 'type' ? 'border border-purple-300 bg-purple-50' : 'hover:bg-gray-50'
+                              }`}
+                              onMouseEnter={() => setActiveFilter('type')}
+                              onMouseLeave={() => setActiveFilter(null)}
+                            >
                               <span className="font-medium text-gray-900">Type</span>
                               <ChevronDown className="h-4 w-4 text-gray-400" />
                             </div>
                           </PopoverTrigger>
-                          <PopoverContent className="w-48 p-0" align="start">
+                          <PopoverContent 
+                            className="w-48 p-0" 
+                            align="start"
+                            onMouseEnter={() => setActiveFilter('type')}
+                            onMouseLeave={() => setActiveFilter(null)}
+                          >
                             <div className="p-2">
                               {['Appointment', 'Inquiry', 'Missed'].map((type) => (
                                 <div
