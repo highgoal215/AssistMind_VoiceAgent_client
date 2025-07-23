@@ -4,37 +4,56 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Menu, Search, Moon, Bell, ChevronDown } from 'lucide-react'
-import { useState } from 'react'
+import { usePathname } from 'next/navigation'
+import { cn } from '@/lib/utils'
+import Image from 'next/image'
 
 interface HeaderProps {
   onMobileMenuToggle?: () => void
 }
 
 export default function Header({ onMobileMenuToggle }: HeaderProps) {
+    const pathname = usePathname()
+    
+    // Pages that should show search input
+    const pagesWithSearch = ['/dashboard', '/ai-agent']
+    const shouldShowSearch = pagesWithSearch.includes(pathname)
+    
     return (
         <>
         {/* Header */}
         <header className="bg-white border-gray-200 px-4 lg:px-6 py-4 border">
           <div className="flex items-center justify-between">
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - Always on left */}
             <Button
               variant="ghost"
               size="icon"
               onClick={onMobileMenuToggle}
               className="lg:hidden mr-2"
             >
-              <Menu className="h-5 w-5" />
+              <Image 
+                src="/images/dashboard/menu-button.svg" 
+                alt="Toggle menu"
+                width={20}
+                height={20}
+                className="filter brightness-0"
+              />
             </Button>
 
-            {/* Search Bar */}
-            <div className="flex items-center flex-1 max-w-sm lg:max-w-md">
-              <div className="relative w-1/2  rounded-lg">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 " />
-                <Input
-                  placeholder="Search"
-                  className="pl-10 w-full bg-gray-100 border-gray-200 text-sm"
-                />
-              </div>
+            {/* Center Content */}
+            <div className="flex items-center flex-1 justify-center lg:justify-start">
+              {/* Search Bar - Only show on Dashboard and AI Agent pages */}
+              {shouldShowSearch && (
+                <div className="flex items-center max-w-sm lg:max-w-md">
+                  <div className="relative w-full rounded-lg">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 " />
+                    <Input
+                      placeholder="Search"
+                      className="pl-10 w-full bg-gray-100 border-gray-200 text-sm"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Right Side Actions */}
