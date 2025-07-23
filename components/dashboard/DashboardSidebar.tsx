@@ -73,7 +73,7 @@ export default function DashboardSidebar({
         {/* Logo Section */}
         <div className="p-[20px] border-b border-l border-gray-200 ">
           {!isCollapsed}
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-1">
             <div className="flex items-center space-x-2">
               {!isCollapsed ? (
                 <div className="flex items-center space-x-2">
@@ -89,7 +89,7 @@ export default function DashboardSidebar({
                   variant="ghost"
                   size="icon"
                   onClick={onToggle}
-                  className="h-8 w-8 text-white hover:bg-gray-800"
+                  className="h-8 w-8 text-black"
                 >
                   {isCollapsed ? <PanelLeft className="h-5 w-5" /> : <PanelLeftClose className="h-4 w-4" />}
                 </Button>
