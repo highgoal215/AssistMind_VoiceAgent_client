@@ -71,51 +71,54 @@ export default function AIAgentPage() {
 
         {/* AI Agent Content */}
         <main className="flex-1 overflow-auto p-4 lg:p-6">
-          <div className="mx-auto max-w-6xl">
+          <div className="mx-auto ">
             {/* Main White Card */}
             <Card className="bg-white shadow-sm">
               <CardContent className="p-6 lg:p-8">
                 {/* Header Section */}
-                <div className="mb-8">
+                <div className=" flex flex-col ">
                   {/* Title */}
                   <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-6">
                     Let's Finalize Your Agent Setup!
                   </h1>
 
                   {/* Progress Steps */}
-                  <div className="flex justify-between items-center shadow-lg border border-gray-200">
-                    <div className="flex items-center  ">
-                      {/* Step 1 */}
-                      <div className="relative">
-                        <div className={`w-12 h-12 ${agentprofileStep >= 1 ? 'bg-[#EDEDFF]' : 'bg-gray-50'} rounded-full flex items-center justify-center`}>
-                          <div className={`w-10 h-10 ${agentprofileStep >= 1 ? 'bg-[#4A48FF] text-white' : 'bg-gray-200 text-gray-500'} rounded-full flex items-center justify-center text-sm font-bold`}>
-                            1
+                  <div className="w-full">
+                    <div className="w-full bg-white rounded-lg shadow-lg border border-gray-200 p-6">
+                      <div className="relative flex items-center justify-between">
+                        {/* Step 1 */}
+                        <div className="flex flex-col items-center border border-red-500">
+                          <div className={`w-12 h-12 ${agentprofileStep >= 1 ? 'bg-[#EDEDFF]' : 'bg-gray-50'} rounded-full flex items-center justify-center mb-2`}>
+                            <div className={`w-10 h-10 ${agentprofileStep >= 1 ? 'bg-[#4A48FF] text-white' : 'bg-gray-200 text-gray-500'} rounded-full flex items-center justify-center text-sm font-bold`}>
+                              1
+                            </div>
                           </div>
+                          <span className="text-sm font-medium text-gray-900">Agent Profile</span>
                         </div>
-                      </div>
 
-                      {/* Connecting Line */}
-                      <div className="w-16 h-0.5 bg-gray-200 mx-2"></div>
-
-                      {/* Step 2 */}
-                      <div className="relative">
-                        <div className={`w-12 h-12 ${agentprofileStep >= 2 ? 'bg-[#EDEDFF]' : 'bg-gray-50'} rounded-full flex items-center justify-center`}>
-                          <div className={`w-10 h-10 ${agentprofileStep >= 2 ? 'bg-[#4A48FF] text-white' : 'bg-gray-200 text-gray-500'} rounded-full flex items-center justify-center text-sm font-bold`}>
-                            2
+                        {/* Step 2 */}
+                        <div className="flex flex-col items-center">
+                          <div className={`w-12 h-12 ${agentprofileStep >= 2 ? 'bg-[#EDEDFF]' : 'bg-gray-50'} rounded-full flex items-center justify-center mb-2`}>
+                            <div className={`w-10 h-10 ${agentprofileStep >= 2 ? 'bg-[#4A48FF] text-white' : 'bg-gray-200 text-gray-500'} rounded-full flex items-center justify-center text-sm font-bold`}>
+                              2
+                            </div>
                           </div>
+                          <span className="text-sm font-medium text-gray-900">Business Details</span>
                         </div>
-                      </div>
 
-                      {/* Connecting Line */}
-                      <div className="w-16 h-0.5 bg-gray-200 mx-2"></div>
-
-                      {/* Step 3 */}
-                      <div className="relative">
-                        <div className={`w-12 h-12 ${agentprofileStep >= 3 ? 'bg-[#EDEDFF]' : 'bg-gray-50'} rounded-full flex items-center justify-center`}>
-                          <div className={`w-10 h-10 ${agentprofileStep >= 3 ? 'bg-[#4A48FF] text-white' : 'bg-gray-200 text-gray-500'} rounded-full flex items-center justify-center text-sm font-bold`}>
-                            3
+                        {/* Step 3 */}
+                        <div className="flex flex-col items-center">
+                          <div className={`w-12 h-12 ${agentprofileStep >= 3 ? 'bg-[#EDEDFF]' : 'bg-gray-50'} rounded-full flex items-center justify-center mb-2`}>
+                            <div className={`w-10 h-10 ${agentprofileStep >= 3 ? 'bg-[#4A48FF] text-white' : 'bg-gray-200 text-gray-500'} rounded-full flex items-center justify-center text-sm font-bold`}>
+                              3
+                            </div>
                           </div>
+                          <span className="text-sm font-medium text-gray-900">Final Review & Launch</span>
                         </div>
+
+                        {/* Connecting Lines - Positioned absolutely */}
+                        <div className="absolute top-6 left-1/3 w-1/6 h-0.5 bg-gray-200"></div>
+                        <div className="absolute top-6 right-1/3 w-1/6 h-0.5 bg-gray-200"></div>
                       </div>
                     </div>
                   </div>
