@@ -168,7 +168,7 @@ export default function MeetAgentPage() {
                               className="w-16 h-16 rounded-lg object-cover"
                             />
                             <div className="flex-1 min-w-0">
-                              <h3 className="font-medium text-gray-900 text-sm mb-1 lg:mb-0 lg:mt-0 font-manrope">{business.name}</h3>
+                              <h3 className="font-manrope text-gray-900 text-sm mb-1 lg:mb-0 lg:mt-0 font-manrope">{business.name}</h3>
                               <p className="text-xs text-gray-500 mb-2 lg:mb-1 lg:mt-1 font-manrope">{business.address}</p>
                               <div className="flex items-center space-x-4 mb-2 lg:mb-0 lg:mt-2">
                                 <div className="flex items-center">
@@ -200,7 +200,7 @@ export default function MeetAgentPage() {
 
               {/* Manual Entry Link */}
               <div className="text-start pt-[10px] lg:pt-[10px]">
-                <button onClick={handleManualEntry} className="text-sm font-medium font-manrope">
+                <button onClick={handleManualEntry} className="text-sm font-manrope font-manrope">
                   <span className="text-black">Can't find your business? </span>
                   <span className="text-blue-600 hover:text-blue-700">Enter it manually instead</span>
                 </button>
@@ -210,7 +210,7 @@ export default function MeetAgentPage() {
               <div className="flex justify-center items-center w-full pt-[40px] lg:pt-[40px]">
                 <Button
                   onClick={handleNext}
-                  className="w-full lg:w-[193px] h-12 lg:h-[56px] bg-blue-600 hover:bg-blue-700 text-white py-3 lg:py-0 rounded-lg lg:rounded-none text-base font-medium font-manrope"
+                  className="w-full lg:w-[193px] h-12 lg:h-[56px] bg-blue-600 hover:bg-blue-700 text-white py-3 lg:py-0 rounded-lg lg:rounded-none text-base font-manrope font-manrope"
                   disabled={!agentName || !businessSearch}
                 >
                   Next

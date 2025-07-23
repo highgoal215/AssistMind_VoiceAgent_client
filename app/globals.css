@@ -6,6 +6,11 @@ body {
   font-family: 'Manrope', 'var(--font-manrope)', Arial, Helvetica, sans-serif;
 }
 
+/* Mobile menu styles */
+body.mobile-menu-open {
+  overflow: hidden;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

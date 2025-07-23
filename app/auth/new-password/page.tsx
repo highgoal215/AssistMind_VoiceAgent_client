@@ -28,18 +28,18 @@ export default function NewPasswordPage() {
   return (
     <GradientBackground>
       <div className="flex items-center justify-center">
-              <div className="flex items-center lg:hidden">
-                <Image
-                  src="/images/logo2.svg"
-                  alt="logo"
-                  width={100}
-                  height={100}
-                  className="w-full h-full"
-                />
-              </div>
-            </div>
+        <div className="flex items-center lg:hidden">
+          <Image
+            src="/images/logo2.svg"
+            alt="logo"
+            width={100}
+            height={100}
+            className="w-full h-full"
+          />
+        </div>
+      </div>
       <div className="flex-1 flex flex-col justify-start h-full p-6 lg:px-12 lg:py-8">
-        
+
         <div className="w-full">
           <div className="mb-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-2">Choose a new password</h2>
@@ -48,7 +48,7 @@ export default function NewPasswordPage() {
 
           <div className="space-y-6">
             <div>
-              <Label htmlFor="password" className="text-sm font-medium text-gray-700 mb-2 block">
+              <Label htmlFor="password" className="text-sm font-manrope text-gray-700 mb-2 block">
                 Choose a new Password
               </Label>
               <div className="relative">
@@ -71,7 +71,7 @@ export default function NewPasswordPage() {
             </div>
 
             <div>
-              <Label htmlFor="confirm-password" className="text-sm font-medium text-gray-700 mb-2 block">
+              <Label htmlFor="confirm-password" className="text-sm font-manrope text-gray-700 mb-2 block">
                 Confirm Password
               </Label>
               <div className="relative">

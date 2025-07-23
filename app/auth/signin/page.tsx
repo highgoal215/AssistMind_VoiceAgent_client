@@ -61,7 +61,7 @@ export default function SignInPage() {
               </div>
 
               <div>
-                <Label htmlFor="email" className="text-sm font-medium text-gray-700 mb-2 block font-manrope">
+                <Label htmlFor="email" className="text-sm font-manrope text-gray-700 mb-2 block font-manrope">
                   Email address
                 </Label>
                 <Input
@@ -75,7 +75,7 @@ export default function SignInPage() {
               </div>
 
               <div>
-                <Label htmlFor="password" className="text-sm font-medium text-gray-700 mb-2 block font-manrope">
+                <Label htmlFor="password" className="text-sm font-manrope text-gray-700 mb-2 block font-manrope">
                   Password
                 </Label>
                 <div className="relative">
@@ -108,14 +108,14 @@ export default function SignInPage() {
                     Remember me
                   </Label>
                 </div>
-                <button onClick={handleForgotPassword} className="text-sm text-blue-600 hover:text-blue-700 font-medium font-manrope">
+                <button onClick={handleForgotPassword} className="text-sm text-blue-600 hover:text-blue-700 font-manrope font-manrope">
                   Forget Password
                 </button>
               </div>
 
               <Button
                 onClick={handleSignIn}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 h-12 rounded-lg text-base font-medium font-manrope"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 h-12 rounded-lg text-base font-manrope font-manrope"
                 disabled={!email || !password}
               >
                 Signin
@@ -133,7 +133,7 @@ export default function SignInPage() {
               <Button
                 onClick={handleGoogleSignIn}
                 variant="outline"
-                className="w-full py-3 h-12 rounded-lg text-base font-medium bg-white border border-gray-300 flex items-center justify-center space-x-2 font-manrope"
+                className="w-full py-3 h-12 rounded-lg text-base font-manrope bg-white border border-gray-300 flex items-center justify-center space-x-2 font-manrope"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path
@@ -158,7 +158,7 @@ export default function SignInPage() {
 
               <div className="text-center">
                 <span className="text-gray-600 font-manrope">Don't have an Account? </span>
-                <button onClick={handleSignUp} className="text-blue-600 hover:text-blue-700 font-medium font-manrope">
+                <button onClick={handleSignUp} className="text-blue-600 hover:text-blue-700 font-manrope font-manrope">
                   Sign Up
                 </button>
               </div>
@@ -177,7 +177,7 @@ export default function SignInPage() {
                 </div>
                 <div className="space-y-6">
                   <div className="flex flex-col gap-4">
-                    <Label htmlFor="email-desktop" className="text-sm font-medium text-gray-700 mb-2 block font-manrope">
+                    <Label htmlFor="email-desktop" className="text-sm font-manrope text-gray-700 mb-2 block font-manrope">
                       Email Address
                     </Label>
                     <Input
@@ -191,7 +191,7 @@ export default function SignInPage() {
                   </div>
 
                   <div className="flex flex-col gap-4">
-                    <Label htmlFor="password-desktop" className="text-sm font-medium text-gray-700 mb-2 block font-manrope">
+                    <Label htmlFor="password-desktop" className="text-sm font-manrope text-gray-700 mb-2 block font-manrope">
                       Password
                     </Label>
                     <div className="relative">
@@ -226,7 +226,7 @@ export default function SignInPage() {
                     </div>
                     <button
                       onClick={handleForgotPassword}
-                      className="text-sm text-blue-600 hover:text-blue-700 font-medium font-manrope"
+                      className="text-sm text-blue-600 hover:text-blue-700 font-manrope font-manrope"
                     >
                       Forget Password
                     </button>
@@ -277,7 +277,7 @@ export default function SignInPage() {
 
                   <div className="text-center">
                     <span className="text-gray-600 font-manrope">Don't have an Account? </span>
-                    <button onClick={handleSignUp} className="text-blue-600 hover:text-blue-700 font-medium font-manrope">
+                    <button onClick={handleSignUp} className="text-blue-600 hover:text-blue-700 font-manrope font-manrope">
                       Sign Up
                     </button>
                   </div>

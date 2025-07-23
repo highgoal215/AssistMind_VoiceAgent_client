@@ -9,7 +9,7 @@ const manrope = Manrope({
 })
 
 export const metadata: Metadata = {
-  title: "AssistMind AI - Sign In",
+  title: "AssistMind AI",
   description: "Sign in to your AssistMind AI account - Never miss a call, never lose a lead",
   generator: "Next.js",
 }

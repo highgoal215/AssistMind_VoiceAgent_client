@@ -43,7 +43,7 @@ export default function PasswordUpdatedPage() {
 
         <Button
           onClick={handleSignIn}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 text-lg font-medium"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 text-lg font-manrope"
         >
           Sign in
         </Button>

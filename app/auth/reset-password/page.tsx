@@ -40,7 +40,7 @@ export default function ResetPasswordPage() {
 
           <div className="space-y-6">
             <div>
-              <Label htmlFor="email" className="text-sm font-medium text-gray-700 mb-2 block">
+              <Label htmlFor="email" className="text-sm font-manrope text-gray-700 mb-2 block">
                 Email Address
               </Label>
               <Input

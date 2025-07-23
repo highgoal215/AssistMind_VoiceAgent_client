@@ -63,7 +63,7 @@ export default function VerifyEmailPage() {
 
             <div className="text-center">
               <span className="text-gray-600">Didn't receive your code? </span>
-              <button onClick={handleResendCode} className="text-blue-600 hover:text-blue-700 font-medium">
+              <button onClick={handleResendCode} className="text-blue-600 hover:text-blue-700 font-manrope">
                 Resend code
               </button>
             </div>

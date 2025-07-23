@@ -93,7 +93,7 @@ const CallIntentChart = () => {
               className="w-3 h-3 rounded-full"
               style={{ backgroundColor: item.color }}
             />
-            <span className="text-gray-700 font-medium">{item.name}</span>
+            <span className="text-gray-700 font-manrope">{item.name}</span>
           </div>
         ))}
       </div>

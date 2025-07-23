@@ -59,9 +59,9 @@ export default function ActivatePlanPage() {
         {/* Mobile Header - Only visible on mobile */}
         <div className="lg:hidden flex items-center justify-center mb-8 px-6 pt-12">
           <div className="flex items-center pb-[44px]">
-            <Image 
-              src="/images/logo2.svg" 
-              alt="logo" 
+            <Image
+              src="/images/logo2.svg"
+              alt="logo"
               width={100}
               height={100}
               className="w-full h-full"
@@ -86,7 +86,7 @@ export default function ActivatePlanPage() {
                 {/* Basic Plan */}
                 <div className="relative bg-white rounded-2xl border border-gray-200 p-6 lg:px-6 lg:py-2">
                   <div className="absolute top-6 right-6">
-                    <span className="bg-blue-100 text-blue-600 text-sm font-medium px-3 py-1 rounded-full font-manrope">Popular</span>
+                    <span className="bg-blue-100 text-blue-600 text-sm font-manrope px-3 py-1 rounded-full font-manrope">Popular</span>
                   </div>
 
                   <div className="mb-6">
@@ -107,7 +107,7 @@ export default function ActivatePlanPage() {
                 {/* Business Plan */}
                 <div className="relative bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-6 lg:px-6 lg:py-2 text-white">
                   <div className="absolute top-6 right-6">
-                    <span className="bg-white text-blue-600 text-sm font-medium px-3 py-1 rounded-full font-manrope">Most popular</span>
+                    <span className="bg-white text-blue-600 text-sm font-manrope px-3 py-1 rounded-full font-manrope">Most popular</span>
                   </div>
 
                   <div className="mb-6">
@@ -118,7 +118,7 @@ export default function ActivatePlanPage() {
                     </div>
                     <Button
                       onClick={() => handleGetStarted("business")}
-                      className="w-full bg-white text-blue-600 hover:bg-gray-50 py-3 h-12 rounded-xl font-medium font-manrope"
+                      className="w-full bg-white text-blue-600 hover:bg-gray-50 py-3 h-12 rounded-xl font-manrope font-manrope"
                     >
                       Get started
                     </Button>
