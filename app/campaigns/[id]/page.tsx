@@ -29,6 +29,32 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import DashboardSidebar from '../../../components/dashboard/DashboardSidebar'
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler,
+} from 'chart.js'
+import { Line, Bar } from 'react-chartjs-2'
+
+// Register Chart.js components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+)
 
 export default function CampaignDetailPage() {
   const params = useParams()
@@ -114,6 +140,159 @@ export default function CampaignDetailPage() {
       hasRecording: true
     }
   ]
+
+  const recipientsData = [
+    {
+      id: 1,
+      name: 'Jerome Bell',
+      number: '(702) 555-0122',
+      language: 'English',
+      status: 'Failed',
+      statusColor: 'bg-red-100 text-red-700'
+    },
+    {
+      id: 2,
+      name: 'Cameron Williamson',
+      number: '(229) 555-0109',
+      language: 'Hindi',
+      status: 'Completed',
+      statusColor: 'bg-green-100 text-green-700'
+    },
+    {
+      id: 3,
+      name: 'Bessie Cooper',
+      number: '(252) 555-0126',
+      language: 'Spanish',
+      status: 'Completed',
+      statusColor: 'bg-green-100 text-green-700'
+    },
+    {
+      id: 4,
+      name: 'Leslie Alexander',
+      number: '(308) 555-0121',
+      language: 'English',
+      status: 'Missed',
+      statusColor: 'bg-red-100 text-red-700'
+    },
+    {
+      id: 5,
+      name: 'Annette Black',
+      number: '(405) 555-0128',
+      language: 'Hindi',
+      status: 'Completed',
+      statusColor: 'bg-green-100 text-green-700'
+    }
+  ]
+
+  // Chart data and options
+  const timeLabels = ['9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
+  const barLabels = ['9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00']
+
+  const timeMetricsData = {
+    labels: timeLabels,
+    datasets: [
+      {
+        label: 'Success',
+        data: [32, 28, 25, 30, 22, 18, 20, 15, 12],
+        borderColor: '#1e40af',
+        backgroundColor: '#1e40af',
+        borderWidth: 2,
+        pointBackgroundColor: '#1e40af',
+        pointBorderColor: '#ffffff',
+        pointBorderWidth: 2,
+        pointRadius: 4,
+        tension: 0.1,
+      },
+      {
+        label: 'Failed',
+        data: [8, 12, 10, 15, 6, 4, 7, 5, 3],
+        borderColor: '#a855f7',
+        backgroundColor: '#a855f7',
+        borderWidth: 2,
+        pointBackgroundColor: '#a855f7',
+        pointBorderColor: '#ffffff',
+        pointBorderWidth: 2,
+        pointRadius: 4,
+        tension: 0.1,
+      },
+    ],
+  }
+
+  const callResultsData = {
+    labels: barLabels,
+    datasets: [
+      {
+        label: 'Success',
+        data: [25, 30, 28, 35, 22, 18, 20],
+        backgroundColor: '#1e40af',
+        borderColor: '#1e40af',
+        borderWidth: 1,
+      },
+      {
+        label: 'Failed',
+        data: [8, 12, 10, 15, 6, 4, 7],
+        backgroundColor: '#a855f7',
+        borderColor: '#a855f7',
+        borderWidth: 1,
+      },
+    ],
+  }
+
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        backgroundColor: '#ffffff',
+        titleColor: '#000000',
+        bodyColor: '#000000',
+        borderColor: '#e5e7eb',
+        borderWidth: 1,
+        cornerRadius: 8,
+        displayColors: true,
+        callbacks: {
+          title: function(context: any) {
+            return context[0].label
+          },
+          label: function(context: any) {
+            const label = context.dataset.label || ''
+            const value = context.parsed.y
+            return `${label}: ${value}`
+          }
+        }
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 35,
+        grid: {
+          color: '#e5e7eb',
+          drawBorder: false,
+        },
+        ticks: {
+          color: '#6b7280',
+          font: {
+            size: 12,
+          },
+        },
+      },
+      x: {
+        grid: {
+          display: false,
+        },
+        ticks: {
+          color: '#6b7280',
+          font: {
+            size: 12,
+          },
+        },
+      },
+    },
+  }
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -344,13 +523,34 @@ export default function CampaignDetailPage() {
             {activeTab === 'recipients' && (
               <Card className="rounded-lg shadow-sm">
                 <CardHeader>
-                  <CardTitle className="text-lg font-bold">Recipients</CardTitle>
+                  <CardTitle className="text-3xl font-bold font-manrope">Call Records</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-center py-8">
-                    <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">Recipients Management</h3>
-                    <p className="text-gray-500">Manage your campaign recipients here.</p>
+                  <div className="overflow-x-auto">
+                    <table className="w-full">
+                      <thead>
+                        <tr className="border-b border-gray-200 bg-gray-50">
+                          <th className="text-left py-3 px-4 text-lg font-semibold font-manrope text-gray-700 uppercase tracking-wider">NAME</th>
+                          <th className="text-left py-3 px-4 text-lg font-semibold font-manrope text-gray-700 uppercase tracking-wider">NUMBER</th>
+                          <th className="text-left py-3 px-4 text-lg font-semibold font-manrope text-gray-700 uppercase tracking-wider">LANGUAGE</th>
+                          <th className="text-left py-3 px-4 text-lg font-semibold font-manrope text-gray-700 uppercase tracking-wider">ACTIONS</th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200">
+                        {recipientsData.map((recipient) => (
+                          <tr key={recipient.id} className="hover:bg-gray-50">
+                            <td className="py-3 px-4 text-sm text-gray-900 font-medium">{recipient.name}</td>
+                            <td className="py-3 px-4 text-sm text-gray-900">{recipient.number}</td>
+                            <td className="py-3 px-4 text-sm text-gray-900">{recipient.language}</td>
+                            <td className="py-3 px-4">
+                              <Badge className={`text-xs px-2 py-1 rounded-full ${recipient.statusColor}`}>
+                                {recipient.status}
+                              </Badge>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
                 </CardContent>
               </Card>
@@ -358,34 +558,97 @@ export default function CampaignDetailPage() {
 
             {/* Message Setup Content */}
             {activeTab === 'message-setup' && (
-              <Card className="rounded-lg shadow-sm">
-                <CardHeader>
-                  <CardTitle className="text-lg font-bold">Message Setup</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center py-8">
-                    <Phone className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">Message Configuration</h3>
-                    <p className="text-gray-500">Configure your campaign message settings here.</p>
-                  </div>
-                </CardContent>
-              </Card>
+              <div className="space-y-6">
+                {/* Campaign Setup Header */}
+                <h2 className="text-3xl font-bold font-manrope text-gray-900">Campaign Setup</h2>
+                
+                {/* Top Row - Opening Message and Timing */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Opening Message Card */}
+                  <Card className="rounded-lg shadow-sm">
+                    <CardHeader>
+                      <CardTitle className="text-lg font-bold font-manrope">Opening Message</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                        <p className="text-gray-700 font-medium">
+                          Hi {'{name}'}, this is about your upcoming appointment on {'{appointment_date}'}.
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Timing Card */}
+                  <Card className="rounded-lg shadow-sm">
+                    <CardHeader>
+                      <CardTitle className="text-lg font-bold font-manrope">Timing</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-3">
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-600 font-medium">Scheduled:</span>
+                          <span className="text-gray-900 font-semibold">Jun 25, 2025, 8:30:00 PM</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-600 font-medium">Started:</span>
+                          <span className="text-gray-900 font-semibold">Jun 25, 2025, 8:30:15 PM</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Bottom Row - Call Prompt */}
+                <Card className="rounded-lg shadow-sm">
+                  <CardHeader>
+                    <CardTitle className="text-lg font-bold font-manrope">Call Prompt</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                      <p className="text-gray-700 leading-relaxed">
+                        Be friendly and professional. Confirm appointment details. Ask about any questions they might have. Do not promise discounts or make commitments beyond appointment confirmation.
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             )}
 
             {/* Insights Content */}
             {activeTab === 'insights' && (
-              <Card className="rounded-lg shadow-sm">
-                <CardHeader>
-                  <CardTitle className="text-lg font-bold">Insights</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center py-8">
-                    <TrendingUp className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">Campaign Analytics</h3>
-                    <p className="text-gray-500">View detailed insights and analytics for this campaign.</p>
-                  </div>
-                </CardContent>
-              </Card>
+              <div className="space-y-6">
+                {/* Time Metrics Chart */}
+                <Card className="rounded-lg shadow-sm">
+                  <CardHeader>
+                    <CardTitle className="text-lg font-bold font-manrope">Time Metrics</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="h-64 bg-gray-50 rounded-lg p-4 border border-gray-200 relative">
+                      <Line data={timeMetricsData} options={chartOptions} />
+                      {/* Date label overlay */}
+                      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-gray-500 bg-gray-50 px-2">
+                        06/25
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Call Results Chart */}
+                <Card className="rounded-lg shadow-sm">
+                  <CardHeader>
+                    <CardTitle className="text-lg font-bold font-manrope">Call Results</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="h-64 bg-gray-50 rounded-lg p-4 border border-gray-200 relative">
+                      <Bar data={callResultsData} options={chartOptions} />
+                      {/* Date label overlay */}
+                      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-gray-500 bg-gray-50 px-2">
+                        06/25
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             )}
           </div>
         </main>

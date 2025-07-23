@@ -124,7 +124,7 @@ export default function DashboardSidebar({
                           isCollapsed ? "px-2 py-3 justify-center" : "px-3 py-2",
                           isActive
                             ? "bg-[#4A48FF] text-white"
-                            : "text-gray-800 hover:bg-[#4A48FF] hover:text-black font-manrope font-bold"
+                            : "text-gray-800 hover:bg-[#c0bff0] hover:text-black font-manrope font-bold"
                         )}
                       >
                         <item.icon className={cn(
