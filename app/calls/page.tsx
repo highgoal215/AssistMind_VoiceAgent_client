@@ -18,7 +18,8 @@ import {
   ArrowUpDown,
   X,
   Play,
-  Trash2
+  Trash2,
+  Menu
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -124,6 +125,7 @@ const getTypeColor = (type: string) => {
 
 export default function CallsPage() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedCallType, setSelectedCallType] = useState('All')
@@ -131,6 +133,19 @@ export default function CallsPage() {
   const [selectedDateRange, setSelectedDateRange] = useState('All')
   const [actionMenuOpen, setActionMenuOpen] = useState<string | null>(null)
   const [noteMenuOpen, setNoteMenuOpen] = useState<string | null>(null)
+
+  // Handle body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.classList.add('mobile-menu-open')
+    } else {
+      document.body.classList.remove('mobile-menu-open')
+    }
+
+    return () => {
+      document.body.classList.remove('mobile-menu-open')
+    }
+  }, [isMobileMenuOpen])
 
   const filteredCalls = mockCalls.filter(call =>
     call.caller.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -147,19 +162,45 @@ export default function CallsPage() {
       <DashboardSidebar
         isCollapsed={sidebarCollapsed}
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+        isMobileOpen={isMobileMenuOpen}
+        onMobileClose={() => setIsMobileMenuOpen(false)}
       />
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden lg:ml-0">
         {/* Header */}
-        <header className="bg-white border-b border-gray-200 px-6 py-4">
-          <div className="flex items-center justify-end">
-            <div className="flex items-center space-x-4">
-              <Button variant="outline" className="bg-gray-100 border-gray-200 text-gray-900 hover:bg-gray-200">
+        <header className="bg-white border-b border-gray-200 px-4 lg:px-6 py-4">
+          <div className="flex items-center justify-between">
+            {/* Mobile Menu Button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="lg:hidden mr-2"
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
+
+            {/* Search Bar */}
+            <div className="flex items-center flex-1 max-w-sm lg:max-w-md">
+              <div className="relative w-full">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Input
+                  placeholder="Search"
+                  className="pl-10 w-full bg-gray-100 border-gray-200 text-sm"
+                />
+              </div>
+            </div>
+
+            {/* Right Side Actions */}
+            <div className="flex items-center space-x-2 lg:space-x-4">
+              {/* Dark Mode Button - Hidden on mobile */}
+              <Button variant="outline" className="hidden lg:flex bg-gray-100 border-gray-200 text-gray-900 hover:bg-gray-200">
                 <Moon className="h-4 w-4 mr-2" />
                 Dark
               </Button>
 
+              {/* Notifications */}
               <Button variant="ghost" size="icon" className="relative">
                 <Bell className="h-5 w-5" />
                 <span className="absolute -top-1 -right-1 h-5 w-5 bg-blue-500 text-white text-xs rounded-full flex items-center justify-center font-manrope">
@@ -167,58 +208,60 @@ export default function CallsPage() {
                 </span>
               </Button>
 
+              {/* User Profile */}
               <div className="flex items-center space-x-2">
                 <Avatar className="h-8 w-8">
                   <AvatarImage src="/images/user-profile.jpg" />
                   <AvatarFallback>U</AvatarFallback>
                 </Avatar>
+                <ChevronDown className="h-4 w-4 text-gray-600 hidden lg:block" />
               </div>
             </div>
           </div>
         </header>
 
         {/* Main Content */}
-        <main className="flex-1 overflow-auto p-6">
+        <main className="flex-1 overflow-auto p-4 lg:p-6">
           <div className="mx-auto space-y-6">
             {/* Summary Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
               <Card className="bg-white shadow-sm">
-                <CardContent className="p-6">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                      <Phone className="w-6 h-6 text-purple-600" />
+                <CardContent className="p-4 lg:p-6">
+                  <div className="flex items-center space-x-3 lg:space-x-4">
+                    <div className="w-10 h-10 lg:w-12 lg:h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                      <Phone className="w-5 h-5 lg:w-6 lg:h-6 text-purple-600" />
                     </div>
                     <div>
                       <p className="text-sm font-manrope text-gray-600">Total Calls</p>
-                      <p className="text-2xl font-bold text-gray-900">{totalCalls}</p>
+                      <p className="text-xl lg:text-2xl font-bold text-gray-900">{totalCalls}</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
               <Card className="bg-white shadow-sm">
-                <CardContent className="p-6">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                      <Clock className="w-6 h-6 text-purple-600" />
+                <CardContent className="p-4 lg:p-6">
+                  <div className="flex items-center space-x-3 lg:space-x-4">
+                    <div className="w-10 h-10 lg:w-12 lg:h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                      <Clock className="w-5 h-5 lg:w-6 lg:h-6 text-purple-600" />
                     </div>
                     <div>
                       <p className="text-sm font-manrope text-gray-600">Average Duration</p>
-                      <p className="text-2xl font-bold text-gray-900">{averageDuration}</p>
+                      <p className="text-xl lg:text-2xl font-bold text-gray-900">{averageDuration}</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-white shadow-sm">
-                <CardContent className="p-6">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                      <User className="w-6 h-6 text-purple-600" />
+              <Card className="bg-white shadow-sm sm:col-span-2 lg:col-span-1">
+                <CardContent className="p-4 lg:p-6">
+                  <div className="flex items-center space-x-3 lg:space-x-4">
+                    <div className="w-10 h-10 lg:w-12 lg:h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                      <User className="w-5 h-5 lg:w-6 lg:h-6 text-purple-600" />
                     </div>
                     <div>
                       <p className="text-sm font-manrope text-gray-600">Unique Callers</p>
-                      <p className="text-2xl font-bold text-gray-900">{uniqueCallers.toString().padStart(2, '0')}</p>
+                      <p className="text-xl lg:text-2xl font-bold text-gray-900">{uniqueCallers.toString().padStart(2, '0')}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -227,27 +270,26 @@ export default function CallsPage() {
 
             {/* Call Log */}
             <Card className="bg-white shadow-sm">
-              <div className="p-6 border-b border-gray-200">
-                <div className="flex justify-between items-center">
-                  <div className="flex flex-col w-full gap-4 ">
-                    <h2 className="text-xl font-semibold text-gray-900">Call Log</h2>
-                    <div className="flex justify-between space-x-2 ">
-                      <div className='flex items-center space-x-3 '>
+              <div className="p-4 lg:p-6 border-b border-gray-200">
+                <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
+                  <div className="flex flex-col w-full gap-4">
+                    <h2 className="text-lg lg:text-xl font-semibold text-gray-900">Call Log</h2>
+                    <div className="flex flex-col lg:flex-row lg:justify-between space-y-3 lg:space-y-0 lg:space-x-2">
+                      <div className='flex items-center space-x-3'>
                         <Input
                           placeholder="Search..."
                           value={searchTerm}
                           onChange={(e) => setSearchTerm(e.target.value)}
-                          className="w-64"
+                          className="w-full lg:w-64"
                         />
                         <Button size="sm" className="bg-[#4A48FF] hover:bg-[#3A38FF]">
                           <Search className="w-4 h-4" />
                         </Button>
                       </div>
-                      <div className="flex items-center space-x-3 ">
+                      <div className="flex items-center space-x-3">
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
                             <Button variant="outline" size="sm">
-
                               Filter
                               <Image src="/images/call/mage_filter.svg" alt="filter" width={16} height={16} className='w-1/2 h-1/2' />
                               <ChevronDown className="w-4 h-4 ml-2" />
@@ -267,7 +309,6 @@ export default function CallsPage() {
                                     {selectedCallType}
                                   </Badge>
                                 )}
-
                               </DropdownMenuSubTrigger>
                               <DropdownMenuSubContent>
                                 <DropdownMenuItem onClick={() => setSelectedCallType('All')}>
@@ -289,7 +330,6 @@ export default function CallsPage() {
                                     {selectedStatus}
                                   </Badge>
                                 )}
-
                               </DropdownMenuSubTrigger>
                               <DropdownMenuSubContent>
                                 <DropdownMenuItem onClick={() => setSelectedStatus('Completed')}>
@@ -314,7 +354,6 @@ export default function CallsPage() {
                                     {selectedDateRange}
                                   </Badge>
                                 )}
-
                               </DropdownMenuSubTrigger>
                               <DropdownMenuSubContent>
                                 <DropdownMenuItem onClick={() => setSelectedDateRange('Today')}>
@@ -340,7 +379,6 @@ export default function CallsPage() {
                       </div>
                     </div>
                   </div>
-
                 </div>
               </div>
 
@@ -454,14 +492,14 @@ export default function CallsPage() {
               </div>
 
               {/* Pagination */}
-              <div className="p-6 border-t border-gray-200">
-                <div className="flex items-center justify-between">
-                  <Button variant="outline" size="sm" disabled={currentPage === 1}>
+              <div className="p-4 lg:p-6 border-t border-gray-200">
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                  <Button variant="outline" size="sm" disabled={currentPage === 1} className="w-full lg:w-auto">
                     <ChevronLeft className="w-4 h-4 mr-2" />
                     Previous
                   </Button>
 
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center justify-center space-x-2">
                     <Button
                       size="sm"
                       className="bg-[#4A48FF] hover:bg-purple-700 text-white"
@@ -476,7 +514,7 @@ export default function CallsPage() {
                     <Button variant="outline" size="sm">10</Button>
                   </div>
 
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" className="w-full lg:w-auto">
                     Next
                     <ChevronRight className="w-4 h-4 ml-2" />
                   </Button>

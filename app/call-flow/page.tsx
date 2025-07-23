@@ -14,7 +14,10 @@ import {
   Maximize,
   Bot,
   Trash2,
-  Edit
+  Edit,
+  Search,
+  Menu,
+  ChevronDown
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -47,6 +50,7 @@ interface Connection {
 
 export default function CallFlowBuilderPage() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [viewMode, setViewMode] = useState('visual')
   const [nodes, setNodes] = useState<FlowNode[]>([])
   const [connections, setConnections] = useState<Connection[]>([])
@@ -57,6 +61,19 @@ export default function CallFlowBuilderPage() {
   const [isEditingNode, setIsEditingNode] = useState(false)
   const [editingNode, setEditingNode] = useState<FlowNode | null>(null)
   const [editContent, setEditContent] = useState('')
+
+  // Handle body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.classList.add('mobile-menu-open')
+    } else {
+      document.body.classList.remove('mobile-menu-open')
+    }
+
+    return () => {
+      document.body.classList.remove('mobile-menu-open')
+    }
+  }, [isMobileMenuOpen])
 
   // Load saved flow from localStorage on component mount
   useEffect(() => {
@@ -246,19 +263,45 @@ export default function CallFlowBuilderPage() {
       <DashboardSidebar
         isCollapsed={sidebarCollapsed}
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+        isMobileOpen={isMobileMenuOpen}
+        onMobileClose={() => setIsMobileMenuOpen(false)}
       />
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden lg:ml-0">
         {/* Header */}
-        <header className="bg-white border-b border-gray-200 px-6 py-4">
-          <div className="flex items-center justify-end">
-            <div className="flex items-center space-x-4">
-              <Button variant="outline" className="bg-gray-100 border-gray-200 text-gray-900 hover:bg-gray-200">
+        <header className="bg-white border-b border-gray-200 px-4 lg:px-6 py-4">
+          <div className="flex items-center justify-between">
+            {/* Mobile Menu Button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="lg:hidden mr-2"
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
+
+            {/* Search Bar */}
+            <div className="flex items-center flex-1 max-w-sm lg:max-w-md">
+              <div className="relative w-full">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Input
+                  placeholder="Search"
+                  className="pl-10 w-full bg-gray-100 border-gray-200 text-sm"
+                />
+              </div>
+            </div>
+
+            {/* Right Side Actions */}
+            <div className="flex items-center space-x-2 lg:space-x-4">
+              {/* Dark Mode Button - Hidden on mobile */}
+              <Button variant="outline" className="hidden lg:flex bg-gray-100 border-gray-200 text-gray-900 hover:bg-gray-200">
                 <Moon className="h-4 w-4 mr-2" />
                 Dark
               </Button>
 
+              {/* Notifications */}
               <Button variant="ghost" size="icon" className="relative">
                 <Bell className="h-5 w-5" />
                 <span className="absolute -top-1 -right-1 h-5 w-5 bg-blue-500 text-white text-xs rounded-full flex items-center justify-center font-manrope">
@@ -266,11 +309,13 @@ export default function CallFlowBuilderPage() {
                 </span>
               </Button>
 
+              {/* User Profile */}
               <div className="flex items-center space-x-2">
                 <Avatar className="h-8 w-8">
                   <AvatarImage src="/images/user-profile.jpg" />
                   <AvatarFallback>U</AvatarFallback>
                 </Avatar>
+                <ChevronDown className="h-4 w-4 text-gray-600 hidden lg:block" />
               </div>
             </div>
           </div>
@@ -287,16 +332,16 @@ export default function CallFlowBuilderPage() {
           {/* Canvas Area */}
           <div className="flex-1 flex flex-col">
             {/* Canvas Controls */}
-            <div className="bg-white px-6 py-3">
-              <div className="flex justify-between items-center">
-                <div className="flex items-center space-x-4">
+            <div className="bg-white px-4 lg:px-6 py-3">
+              <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-3">
+                <div className="flex items-center space-x-2 lg:space-x-4">
                   {selectedNode && (
                     <>
                       <Button
                         variant="outline"
                         size="sm"
                         onClick={editSelectedNode}
-                        className="bg-white border-gray-200 text-gray-700 hover:bg-gray-50 h-9 px-4"
+                        className="bg-white border-gray-200 text-gray-700 hover:bg-gray-50 h-8 lg:h-9 px-3 lg:px-4 text-sm"
                       >
                         <Edit className="h-4 w-4 mr-2" />
                         Edit
@@ -305,7 +350,7 @@ export default function CallFlowBuilderPage() {
                         variant="outline"
                         size="sm"
                         onClick={deleteSelectedNode}
-                        className="bg-white border-red-200 text-red-700 hover:bg-red-50 h-9 px-4"
+                        className="bg-white border-red-200 text-red-700 hover:bg-red-50 h-8 lg:h-9 px-3 lg:px-4 text-sm"
                       >
                         <Trash2 className="h-4 w-4 mr-2" />
                         Delete
@@ -313,12 +358,12 @@ export default function CallFlowBuilderPage() {
                     </>
                   )}
                 </div>
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-2 lg:space-x-4">
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={clearCanvas}
-                    className="bg-white border-gray-200 text-gray-700 hover:bg-gray-50 h-9 px-4"
+                    className="bg-white border-gray-200 text-gray-700 hover:bg-gray-50 h-8 lg:h-9 px-3 lg:px-4 text-sm"
                   >
                     <X className="h-4 w-4 mr-2" />
                     Clear
@@ -327,7 +372,7 @@ export default function CallFlowBuilderPage() {
                     size="sm"
                     onClick={saveFlow}
                     data-save-button
-                    className="bg-[#4A48FF] hover:bg-[#3A38FF] text-white h-9 px-4"
+                    className="bg-[#4A48FF] hover:bg-[#3A38FF] text-white h-8 lg:h-9 px-3 lg:px-4 text-sm"
                   >
                     <Save className="h-4 w-4 mr-2" />
                     Save Flow
@@ -354,9 +399,9 @@ export default function CallFlowBuilderPage() {
               >
                 {nodes.length === 0 ? (
                   <div className="flex flex-col items-center justify-center h-full text-gray-500">
-                    <Bot className="w-16 h-16 mb-4 text-gray-300" />
-                    <h3 className="text-lg font-manrope mb-2">No flow configured</h3>
-                    <p className="text-sm">Add nodes to the canvas to see the flow sequence</p>
+                    <Bot className="w-12 h-12 lg:w-16 lg:h-16 mb-4 text-gray-300" />
+                    <h3 className="text-base lg:text-lg font-manrope mb-2">No flow configured</h3>
+                    <p className="text-sm text-center px-4">Add nodes to the canvas to see the flow sequence</p>
                   </div>
                 ) : (
                   <>
@@ -408,8 +453,8 @@ export default function CallFlowBuilderPage() {
             </div>
 
             {/* Bottom Controls */}
-            <div className="bg-white border-t border-gray-200 px-6 py-3">
-              <div className="flex items-center justify-between">
+            <div className="bg-white border-t border-gray-200 px-4 lg:px-6 py-3">
+              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
                 <div className="flex items-center space-x-2">
                   <Button variant="outline" size="sm" className="h-8 w-8 p-0" onClick={handleZoomIn}>
                     <Plus className="h-4 w-4" />
@@ -427,26 +472,29 @@ export default function CallFlowBuilderPage() {
                   <ToggleGroupItem
                     value="visual"
                     size="sm"
-                    className="px-4 py-2 text-sm font-semibold rounded-md transition-all data-[state=on]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 hover:data-[state=off]:bg-gray-50"
+                    className="px-3 lg:px-4 py-2 text-sm font-semibold rounded-md transition-all data-[state=on]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 hover:data-[state=off]:bg-gray-50"
                   >
                     <Eye className="h-4 w-4 mr-2" />
-                    Visual Editor
+                    <span className="hidden lg:inline">Visual Editor</span>
+                    <span className="lg:hidden">Visual</span>
                   </ToggleGroupItem>
                   <ToggleGroupItem
                     value="text"
                     size="sm"
-                    className="px-4 py-2 text-sm font-semibold rounded-md transition-all data-[state=on]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 hover:data-[state=off]:bg-gray-50"
+                    className="px-3 lg:px-4 py-2 text-sm font-semibold rounded-md transition-all data-[state=on]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 hover:data-[state=off]:bg-gray-50"
                   >
                     <FileText className="h-4 w-4 mr-2" />
-                    Text Preview
+                    <span className="hidden lg:inline">Text Preview</span>
+                    <span className="lg:hidden">Text</span>
                   </ToggleGroupItem>
                   <ToggleGroupItem
                     value="json"
                     size="sm"
-                    className="px-4 py-2 text-sm font-semibold rounded-md transition-all data-[state=on]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 hover:data-[state=off]:bg-gray-50"
+                    className="px-3 lg:px-4 py-2 text-sm font-semibold rounded-md transition-all data-[state=on]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 hover:data-[state=off]:bg-gray-50"
                   >
                     <Code className="h-4 w-4 mr-2" />
-                    JSON Config
+                    <span className="hidden lg:inline">JSON Config</span>
+                    <span className="lg:hidden">JSON</span>
                   </ToggleGroupItem>
                 </ToggleGroup>
               </div>
