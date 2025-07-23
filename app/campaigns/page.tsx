@@ -21,6 +21,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -569,12 +570,169 @@ export default function CampaignsPage() {
 
             {/* New Campaign View */}
             {activeTab === 'new-campaign' && (
-              <div className="bg-white rounded-lg p-8 shadow-sm">
-                <div className="text-center">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Create New Campaign</h2>
-                  <p className="text-gray-500 mb-6">This feature is coming soon...</p>
-                  <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                    Get Started
+              <div className="bg-white rounded-lg p-8 shadow-sm max-w-4xl mx-auto">
+                {/* Campaign Information Header */}
+                <div className="flex flex-col justify-start text-center mb-8 ">
+                  <h2 className="flex text-2xl font-bold  text-gray-900 mb-2">Campaign Information</h2>
+                  <p className="flex text-gray-500">Set up your campaign details and messaging</p>
+                </div>
+
+                {/* Progress Steps */}
+                <div className="flex justify-start items-center mb-8">
+                  <div className="flex items-center">
+                    {/* Step 1 - Active */}
+                    <div className="relative">
+                      <div className="w-12 h-12 bg-[#EDEDFF] rounded-full flex items-center justify-center">
+                        <div className="w-10 h-10 bg-[#4A48FF] text-white rounded-full flex items-center justify-center text-sm font-bold">
+                          1
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Connecting Line */}
+                    <div className="w-16 h-0.5 bg-gray-200 mx-2"></div>
+                    
+                    {/* Step 2 - Inactive */}
+                    <div className="relative">
+                      <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center">
+                        <div className="w-10 h-10 bg-gray-200 text-gray-500 rounded-full flex items-center justify-center text-sm font-bold">
+                          2
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Connecting Line */}
+                    <div className="w-16 h-0.5 bg-gray-200 mx-2"></div>
+                    
+                    {/* Step 3 - Inactive */}
+                    <div className="relative">
+                      <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center">
+                        <div className="w-10 h-10 bg-gray-200 text-gray-500 rounded-full flex items-center justify-center text-sm font-bold">
+                          3
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Campaign Name */}
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Campaign Name
+                  </label>
+                  <Input
+                    defaultValue="Campaign - Jul 8"
+                    className="w-full bg-white border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                  />
+                </div>
+
+                {/* Opening Message */}
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Opening Message
+                  </label>
+                  <Input
+                    defaultValue="Hi [[name]], this is call from..."
+                    className="w-full bg-white border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF] mb-2"
+                  />
+                  <p className="text-sm text-gray-500 mb-3">Use merge tags for personalization</p>
+                  
+                  {/* Quick Insert Buttons */}
+                  <div className="mb-4">
+                    <p className="text-sm font-medium text-gray-700 mb-2">Quick Insert:</p>
+                    <div className="flex space-x-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
+                      >
+                        name
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
+                      >
+                        phone_number
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
+                      >
+                        appointment_date
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Caller Instructions */}
+                <div className="mb-8">
+                  <div className="flex items-center mb-2">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Caller Instructions
+                    </label>
+                    <div className="ml-2 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-xs">i</span>
+                    </div>
+                  </div>
+                  <div className="relative">
+                    <Textarea
+                      placeholder="Define the AI agents personality..."
+                      className="w-full h-32 border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF] resize-none pr-12"
+                    />
+                    <div className="absolute bottom-2 right-2 text-xs text-gray-400">
+                      0/5000
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-500 mt-2">Include: Tone, Personality, Environment, Goal, Guardrails</p>
+                  
+                  {/* Quick Insert Buttons for Caller Instructions */}
+                  <div className="mt-4">
+                    <p className="text-sm font-medium text-gray-700 mb-2">Quick Insert:</p>
+                    <div className="flex space-x-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
+                      >
+                        name
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
+                      >
+                        phone_number
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
+                      >
+                        language
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
+                      >
+                        appointment_date
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex justify-end space-x-4">
+                  <Button
+                    variant="outline"
+                    className="bg-gray-100 border-gray-300 text-gray-700 hover:bg-gray-200"
+                  >
+                    Cancel
+                  </Button>
+                  <Button className="bg-[#4A48FF] hover:bg-[#3a38ef] text-white">
+                    Next
                   </Button>
                 </div>
               </div>
