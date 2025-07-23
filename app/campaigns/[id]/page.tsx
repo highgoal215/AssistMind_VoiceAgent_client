@@ -205,15 +205,12 @@ export default function CampaignDetailPage() {
             {/* Metric Cards */}
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
               {metricCards.map((card, index) => (
-                <Card key={index} className="rounded-lg shadow-sm">
+                <Card key={index} className="rounded-3xl shadow-sm">
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="text-sm font-medium text-gray-600 mb-1">{card.title}</h3>
-                        <span className="text-lg font-bold text-gray-900">{card.value}</span>
-                      </div>
-                      <div className={`p-2 rounded-lg ${card.iconBg}`}>
-                        <card.icon className={`h-4 w-4 ${card.iconColor}`} />
+                        <h3 className="text-lg font-manrope text-gray-600 mb-1">{card.title}</h3>
+                        <span className="text-3xl font-bold text-gray-900">{card.value}</span>
                       </div>
                     </div>
                   </CardContent>
@@ -222,15 +219,15 @@ export default function CampaignDetailPage() {
             </div>
 
             {/* Navigation Tabs */}
-            <div className="flex space-x-4 bg-white rounded-lg p-1 shadow-sm w-fit">
+            <div className="flex space-x-4 bg-white rounded-lg p-1 shadow-sm w-fit h-12">
               {navigationTabs.map((tab) => (
                 <Button
                   key={tab.id}
                   variant="ghost"
                   onClick={() => setActiveTab(tab.id)}
-                  className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                  className={` rounded-lg px-4 py-2 text-lg font-manrope transition-colors ${
                     activeTab === tab.id
-                      ? "bg-[#EDEDFF] text-blue-700"
+                    ? "bg-[#EDEDFF] text-[#4A48FF]"
                       : "text-gray-900 hover:bg-gray-50"
                   }`}
                 >
@@ -278,7 +275,7 @@ export default function CampaignDetailPage() {
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-2">
-                        <CardTitle className="text-lg font-bold">Call Records</CardTitle>
+                        <CardTitle className="text-3xl font-bold font-manrope">Call Records</CardTitle>
                         <Button
                           variant="ghost"
                           size="icon"
@@ -295,11 +292,11 @@ export default function CampaignDetailPage() {
                       <table className="w-full">
                         <thead>
                           <tr className="border-b border-gray-200">
-                            <th className="text-left py-3 px-4 text-xs font-semibold text-gray-700 uppercase tracking-wider">NAME</th>
-                            <th className="text-left py-3 px-4 text-xs font-semibold text-gray-700 uppercase tracking-wider">NUMBER</th>
-                            <th className="text-left py-3 px-4 text-xs font-semibold text-gray-700 uppercase tracking-wider">STATUS</th>
-                            <th className="text-left py-3 px-4 text-xs font-semibold text-gray-700 uppercase tracking-wider">DURATION</th>
-                            <th className="text-left py-3 px-4 text-xs font-semibold text-gray-700 uppercase tracking-wider">ACTIONS</th>
+                            <th className="text-left py-3 px-4 text-lg font-semibold font-manrope text-gray-700 uppercase tracking-wider">NAME</th>
+                            <th className="text-left py-3 px-4 text-lg font-semibold font-manrope text-gray-700 uppercase tracking-wider">NUMBER</th>
+                            <th className="text-left py-3 px-4 text-lg font-semibold font-manrope text-gray-700 uppercase tracking-wider">STATUS</th>
+                            <th className="text-left py-3 px-4 text-lg font-semibold font-manrope text-gray-700 uppercase tracking-wider">DURATION</th>
+                            <th className="text-left py-3 px-4 text-lg font-semibold font-manrope text-gray-700 uppercase tracking-wider">ACTIONS</th>
                           </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
