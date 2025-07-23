@@ -50,7 +50,7 @@ export default function DashboardSidebar({ isCollapsed, onToggle }: DashboardSid
   return (
     <TooltipProvider>
       <div className={cn(
-        "bg-white border-r border-gray-200 flex flex-col h-full transition-all duration-300",
+        "bg-white border-r border-gray-200 flex flex-col h-full transition-all duration-300 hidden lg:flex",
         isCollapsed ? "w-16" : "w-64"
       )}>
         {/* Logo Section */}
