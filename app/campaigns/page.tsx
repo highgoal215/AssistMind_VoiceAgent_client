@@ -28,6 +28,8 @@ import { Textarea } from '@/components/ui/textarea'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { Label } from '@/components/ui/label'
 import DashboardSidebar from '../../components/dashboard/DashboardSidebar'
 import Link from 'next/link'
 
@@ -40,6 +42,7 @@ export default function CampaignsPage() {
   const [recipients, setRecipients] = React.useState([
     { id: 1, name: '', phoneNumber: '' }
   ])
+  const [timingOption, setTimingOption] = React.useState('send-now')
 
   // Handle body scroll when mobile menu is open
   React.useEffect(() => {
@@ -581,13 +584,13 @@ export default function CampaignsPage() {
               <div className="bg-white rounded-lg p-8 shadow-sm max-w-4xl mx-auto">
                 {/* Campaign Information Header */}
                 <div className="flex flex-col justify-start mb-8">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                    {campaignStep === 1 ? 'Campaign Information' : campaignStep === 2 ? 'Recipient Upload' : 'Campaign Review'}
+                                    <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                    {campaignStep === 1 ? 'Campaign Information' : campaignStep === 2 ? 'Recipient Upload' : 'Campaign Timing'}
                   </h2>
                   <p className="text-gray-500">
-                    {campaignStep === 1 ? 'Set up your campaign details and messaging' :
-                      campaignStep === 2 ? 'Add recipients via file upload or manual entry' :
-                        'Review and launch your campaign'}
+                    {campaignStep === 1 ? 'Set up your campaign details and messaging' : 
+                     campaignStep === 2 ? 'Add recipients via file upload or manual entry' : 
+                     'Choose when to start your campaign'}
                   </p>
                 </div>
 
@@ -881,6 +884,43 @@ export default function CampaignsPage() {
                   </>
                 )}
 
+                {/* Step 3 Content - Campaign Timing */}
+                {campaignStep === 3 && (
+                  <>
+                    {/* Timing Options Section */}
+                    <div className="mb-6">
+                      <h3 className="text-lg font-bold text-gray-900 mb-4">Timing Options</h3>
+                      <RadioGroup
+                        value={timingOption}
+                        onValueChange={setTimingOption}
+                        className="space-y-4"
+                      >
+                        <div className="flex items-center space-x-3">
+                          <RadioGroupItem value="send-now" id="send-now" />
+                          <Label htmlFor="send-now" className="text-gray-900 font-medium">
+                            Send Now
+                          </Label>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <RadioGroupItem value="schedule-later" id="schedule-later" />
+                          <Label htmlFor="schedule-later" className="text-gray-900 font-medium">
+                            Schedule for Later
+                          </Label>
+                        </div>
+                      </RadioGroup>
+                    </div>
+
+                    {/* Information Message */}
+                    <div className="mb-8">
+                      <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <p className="text-green-800 text-sm">
+                          Campaign will start immediately after launch
+                        </p>
+                      </div>
+                    </div>
+                  </>
+                )}
+
                 {/* Action Buttons */}
                 <div className="flex justify-end space-x-4">
                   {campaignStep > 1 && (
@@ -898,12 +938,18 @@ export default function CampaignsPage() {
                   >
                     Cancel
                   </Button>
-                  {campaignStep < 3 && (
-                    <Button
+                                    {campaignStep < 3 ? (
+                    <Button 
                       onClick={() => setCampaignStep(campaignStep + 1)}
                       className="px-6 py-2 rounded-lg bg-[#4A48FF] hover:bg-[#3a38ef] text-white"
                     >
                       Next
+                    </Button>
+                  ) : (
+                    <Button 
+                      className="px-6 py-2 rounded-lg bg-[#4A48FF] hover:bg-[#3a38ef] text-white"
+                    >
+                      Launch Campaign
                     </Button>
                   )}
                 </div>
