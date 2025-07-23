@@ -910,14 +910,71 @@ export default function CampaignsPage() {
                       </RadioGroup>
                     </div>
 
-                    {/* Information Message */}
-                    <div className="mb-8">
-                      <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                        <p className="text-green-800 text-sm">
-                          Campaign will start immediately after launch
-                        </p>
+                    {/* Information Message for Send Now */}
+                    {timingOption === 'send-now' && (
+                      <div className="mb-8">
+                        <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                          <p className="text-green-800 text-sm">
+                            Campaign will start immediately after launch
+                          </p>
+                        </div>
                       </div>
-                    </div>
+                    )}
+
+                    {/* Scheduling Options for Schedule Later */}
+                    {timingOption === 'schedule-later' && (
+                      <div className="mb-8">
+                        <div className="space-y-6">
+                          {/* Date and Time Selection */}
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                              <label className="block text-sm font-medium text-gray-900 mb-2">
+                                Start Date
+                              </label>
+                              <Input
+                                type="date"
+                                className="w-full bg-white border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF] rounded-lg"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-gray-900 mb-2">
+                                Start Time
+                              </label>
+                              <Input
+                                type="time"
+                                className="w-full bg-white border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF] rounded-lg"
+                              />
+                            </div>
+                          </div>
+
+                          {/* Time Zone Selection */}
+                          <div>
+                            <label className="block text-sm font-medium text-gray-900 mb-2">
+                              Time Zone
+                            </label>
+                            <Select>
+                              <SelectTrigger className="w-full bg-white border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF] rounded-lg">
+                                <SelectValue placeholder="Select time zone" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="utc">UTC (Coordinated Universal Time)</SelectItem>
+                                <SelectItem value="est">EST (Eastern Standard Time)</SelectItem>
+                                <SelectItem value="pst">PST (Pacific Standard Time)</SelectItem>
+                                <SelectItem value="gmt">GMT (Greenwich Mean Time)</SelectItem>
+                                <SelectItem value="cet">CET (Central European Time)</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+
+                          {/* Information Message for Scheduled Campaign */}
+                          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                            <p className="text-blue-800 text-sm">
+                              Campaign will be scheduled to start at the specified date and time
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </>
                 )}
 
