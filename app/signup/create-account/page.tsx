@@ -57,10 +57,10 @@ export default function CreateAccountPage() {
 
             <div className="space-y-6 lg:space-y-0 lg:flex lg:flex-col lg:pt-10">
               {/* Header Section */}
-              <div className="flex flex-col justify-center items-center pt-[20px] lg:pt-0 lg:items-start">
+              <div className="flex flex-col justify-center items-center pt-[20px] lg:pt-12 lg:items-start">
                 <div className="flex flex-col gap-1 lg:gap-1">
                   <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2 font-manrope text-center lg:text-left">Create Your Account</h2>
-                  <p className="text-gray-600 mb-8 lg:mb-8 font-manrope lg:text-[18px] text-center lg:text-left">Almost done! Let's set up your login details.</p>
+                  <p className="text-gray-600 mb-8 lg:mb-8 font-manrope lg:text-[18px] text-center lg:text-left font-semibold">Almost done! Let's set up your login details.</p>
                 </div>
               </div>
 
@@ -77,7 +77,7 @@ export default function CreateAccountPage() {
                       placeholder="First name"
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
-                      className="w-full h-12 lg:h-[56px] border-2 border-blue-600 lg:border-gray-300 rounded-lg font-manrope"
+                      className="w-full h-12 lg:h-[56px] border-2 border-blue-600 lg:border-gray-300 rounded-lg font-manrope font-bold"
                     />
                   </div>
                   <div className="flex flex-col">
@@ -89,7 +89,7 @@ export default function CreateAccountPage() {
                       placeholder="Last name"
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
-                      className="w-full h-12 lg:h-[56px] border-2 border-blue-600 lg:border-gray-300 rounded-lg font-manrope"
+                      className="w-full h-12 lg:h-[56px] border-2 border-blue-600 lg:border-gray-300 rounded-lg font-manrope font-bold"
                     />
                   </div>
                 </div>
@@ -105,7 +105,7 @@ export default function CreateAccountPage() {
                     placeholder="Email address"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full h-12 lg:h-[56px] border-2 border-blue-600 lg:border-gray-300 rounded-lg font-manrope"
+                    className="w-full h-12 lg:h-[56px] border-2 border-blue-600 lg:border-gray-300 rounded-lg font-manrope font-bold"
                   />
                 </div>
 
@@ -119,7 +119,7 @@ export default function CreateAccountPage() {
                     placeholder="Phone number"
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    className="w-full h-12 lg:h-[56px] border-2 border-blue-600 lg:border-gray-300 rounded-lg font-manrope"
+                    className="w-full h-12 lg:h-[56px] border-2 border-blue-600 lg:border-gray-300 rounded-lg font-manrope font-bold"
                   />
                 </div>
 
@@ -135,7 +135,7 @@ export default function CreateAccountPage() {
                       placeholder="••••••••••••"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="w-full h-12 lg:h-[56px] border-2 border-blue-600 lg:border-gray-300 rounded-lg pr-10 font-manrope"
+                      className="w-full h-12 lg:h-[56px] border-2 border-blue-600 lg:border-gray-300 rounded-lg pr-10 font-manrope font-bold"
                     />
                     <button
                       type="button"
@@ -148,19 +148,20 @@ export default function CreateAccountPage() {
                 </div>
 
                 {/* Terms Checkbox */}
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 font-semibold font-manrope">
                   <Checkbox
                     id="terms"
                     checked={agreeToTerms}
                     onCheckedChange={(checked) => setAgreeToTerms(checked as boolean)}
+                    className="data-[state=checked]:bg-[#4A48FF] data-[state=checked]:border-[#4A48FF]"
                   />
                   <Label htmlFor="terms" className="text-sm text-gray-700 font-manrope">
-                    I agree to the{" "}
-                    <a href="#" className="text-blue-600 hover:text-blue-700 font-manrope">
+                    By signuping Up, I agree to the{" "}
+                    <a href="#" className="text-[#4A48FF] hover:text-[#4A48FF] font-manrope">
                       Terms of Service
                     </a>{" "}
                     and{" "}
-                    <a href="#" className="text-blue-600 hover:text-blue-700 font-manrope">
+                    <a href="#" className="text-[#4A48FF] hover:text-[#4A48FF] font-manrope">
                       Privacy Policy
                     </a>
                   </Label>
@@ -173,7 +174,7 @@ export default function CreateAccountPage() {
                 <div className="lg:hidden space-y-4">
                   <Button
                     onClick={handleNext}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 h-12 rounded-lg text-base font-manrope font-manrope"
+                    className="w-full bg-[#4A48FF] hover:bg-[#4A48FF] text-white py-3 h-12 rounded-lg text-base font-manrope font-manrope"
                     disabled={!firstName || !lastName || !email || !password || !agreeToTerms}
                   >
                     Create Account
@@ -185,12 +186,12 @@ export default function CreateAccountPage() {
 
                 {/* Desktop: Side by side buttons */}
                 <div className="hidden lg:flex justify-between items-center w-full pt-[26px]">
-                  <Button onClick={handleBack} variant="outline" className="w-[193px] h-[56px] bg-transparent font-manrope">
+                  <Button onClick={handleBack} variant="outline" className="w-[193px] h-[56px] bg-transparent font-manrope font-semibold">
                     Back
                   </Button>
                   <Button
                     onClick={handleNext}
-                    className="w-[193px] h-[56px] bg-blue-600 hover:bg-blue-700 text-white font-manrope"
+                    className="w-[193px] h-[56px] bg-[#4A48FF] hover:bg-[#4A48FF] text-white font-manrope font-semibold"
                     disabled={!firstName || !lastName || !email || !password || !agreeToTerms}
                   >
                     Create Account
@@ -199,11 +200,11 @@ export default function CreateAccountPage() {
               </div>
 
               {/* Google Sign In Button */}
-              <div className="flex justify-center items-center w-full pt-5">
+              <div className="flex justify-center items-center w-full pt-5 ">
                 <Button
                   onClick={handleGoogleSignIn}
                   variant="outline"
-                  className="w-full h-12 lg:h-14 bg-white border border-gray-300 flex items-center justify-center space-x-2 font-manrope rounded-lg"
+                  className="w-full h-12 lg:h-14 bg-white border border-gray-300 flex items-center justify-center space-x-2 font-manrope rounded-lg font-bold font-manrope text-md"
                 >
                   <svg className="w-5 h-5 lg:w-6 lg:h-6" viewBox="0 0 24 24">
                     <path
