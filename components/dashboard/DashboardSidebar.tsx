@@ -2,20 +2,7 @@
 
 import React from 'react'
 import { usePathname } from 'next/navigation'
-import {
-  LayoutDashboard,
-  Bot,
-  Phone,
-  PhoneCall,
-  Megaphone,
-  MessageSquare,
-  BookOpen,
-  Settings,
-  Zap,
-  Globe,
-  PanelLeftClose,
-  PanelLeft
-} from 'lucide-react'
+
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import {
@@ -28,15 +15,15 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const navigationItems = [
-  { name: 'Dashboard', icon: LayoutDashboard, href: '/dashboard', current: false },
-  { name: 'AI Agent', icon: Bot, href: '/ai-agent', current: false },
-  { name: 'Call Flow Builder', icon: Phone, href: '/call-flow', current: false },
-  { name: 'Calls', icon: PhoneCall, href: '/calls', current: false },
-  { name: 'Campaigns', icon: Megaphone, href: '/campaigns', current: false },
-  { name: 'Messages', icon: MessageSquare, href: '/messages', current: false },
-  { name: 'Knowledge Base', icon: BookOpen, href: '/knowledge', current: false },
-  { name: 'Integrations', icon: Zap, href: '/integrations', current: false },
-  { name: 'Settings', icon: Settings, href: '/settings', current: false },
+  { name: 'Dashboard', icon: '/images/sidebar/Dashboard.svg', href: '/dashboard', current: false },
+  { name: 'AI Agent', icon: '/images/sidebar/AIAgent.svg', href: '/ai-agent', current: false },
+  { name: 'Call Flow Builder', icon: '/images/sidebar/Call-builder.svg', href: '/call-flow', current: false },
+  { name: 'Calls', icon: '/images/sidebar/call.svg', href: '/calls', current: false },
+  { name: 'Campaigns', icon: '/images/sidebar/campaign.svg', href: '/campaigns', current: false },
+  { name: 'Messages', icon: '/images/sidebar/message.svg', href: '/messages', current: false },
+  { name: 'Knowledge Base', icon: '/images/sidebar/knowledge.svg', href: '/knowledge', current: false },
+  { name: 'Integrations', icon: '/images/sidebar/integration.svg', href: '/integrations', current: false },
+  { name: 'Settings', icon: '/images/sidebar/settings.svg', href: '/settings', current: false },
 ]
 
 interface DashboardSidebarProps {
@@ -71,18 +58,13 @@ export default function DashboardSidebar({
         isMobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
       )}>
         {/* Logo Section */}
-        <div className="p-[20px] border-b border-l border-gray-200 ">
-          {!isCollapsed}
+        <div className="p-[20px] border border-gray-200">
           <div className="flex items-center justify-between gap-1">
-            <div className="flex items-center space-x-2">
-              {!isCollapsed ? (
-                <div className="flex items-center space-x-2">
-                  <Image src="/images/logo2.svg" alt="AssistMind AI" width={30} height={30} className='w-full h-full' />
-                </div>
-              ) : (
-                <Image src="/images/logo2.svg" alt="AssistMind AI" width={30} height={30} className='w-8 h-8' />
-              )}
-            </div>
+            {!isCollapsed && (
+              <div className="flex items-center space-x-2">
+                <Image src="/images/logo2.svg" alt="AssistMind AI" width={30} height={30} className='w-full h-full' />
+              </div>
+            )}
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
@@ -91,7 +73,13 @@ export default function DashboardSidebar({
                   onClick={onToggle}
                   className="h-8 w-8 text-black"
                 >
-                  {isCollapsed ? <PanelLeft className="h-5 w-5" /> : <PanelLeftClose className="h-4 w-4" />}
+                  <Image 
+                    src="/images/dashboard/menu-button.svg" 
+                    alt="Toggle sidebar"
+                    width={isCollapsed ? 32 : 20}
+                    height={isCollapsed ? 32 : 20}
+                    className="filter brightness-0"
+                  />
                 </Button>
               </TooltipTrigger>
               <TooltipContent side="bottom">
@@ -127,10 +115,15 @@ export default function DashboardSidebar({
                             : "text-gray-800 hover:bg-[#c0bff0] hover:text-black font-manrope font-bold"
                         )}
                       >
-                        <item.icon className={cn(
-                          isCollapsed ? "w-5 h-5" : "w-4 h-4",
-                          isActive ? "text-white" : "text-gray-400"
-                        )} />
+                        <Image 
+                          src={item.icon} 
+                          alt={item.name}
+                          width={isCollapsed ? 20 : 16}
+                          height={isCollapsed ? 20 : 16}
+                          className={cn(
+                            isActive ? "filter brightness-0 invert" : "filter brightness-0"
+                          )}
+                        />
                         {!isCollapsed && <span>{item.name}</span>}
                       </Link>
                     </TooltipTrigger>
