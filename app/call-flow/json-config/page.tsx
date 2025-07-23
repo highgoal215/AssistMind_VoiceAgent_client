@@ -68,47 +68,47 @@ export default function JsonConfigPage() {
   const validateJson = (jsonString: string) => {
     try {
       const parsed = JSON.parse(jsonString)
-      
+
       // Basic structure validation
       if (!parsed.nodes || !Array.isArray(parsed.nodes)) {
         setValidationMessage('Invalid structure: "nodes" must be an array')
         return false
       }
-      
+
       if (!parsed.connections || !Array.isArray(parsed.connections)) {
         setValidationMessage('Invalid structure: "connections" must be an array')
         return false
       }
-      
+
       // Node validation
       for (const node of parsed.nodes) {
         if (!node.id || !node.type || !node.title) {
           setValidationMessage('Invalid node: missing required fields (id, type, title)')
           return false
         }
-        
+
         if (!['start', 'response', 'question', 'transfer', 'action'].includes(node.type)) {
           setValidationMessage(`Invalid node type: ${node.type}. Must be one of: start, response, question, transfer, action`)
           return false
         }
       }
-      
+
       // Connection validation
       for (const connection of parsed.connections) {
         if (!connection.id || !connection.from || !connection.to) {
           setValidationMessage('Invalid connection: missing required fields (id, from, to)')
           return false
         }
-        
+
         const fromNodeExists = parsed.nodes.some((node: any) => node.id === connection.from)
         const toNodeExists = parsed.nodes.some((node: any) => node.id === connection.to)
-        
+
         if (!fromNodeExists || !toNodeExists) {
           setValidationMessage('Invalid connection: referenced node does not exist')
           return false
         }
       }
-      
+
       setValidationMessage('JSON is valid!')
       return true
     } catch (error) {
@@ -194,7 +194,7 @@ export default function JsonConfigPage() {
       setValidationMessage('Cannot save invalid JSON')
       return
     }
-    
+
     try {
       const parsed = JSON.parse(jsonConfig)
       localStorage.setItem('callFlow', JSON.stringify(parsed))
@@ -261,7 +261,7 @@ export default function JsonConfigPage() {
 
             <div className="space-y-4">
               <div>
-                <h3 className="text-sm font-medium text-gray-700 mb-3">Logic Blocks</h3>
+                <h3 className="text-sm font-manrope text-gray-700 mb-3">Logic Blocks</h3>
                 <div className="space-y-3">
                   <div className="p-4 border border-gray-200 rounded-lg">
                     <div className="flex items-center space-x-3">
@@ -269,7 +269,7 @@ export default function JsonConfigPage() {
                         <Phone className="w-5 h-5" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-medium text-gray-900">Start Call</h4>
+                        <h4 className="font-manrope text-gray-900">Start Call</h4>
                         <p className="text-sm text-gray-600">Call starts here</p>
                       </div>
                     </div>
@@ -280,7 +280,7 @@ export default function JsonConfigPage() {
                         <MessageSquare className="w-5 h-5" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-medium text-gray-900">Response</h4>
+                        <h4 className="font-manrope text-gray-900">Response</h4>
                         <p className="text-sm text-gray-600">AI delivers a message</p>
                       </div>
                     </div>
@@ -291,7 +291,7 @@ export default function JsonConfigPage() {
                         <HelpCircle className="w-5 h-5" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-medium text-gray-900">Ask Question</h4>
+                        <h4 className="font-manrope text-gray-900">Ask Question</h4>
                         <p className="text-sm text-gray-600">Ask & wait for caller's answer</p>
                       </div>
                     </div>
@@ -302,7 +302,7 @@ export default function JsonConfigPage() {
                         <ArrowRight className="w-5 h-5" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-medium text-gray-900">Transfer to Human</h4>
+                        <h4 className="font-manrope text-gray-900">Transfer to Human</h4>
                         <p className="text-sm text-gray-600">Transfers the call to a phone number</p>
                       </div>
                     </div>
@@ -313,7 +313,7 @@ export default function JsonConfigPage() {
                         <Zap className="w-5 h-5" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-medium text-gray-900">Trigger Action</h4>
+                        <h4 className="font-manrope text-gray-900">Trigger Action</h4>
                         <p className="text-sm text-gray-600">Executes external actions</p>
                       </div>
                     </div>

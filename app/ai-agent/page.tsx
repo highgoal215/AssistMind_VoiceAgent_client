@@ -106,7 +106,7 @@ export default function AIAgentPage() {
                             <div className="absolute inset-0 bg-[#4A48FF] rounded-full scale-150 opacity-30" />
                             <span className="relative z-10">1</span>
                           </div>
-                          <span className="mt-3 text-sm font-medium text-gray-900">Agent Profile</span>
+                          <span className="mt-3 text-sm font-manrope text-gray-900">Agent Profile</span>
                         </div>
 
                         {/* Step 2: Business Details (Inactive) */}
@@ -114,7 +114,7 @@ export default function AIAgentPage() {
                           <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold relative bg-gray-300 text-gray-600">
                             <span className="relative z-10">2</span>
                           </div>
-                          <span className="mt-3 text-sm font-medium text-gray-900">Business Details</span>
+                          <span className="mt-3 text-sm font-manrope text-gray-900">Business Details</span>
                         </div>
 
                         {/* Step 3: Final Review & Launch (Inactive) */}
@@ -122,7 +122,7 @@ export default function AIAgentPage() {
                           <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold relative bg-gray-300 text-gray-600">
                             <span className="relative z-10">3</span>
                           </div>
-                          <span className="mt-3 text-sm font-medium text-gray-900">Final Review & Launch</span>
+                          <span className="mt-3 text-sm font-manrope text-gray-900">Final Review & Launch</span>
                         </div>
                       </div>
                     </div>

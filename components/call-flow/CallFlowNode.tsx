@@ -40,19 +40,17 @@ export default function CallFlowNode({
 }: CallFlowNodeProps) {
   return (
     <div
-      className={`absolute cursor-move transition-all duration-200 ${
-        isSelected ? 'ring-2 ring-blue-500 ring-offset-2' : ''
-      } ${isDragging ? 'z-50' : 'z-10'}`}
+      className={`absolute cursor-move transition-all duration-200 ${isSelected ? 'ring-2 ring-blue-500 ring-offset-2' : ''
+        } ${isDragging ? 'z-50' : 'z-10'}`}
       style={{ left: x, top: y }}
       onClick={onClick}
       onMouseDown={onMouseDown}
     >
-      <div className={`p-4 rounded-lg border-2 min-w-[200px] max-w-[300px] ${color} text-white shadow-lg hover:shadow-xl transition-shadow ${
-        isSelected ? 'shadow-2xl' : ''
-      }`}>
+      <div className={`p-4 rounded-lg border-2 min-w-[200px] max-w-[300px] ${color} text-white shadow-lg hover:shadow-xl transition-shadow ${isSelected ? 'shadow-2xl' : ''
+        }`}>
         <div className="flex items-center space-x-2 mb-2">
           {nodeIcons[type]}
-          <span className="font-medium">{title}</span>
+          <span className="font-manrope">{title}</span>
         </div>
         {content && (
           <p className="text-sm opacity-90 mt-2 line-clamp-3">{content}</p>

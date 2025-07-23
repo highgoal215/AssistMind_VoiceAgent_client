@@ -98,7 +98,7 @@ export default function TextPreviewPage() {
   }
 
   const copyToClipboard = () => {
-    const text = flowData.nodes.map((node, index) => 
+    const text = flowData.nodes.map((node, index) =>
       `${index + 1}. ${getNodeTypeDisplay(node.type)}: ${node.content || 'No content specified'}`
     ).join('\n\n')
     navigator.clipboard.writeText(text)
@@ -107,10 +107,10 @@ export default function TextPreviewPage() {
   }
 
   const downloadText = () => {
-    const text = flowData.nodes.map((node, index) => 
+    const text = flowData.nodes.map((node, index) =>
       `${index + 1}. ${getNodeTypeDisplay(node.type)}: ${node.content || 'No content specified'}`
     ).join('\n\n')
-    
+
     const blob = new Blob([text], { type: 'text/plain' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
@@ -177,7 +177,7 @@ export default function TextPreviewPage() {
 
             <div className="space-y-4">
               <div>
-                <h3 className="text-sm font-medium text-gray-700 mb-3">Logic Blocks</h3>
+                <h3 className="text-sm font-manrope text-gray-700 mb-3">Logic Blocks</h3>
                 <div className="space-y-3">
                   <div className="p-4 border border-gray-200 rounded-lg">
                     <div className="flex items-center space-x-3">
@@ -185,7 +185,7 @@ export default function TextPreviewPage() {
                         <Phone className="w-5 h-5" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-medium text-gray-900">Start Call</h4>
+                        <h4 className="font-manrope text-gray-900">Start Call</h4>
                         <p className="text-sm text-gray-600">Call starts here</p>
                       </div>
                     </div>
@@ -196,7 +196,7 @@ export default function TextPreviewPage() {
                         <MessageSquare className="w-5 h-5" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-medium text-gray-900">Response</h4>
+                        <h4 className="font-manrope text-gray-900">Response</h4>
                         <p className="text-sm text-gray-600">AI delivers a message</p>
                       </div>
                     </div>
@@ -207,7 +207,7 @@ export default function TextPreviewPage() {
                         <HelpCircle className="w-5 h-5" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-medium text-gray-900">Ask Question</h4>
+                        <h4 className="font-manrope text-gray-900">Ask Question</h4>
                         <p className="text-sm text-gray-600">Ask & wait for caller's answer</p>
                       </div>
                     </div>
@@ -218,7 +218,7 @@ export default function TextPreviewPage() {
                         <ArrowRight className="w-5 h-5" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-medium text-gray-900">Transfer to Human</h4>
+                        <h4 className="font-manrope text-gray-900">Transfer to Human</h4>
                         <p className="text-sm text-gray-600">Transfers the call to a phone number</p>
                       </div>
                     </div>
@@ -229,7 +229,7 @@ export default function TextPreviewPage() {
                         <Zap className="w-5 h-5" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-medium text-gray-900">Trigger Action</h4>
+                        <h4 className="font-manrope text-gray-900">Trigger Action</h4>
                         <p className="text-sm text-gray-600">Executes external actions</p>
                       </div>
                     </div>
@@ -256,7 +256,7 @@ export default function TextPreviewPage() {
               <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-4">
                   {showSuccess && (
-                    <div className="text-green-600 text-sm font-medium">
+                    <div className="text-green-600 text-sm font-manrope">
                       ✓ Copied to clipboard!
                     </div>
                   )}
@@ -301,7 +301,7 @@ export default function TextPreviewPage() {
                     <div className="text-gray-400 mb-4">
                       <FileText className="w-16 h-16 mx-auto" />
                     </div>
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">No flow configured</h3>
+                    <h3 className="text-lg font-manrope text-gray-900 mb-2">No flow configured</h3>
                     <p className="text-sm text-gray-600">Create a flow in the visual editor to see the text preview</p>
                     <Link href="/call-flow">
                       <Button className="mt-4 bg-[#4A48FF] hover:bg-[#3A38FF] text-white">
@@ -319,7 +319,7 @@ export default function TextPreviewPage() {
                           <CardHeader className="pb-3">
                             <div className="flex items-center justify-between">
                               <div className="flex items-center space-x-3">
-                                <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-medium">
+                                <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-manrope">
                                   {index + 1}
                                 </div>
                                 <div className="flex items-center space-x-2">
@@ -353,19 +353,19 @@ export default function TextPreviewPage() {
                       <CardContent>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                           <div>
-                            <p className="text-blue-700 font-medium">Total Steps</p>
+                            <p className="text-blue-700 font-manrope">Total Steps</p>
                             <p className="text-blue-900 text-lg font-bold">{flowData.nodes.length}</p>
                           </div>
                           <div>
-                            <p className="text-blue-700 font-medium">Estimated Duration</p>
+                            <p className="text-blue-700 font-manrope">Estimated Duration</p>
                             <p className="text-blue-900 text-lg font-bold">{Math.max(1, Math.ceil(flowData.nodes.length * 0.5))} min</p>
                           </div>
                           <div>
-                            <p className="text-blue-700 font-medium">AI Responses</p>
+                            <p className="text-blue-700 font-manrope">AI Responses</p>
                             <p className="text-blue-900 text-lg font-bold">{flowData.nodes.filter(n => n.type === 'response').length}</p>
                           </div>
                           <div>
-                            <p className="text-blue-700 font-medium">Human Transfers</p>
+                            <p className="text-blue-700 font-manrope">Human Transfers</p>
                             <p className="text-blue-900 text-lg font-bold">{flowData.nodes.filter(n => n.type === 'transfer').length}</p>
                           </div>
                         </div>

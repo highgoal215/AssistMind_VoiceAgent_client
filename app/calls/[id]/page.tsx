@@ -164,17 +164,19 @@ export default function CallDetailPage() {
 
         {/* Main Content */}
         <main className="flex-1 overflow-auto p-6">
-          <div className="max-w-7xl mx-auto space-y-6">
+          <div className="mx-auto space-y-6">
             {/* Top Section - Call Details and Caller Information */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Call Details Card */}
-              <Card className="bg-white shadow-sm">
+              <Card className="bg-white shadow-sm lg:col-span-2">
                 <CardContent className="p-6">
-                  <div className="flex items-start space-x-4">
-                    <Avatar className="w-16 h-16">
-                      <AvatarImage src="/images/user-profile.jpg" />
-                      <AvatarFallback className="text-lg">{call.caller.charAt(0)}</AvatarFallback>
-                    </Avatar>
+                  <div className="flex items-start space-x-4  p-2">
+                    <div className='flex w-1/4 h-1/4 '>
+                      <Avatar className="w-full h-full">
+                        <AvatarImage src="/images/user-profile.jpg" />
+                        <AvatarFallback className="text-lg">{call.caller.charAt(0)}</AvatarFallback>
+                      </Avatar>
+                    </div>
                     <div className="flex-1">
                       <div className="mb-2">
                         <Badge className="bg-purple-100 text-purple-800">
@@ -183,7 +185,7 @@ export default function CallDetailPage() {
                       </div>
                       <h1 className="text-2xl font-bold text-gray-900 mb-1">{call.caller}</h1>
                       <p className="text-gray-600 mb-4">{call.dateTime} • {call.duration}</p>
-                      
+
                       {/* Audio Player */}
                       <div className="bg-gray-50 rounded-lg p-4 mb-4">
                         <div className="flex items-center space-x-4">
@@ -213,9 +215,9 @@ export default function CallDetailPage() {
                         <Button variant="outline" size="sm" className="flex-1">
                           Audio
                         </Button>
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
+                        <Button
+                          variant="outline"
+                          size="sm"
                           className="flex-1 bg-blue-50 border-blue-200 text-blue-700"
                         >
                           Transcript
@@ -237,7 +239,7 @@ export default function CallDetailPage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-gray-700">Status</span>
+                    <span className="text-sm font-manrope text-gray-700">Status</span>
                     <Badge className={getStatusColor(call.status)}>
                       {call.status.charAt(0).toUpperCase() + call.status.slice(1)}
                     </Badge>
@@ -245,7 +247,7 @@ export default function CallDetailPage() {
 
                   <div className="space-y-3">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                      <label className="block text-sm font-manrope text-gray-700 mb-1">Name</label>
                       <Input
                         value={callerName}
                         onChange={(e) => setCallerName(e.target.value)}
@@ -253,7 +255,7 @@ export default function CallDetailPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Phone number</label>
+                      <label className="block text-sm font-manrope text-gray-700 mb-1">Phone number</label>
                       <Input
                         value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value)}
@@ -269,17 +271,17 @@ export default function CallDetailPage() {
             <Card className="bg-white shadow-sm">
               <CardContent className="p-0">
                 <Tabs value={currentTab} onValueChange={setCurrentTab}>
-                  <div className="border-b border-gray-200">
-                    <TabsList className="bg-transparent h-12">
-                      <TabsTrigger 
-                        value="transcript" 
-                        className="data-[state=active]:bg-blue-50 data-[state=active]:text-blue-700 data-[state=active]:border-b-2 data-[state=active]:border-blue-700"
+                  <div className="p-4 ">
+                    <TabsList className=" bg-gray-100 h-14 rounded-lg p-1 w-full ">
+                      <TabsTrigger
+                        value="transcript"
+                        className="flex-1 h-12 text-[24px] font-manrope font-bold data-[state=active]:bg-[#a09fd6] data-[state=active]:text-[#4A48FF] data-[state=inactive]:text-gray-600 rounded-md transition-all"
                       >
                         Transcript
                       </TabsTrigger>
-                      <TabsTrigger 
+                      <TabsTrigger
                         value="summary"
-                        className="data-[state=active]:bg-blue-50 data-[state=active]:text-blue-700 data-[state=active]:border-b-2 data-[state=active]:border-blue-700"
+                        className="flex-1 h-12 text-[24px] font-manrope font-bold data-[state=active]:bg-[#8a89d4] data-[state=active]:text-[#4A48FF] data-[state=inactive]:text-gray-600 rounded-md transition-all"
                       >
                         Summary
                       </TabsTrigger>
@@ -291,9 +293,8 @@ export default function CallDetailPage() {
                       {call.transcript.map((message) => (
                         <div
                           key={message.id}
-                          className={`flex items-start space-x-3 ${
-                            message.speaker === 'caller' ? 'flex-row-reverse space-x-reverse' : ''
-                          }`}
+                          className={`flex items-start space-x-3 ${message.speaker === 'caller' ? 'flex-row-reverse space-x-reverse' : ''
+                            }`}
                         >
                           <Avatar className="w-8 h-8">
                             <AvatarFallback className="text-sm bg-pink-100 text-pink-600">
@@ -301,16 +302,14 @@ export default function CallDetailPage() {
                             </AvatarFallback>
                           </Avatar>
                           <div
-                            className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
-                              message.speaker === 'ai'
+                            className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${message.speaker === 'ai'
                                 ? 'bg-gray-100 text-gray-900'
-                                : 'bg-blue-600 text-white'
-                            }`}
+                                : 'bg-[#4A48FF] text-white'
+                              }`}
                           >
                             <p className="text-sm">{message.content}</p>
-                            <p className={`text-xs mt-1 ${
-                              message.speaker === 'ai' ? 'text-gray-500' : 'text-blue-100'
-                            }`}>
+                            <p className={`text-xs mt-1 ${message.speaker === 'ai' ? 'text-gray-500' : 'text-blue-100'
+                              }`}>
                               {message.timestamp}
                             </p>
                           </div>

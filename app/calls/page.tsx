@@ -189,7 +189,7 @@ export default function CallsPage() {
                       <Phone className="w-6 h-6 text-purple-600" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-gray-600">Total Calls</p>
+                      <p className="text-sm font-manrope text-gray-600">Total Calls</p>
                       <p className="text-2xl font-bold text-gray-900">{totalCalls}</p>
                     </div>
                   </div>
@@ -203,7 +203,7 @@ export default function CallsPage() {
                       <Clock className="w-6 h-6 text-purple-600" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-gray-600">Average Duration</p>
+                      <p className="text-sm font-manrope text-gray-600">Average Duration</p>
                       <p className="text-2xl font-bold text-gray-900">{averageDuration}</p>
                     </div>
                   </div>
@@ -217,7 +217,7 @@ export default function CallsPage() {
                       <User className="w-6 h-6 text-purple-600" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-gray-600">Unique Callers</p>
+                      <p className="text-sm font-manrope text-gray-600">Unique Callers</p>
                       <p className="text-2xl font-bold text-gray-900">{uniqueCallers.toString().padStart(2, '0')}</p>
                     </div>
                   </div>
@@ -267,7 +267,7 @@ export default function CallsPage() {
                                     {selectedCallType}
                                   </Badge>
                                 )}
-                                
+
                               </DropdownMenuSubTrigger>
                               <DropdownMenuSubContent>
                                 <DropdownMenuItem onClick={() => setSelectedCallType('All')}>
@@ -289,7 +289,7 @@ export default function CallsPage() {
                                     {selectedStatus}
                                   </Badge>
                                 )}
-                               
+
                               </DropdownMenuSubTrigger>
                               <DropdownMenuSubContent>
                                 <DropdownMenuItem onClick={() => setSelectedStatus('Completed')}>
@@ -314,7 +314,7 @@ export default function CallsPage() {
                                     {selectedDateRange}
                                   </Badge>
                                 )}
-                              
+
                               </DropdownMenuSubTrigger>
                               <DropdownMenuSubContent>
                                 <DropdownMenuItem onClick={() => setSelectedDateRange('Today')}>
@@ -348,23 +348,23 @@ export default function CallsPage() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="font-medium">CALLER</TableHead>
-                      <TableHead className="font-medium">NUMBER</TableHead>
-                      <TableHead className="font-medium">DATE & TIME</TableHead>
-                      <TableHead className="font-medium">
+                      <TableHead className="font-manrope">CALLER</TableHead>
+                      <TableHead className="font-manrope">NUMBER</TableHead>
+                      <TableHead className="font-manrope">DATE & TIME</TableHead>
+                      <TableHead className="font-manrope">
                         <div className="flex items-center space-x-1">
                           <span>DURATION</span>
                           <ArrowUpDown className="w-4 h-4" />
                         </div>
                       </TableHead>
-                      <TableHead className="font-medium">TYPE</TableHead>
-                      <TableHead className="font-medium">
+                      <TableHead className="font-manrope">TYPE</TableHead>
+                      <TableHead className="font-manrope">
                         <div className="flex items-center space-x-1">
                           <span>STATUS</span>
                           <ArrowUpDown className="w-4 h-4" />
                         </div>
                       </TableHead>
-                      <TableHead className="font-medium">ACTIONS</TableHead>
+                      <TableHead className="font-manrope">ACTIONS</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -374,7 +374,7 @@ export default function CallsPage() {
                         className="hover:bg-gray-50 cursor-pointer"
                         onClick={() => window.location.href = `/calls/${call.id}`}
                       >
-                        <TableCell className="font-medium">{call.caller}</TableCell>
+                        <TableCell className="font-manrope">{call.caller}</TableCell>
                         <TableCell>{call.number}</TableCell>
                         <TableCell>{call.dateTime}</TableCell>
                         <TableCell>{call.duration}</TableCell>
@@ -395,7 +395,7 @@ export default function CallsPage() {
                                 <Eye className="w-4 h-4" />
                               </Button>
                             </Link>
-                            
+
                             {/* Action Menu Dropdown */}
                             <DropdownMenu open={actionMenuOpen === call.id} onOpenChange={(open) => setActionMenuOpen(open ? call.id : null)}>
                               <DropdownMenuTrigger asChild>
@@ -406,15 +406,15 @@ export default function CallsPage() {
                               <DropdownMenuContent className="w-48 bg-white rounded-lg shadow-lg border border-gray-200">
                                 <DropdownMenuItem className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 cursor-pointer">
                                   <Play className="w-4 h-4" />
-                                  <span className="text-sm font-medium">Play audio</span>
+                                  <span className="text-sm font-manrope">Play audio</span>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 cursor-pointer">
                                   <Trash2 className="w-4 h-4" />
-                                  <span className="text-sm font-medium">Delete Record</span>
+                                  <span className="text-sm font-manrope">Delete Record</span>
                                 </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
-                            
+
                             {/* Note Menu Dropdown */}
                             <DropdownMenu open={noteMenuOpen === call.id} onOpenChange={(open) => setNoteMenuOpen(open ? call.id : null)}>
                               <DropdownMenuTrigger asChild>

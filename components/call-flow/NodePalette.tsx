@@ -63,7 +63,7 @@ export default function NodePalette({ onDragStart, onCreateCustomNode }: NodePal
 
       <div className="space-y-4">
         <div>
-          <h3 className="text-sm font-medium text-gray-700 mb-3">Logic Blocks</h3>
+          <h3 className="text-sm font-manrope text-gray-700 mb-3">Logic Blocks</h3>
           <div className="space-y-3">
             {nodeTypes.map((nodeType) => (
               <div
@@ -77,7 +77,7 @@ export default function NodePalette({ onDragStart, onCreateCustomNode }: NodePal
                     {nodeType.icon}
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-medium text-gray-900">{nodeType.title}</h4>
+                    <h4 className="font-manrope text-gray-900">{nodeType.title}</h4>
                     <p className="text-sm text-gray-600">{nodeType.description}</p>
                   </div>
                 </div>

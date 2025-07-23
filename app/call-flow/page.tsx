@@ -133,8 +133,8 @@ export default function CallFlowBuilderPage() {
     const x = (e.clientX - rect.left - dragOffset.x) / zoom
     const y = (e.clientY - rect.top - dragOffset.y) / zoom
 
-    setNodes(prev => prev.map(node => 
-      node.id === draggedNode 
+    setNodes(prev => prev.map(node =>
+      node.id === draggedNode
         ? { ...node, x: Math.max(0, x), y: Math.max(0, y) }
         : node
     ))
@@ -167,9 +167,9 @@ export default function CallFlowBuilderPage() {
         totalConnections: connections.length
       }
     }
-    
+
     localStorage.setItem('callFlow', JSON.stringify(flowData))
-    
+
     // Show success feedback
     const saveButton = document.querySelector('[data-save-button]') as HTMLButtonElement
     if (saveButton) {
@@ -183,7 +183,7 @@ export default function CallFlowBuilderPage() {
 
   const deleteSelectedNode = () => {
     if (!selectedNode) return
-    
+
     setNodes(prev => prev.filter(node => node.id !== selectedNode))
     setConnections(prev => prev.filter(conn => conn.from !== selectedNode && conn.to !== selectedNode))
     setSelectedNode(null)
@@ -191,7 +191,7 @@ export default function CallFlowBuilderPage() {
 
   const editSelectedNode = () => {
     if (!selectedNode) return
-    
+
     const node = nodes.find(n => n.id === selectedNode)
     if (node) {
       setEditingNode(node)
@@ -202,9 +202,9 @@ export default function CallFlowBuilderPage() {
 
   const saveNodeEdit = () => {
     if (!editingNode) return
-    
-    setNodes(prev => prev.map(node => 
-      node.id === editingNode.id 
+
+    setNodes(prev => prev.map(node =>
+      node.id === editingNode.id
         ? { ...node, content: editContent }
         : node
     ))
@@ -279,7 +279,7 @@ export default function CallFlowBuilderPage() {
         {/* Call Flow Builder Content */}
         <main className="flex-1 flex overflow-hidden">
           {/* Node Palette */}
-          <NodePalette 
+          <NodePalette
             onDragStart={handleDragStart}
             onCreateCustomNode={createCustomNode}
           />
@@ -345,9 +345,9 @@ export default function CallFlowBuilderPage() {
               onMouseLeave={handleCanvasMouseUp}
               onClick={handleCanvasClick}
             >
-              <div 
+              <div
                 className="relative w-full h-full"
-                style={{ 
+                style={{
                   transform: `scale(${zoom})`,
                   transformOrigin: 'top left'
                 }}
@@ -355,7 +355,7 @@ export default function CallFlowBuilderPage() {
                 {nodes.length === 0 ? (
                   <div className="flex flex-col items-center justify-center h-full text-gray-500">
                     <Bot className="w-16 h-16 mb-4 text-gray-300" />
-                    <h3 className="text-lg font-medium mb-2">No flow configured</h3>
+                    <h3 className="text-lg font-manrope mb-2">No flow configured</h3>
                     <p className="text-sm">Add nodes to the canvas to see the flow sequence</p>
                   </div>
                 ) : (
@@ -377,16 +377,16 @@ export default function CallFlowBuilderPage() {
                         isDragging={draggedNode === node.id}
                       />
                     ))}
-                    
+
                     {/* Connection lines */}
                     {connections.length > 0 && (
                       <svg className="absolute inset-0 pointer-events-none" style={{ transform: `scale(${zoom})` }}>
                         {connections.map((connection) => {
                           const fromNode = nodes.find(n => n.id === connection.from)
                           const toNode = nodes.find(n => n.id === connection.to)
-                          
+
                           if (!fromNode || !toNode) return null
-                          
+
                           return (
                             <line
                               key={connection.id}
@@ -463,7 +463,7 @@ export default function CallFlowBuilderPage() {
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <label className="text-sm font-medium text-gray-700">Content</label>
+              <label className="text-sm font-manrope text-gray-700">Content</label>
               <Textarea
                 value={editContent}
                 onChange={(e) => setEditContent(e.target.value)}
