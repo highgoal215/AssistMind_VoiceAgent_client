@@ -284,7 +284,15 @@ export default function CallDetailPage() {
                     </Badge>
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-manrope text-gray-700">Call sentiment</span>
+                    <Badge className="bg-purple-100 text-purple-800">
+                      <ThumbsDown className="w-3 h-3 mr-1" />
+                      {call.sentiment.charAt(0).toUpperCase() + call.sentiment.slice(1)}
+                    </Badge>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="block text-sm font-manrope text-gray-700 mb-1">Name</label>
                       <Input
@@ -301,6 +309,16 @@ export default function CallDetailPage() {
                         className="w-full"
                       />
                     </div>
+                  </div>
+
+                  <div className="pt-2">
+                    <Button 
+                      onClick={handleSaveToContacts}
+                      className="bg-[#4A48FF] hover:bg-[#3A38FF] text-white"
+                    >
+                      <Save className="w-4 h-4 mr-2" />
+                      Save to contacts
+                    </Button>
                   </div>
                 </CardContent>
               </Card>

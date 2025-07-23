@@ -229,7 +229,7 @@ export default function CallsPage() {
                 <CardContent className="p-4 lg:p-6">
                   <div className="flex items-center space-x-3 lg:space-x-4">
                     <div className="w-10 h-10 lg:w-12 lg:h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                      <Phone className="w-5 h-5 lg:w-6 lg:h-6 text-purple-600" />
+                      <Phone className="w-5 h-5 lg:w-6 lg:h-6 text-[#4A48FF]" />
                     </div>
                     <div>
                       <p className="text-sm font-manrope text-gray-600">Total Calls</p>
@@ -243,7 +243,7 @@ export default function CallsPage() {
                 <CardContent className="p-4 lg:p-6">
                   <div className="flex items-center space-x-3 lg:space-x-4">
                     <div className="w-10 h-10 lg:w-12 lg:h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                      <Clock className="w-5 h-5 lg:w-6 lg:h-6 text-purple-600" />
+                      <Clock className="w-5 h-5 lg:w-6 lg:h-6 text-[#4A48FF]" />
                     </div>
                     <div>
                       <p className="text-sm font-manrope text-gray-600">Average Duration</p>
@@ -257,7 +257,7 @@ export default function CallsPage() {
                 <CardContent className="p-4 lg:p-6">
                   <div className="flex items-center space-x-3 lg:space-x-4">
                     <div className="w-10 h-10 lg:w-12 lg:h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                      <User className="w-5 h-5 lg:w-6 lg:h-6 text-purple-600" />
+                      <User className="w-5 h-5 lg:w-6 lg:h-6 text-[#4A48FF]" />
                     </div>
                     <div>
                       <p className="text-sm font-manrope text-gray-600">Unique Callers</p>
