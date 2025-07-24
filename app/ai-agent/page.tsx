@@ -25,10 +25,11 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
+import { Switch } from '@/components/ui/switch'
 import DashboardSidebar from '@/components/dashboard/DashboardSidebar'
 import Header from '@/components/header/header'
 import { SignupProgress } from '@/components/signup-progress'
-
+import Image from 'next/image'
 export default function AIAgentPage() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -38,7 +39,7 @@ export default function AIAgentPage() {
   const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false)
   const [availableRoles] = useState([
     'Receptionist',
-    'Appointment Booker', 
+    'Appointment Booker',
     'Lead Qualifier',
     'Customer Support',
     'Sales Representative',
@@ -52,13 +53,43 @@ export default function AIAgentPage() {
   const [avatarImage, setAvatarImage] = useState<string | null>(null)
 
   // Business Details State
-  const [businessName, setBusinessName] = useState('')
+  const [businessName, setBusinessName] = useState('GreenTech Services')
   const [businessPhone, setBusinessPhone] = useState('')
   const [businessEmail, setBusinessEmail] = useState('')
-  const [businessWebsite, setBusinessWebsite] = useState('')
-  const [businessAddress, setBusinessAddress] = useState('')
+  const [businessWebsite, setBusinessWebsite] = useState('www.greentech.ca')
+  const [businessAddress, setBusinessAddress] = useState('123 King Street W, Toronto')
   const [businessHours, setBusinessHours] = useState('')
   const [businessDescription, setBusinessDescription] = useState('')
+
+  // Booking Setup State
+  const [calendarPlatform, setCalendarPlatform] = useState('gohighlevel')
+  const [isAlternativeLinkEnabled, setIsAlternativeLinkEnabled] = useState(false)
+  const [alternativeLink, setAlternativeLink] = useState('')
+
+  // Call Transfer State
+  const [callTransferNumber, setCallTransferNumber] = useState('+1 (647) 444-')
+  const [selectedServices, setSelectedServices] = useState(['AC Repair', 'Electrician', 'Carpenter'])
+  const [availableServices] = useState(['AC Repair', 'Electrician', 'Carpenter', 'Plumber', 'HVAC', 'Roofing'])
+  const [newService, setNewService] = useState('')
+
+  // Clarifying Questions State
+  const [clarifyingQuestions, setClarifyingQuestions] = useState(['What kind of repair do you need?', 'What kind of repair do you need?', 'What kind of repair do you need?'])
+  const [newQuestion, setNewQuestion] = useState('')
+
+  // Agent Availability State
+  const [is247Available, setIs247Available] = useState(true)
+  const [customHours, setCustomHours] = useState(false)
+
+  // Custom Hours State
+  const [dailyHours, setDailyHours] = useState({
+    monday: { enabled: true, startTime: '09:00', endTime: '22:00' },
+    tuesday: { enabled: true, startTime: '09:00', endTime: '22:00' },
+    wednesday: { enabled: true, startTime: '09:00', endTime: '22:00' },
+    thursday: { enabled: true, startTime: '09:00', endTime: '22:00' },
+    friday: { enabled: true, startTime: '09:00', endTime: '22:00' },
+    saturday: { enabled: true, startTime: '09:00', endTime: '22:00' },
+    sunday: { enabled: true, startTime: '09:00', endTime: '22:00' }
+  })
 
   // Handle body scroll when mobile menu is open
   useEffect(() => {
@@ -108,7 +139,7 @@ export default function AIAgentPage() {
         alert('Please select an image file')
         return
       }
-      
+
       // Check file size (max 5MB)
       if (file.size > 5 * 1024 * 1024) {
         alert('Image size should be less than 5MB')
@@ -121,6 +152,62 @@ export default function AIAgentPage() {
       }
       reader.readAsDataURL(file)
     }
+  }
+
+  // Helper functions for new sections
+  const addService = () => {
+    if (newService && !selectedServices.includes(newService)) {
+      setSelectedServices([...selectedServices, newService])
+      setNewService('')
+    }
+  }
+
+  const removeService = (serviceToRemove: string) => {
+    setSelectedServices(selectedServices.filter(service => service !== serviceToRemove))
+  }
+
+  const addQuestion = () => {
+    if (newQuestion && !clarifyingQuestions.includes(newQuestion)) {
+      setClarifyingQuestions([...clarifyingQuestions, newQuestion])
+      setNewQuestion('')
+    }
+  }
+
+  const removeQuestion = (index: number) => {
+    setClarifyingQuestions(clarifyingQuestions.filter((_, i) => i !== index))
+  }
+
+  // Helper functions for custom hours
+  const updateDailyHours = (day: string, field: 'enabled' | 'startTime' | 'endTime', value: boolean | string) => {
+    setDailyHours(prev => ({
+      ...prev,
+      [day]: {
+        ...prev[day as keyof typeof prev],
+        [field]: value
+      }
+    }))
+  }
+
+  const formatTimeForDisplay = (time: string) => {
+    const [hours, minutes] = time.split(':')
+    const hour = parseInt(hours)
+    const ampm = hour >= 12 ? 'PM' : 'AM'
+    const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour
+    return `${displayHour.toString().padStart(2, '0')}.${minutes} ${ampm}`
+  }
+
+  const generateTimeOptions = () => {
+    const options = []
+    for (let hour = 0; hour < 24; hour++) {
+      for (let minute = 0; minute < 60; minute += 30) {
+        const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`
+        options.push({
+          value: timeString,
+          label: formatTimeForDisplay(timeString)
+        })
+      }
+    }
+    return options
   }
 
   const voiceOptions = [
@@ -142,35 +229,35 @@ export default function AIAgentPage() {
                 <label className="block text-md font-bold text-gray-700 mb-4">
                   Agent Vatar
                 </label>
-                                 <div className="flex items-center space-x-4">
-                   <div className="relative">
-                     <Avatar className="w-16 h-16">
-                       <AvatarImage src={avatarImage || "/images/user-profile.jpg"} />
-                       <AvatarFallback className="bg-blue-600 text-white text-lg">A</AvatarFallback>
-                     </Avatar>
-                   </div>
-                   <div className="relative">
-                     <input
-                       type="file"
-                       accept="image/*"
-                       onChange={handleImageUpload}
-                       className="hidden"
-                       id="avatar-upload"
-                     />
-                     <label htmlFor="avatar-upload">
-                       <Button 
-                         variant="outline" 
-                         className="font-bold border-gray-300 text-gray-700 hover:bg-gray-50 cursor-pointer"
-                         asChild
-                       >
-                         <span>
-                           <Upload className="h-4 w-4 mr-2" />
-                           Upload
-                         </span>
-                       </Button>
-                     </label>
-                   </div>
-                 </div>
+                <div className="flex items-center space-x-4">
+                  <div className="relative">
+                    <Avatar className="w-16 h-16">
+                      <AvatarImage src={avatarImage || "/images/user-profile.jpg"} />
+                      <AvatarFallback className="bg-blue-600 text-white text-lg">A</AvatarFallback>
+                    </Avatar>
+                  </div>
+                  <div className="relative">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      className="hidden"
+                      id="avatar-upload"
+                    />
+                    <label htmlFor="avatar-upload">
+                      <Button
+                        variant="outline"
+                        className="font-bold border-gray-300 text-gray-700 hover:bg-gray-50 cursor-pointer"
+                        asChild
+                      >
+                        <span>
+                          <Upload className="h-4 w-4 mr-2" />
+                          Upload
+                        </span>
+                      </Button>
+                    </label>
+                  </div>
+                </div>
               </div>
 
               {/* Agent Name */}
@@ -209,11 +296,10 @@ export default function AIAgentPage() {
                           onClick={() => handleRoleSelect(role)}
                           className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer"
                         >
-                          <div className={`w-4 h-4 border rounded mr-3 flex items-center justify-center ${
-                            roles.includes(role) 
-                              ? 'bg-[#4A48FF] border-[#4A48FF]' 
-                              : 'border-gray-300'
-                          }`}>
+                          <div className={`w-4 h-4 border rounded mr-3 flex items-center justify-center ${roles.includes(role)
+                            ? 'bg-[#4A48FF] border-[#4A48FF]'
+                            : 'border-gray-300'
+                            }`}>
                             {roles.includes(role) && (
                               <Check className="h-3 w-3 text-white" />
                             )}
@@ -321,99 +407,294 @@ export default function AIAgentPage() {
 
       case 2:
         return (
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Business Name */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Business Name
-                </label>
-                <Input
-                  value={businessName}
-                  onChange={(e) => setBusinessName(e.target.value)}
-                  className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
-                  placeholder="Enter your business name"
-                />
+          <div className="space-y-8  mt-8">
+            {/* Business Details Section */}
+            <div className="space-y-4  py-6  shadow-lg">
+              <h3 className="text-2xl font-bold font-manrope text-gray-900">Business Details</h3>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-md font-bold font-manrope text-gray-700 mb-2">
+                    Business Name
+                  </label>
+                  <Input
+                    value={businessName}
+                    onChange={(e) => setBusinessName(e.target.value)}
+                    className="font-semibold border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                    placeholder="Enter your business name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-md font-bold font-manrope text-gray-700 mb-2">
+                    Website
+                  </label>
+                  <Input
+                    value={businessWebsite}
+                    onChange={(e) => setBusinessWebsite(e.target.value)}
+                    className="font-semibold  border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                    placeholder="Enter website URL"
+                  />
+                </div>
+                <div>
+                  <label className="block text-md font-bold font-manrope text-gray-700 mb-2">
+                    Phone Number
+                  </label>
+                  <Input
+                    value={businessPhone}
+                    onChange={(e) => setBusinessPhone(e.target.value)}
+                    className="font-semibold border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                    placeholder="Phone number"
+                  />
+                </div>
+                <div>
+                  <label className="block text-md font-bold font-manrope text-gray-700 mb-2">
+                    Business Address
+                  </label>
+                  <Input
+                    value={businessAddress}
+                    onChange={(e) => setBusinessAddress(e.target.value)}
+                    className=" font-semibold border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                    placeholder="Enter business address"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Booking Setup Section */}
+            <h3 className="text-2xl font-bold font-manrope text-gray-900">Booking Setup</h3>
+            <div className="flex space-x-6">
+              <div className='flex  flex-col w-1/2 gap-2'>
+                <div className='flex items-center justify-start gap-1'>
+                  <label className="block text-md font-bold font-manrope text-gray-700 ">
+                    Select Calendar Platform
+                  </label>
+                  <Image src="/images/agent/tooltip.svg" alt='check' width={30} height={30} className='w-4 h-4' />
+                </div>
+                <Select value={calendarPlatform} onValueChange={setCalendarPlatform}>
+                  <SelectTrigger className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]">
+                    <SelectValue placeholder="Select calendar platform" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="gohighlevel">GoHighLevel</SelectItem>
+                    <SelectItem value="calendly">Calendly</SelectItem>
+                    <SelectItem value="google">Google Calendar</SelectItem>
+                  </SelectContent>
+                </Select>
+                <div className="flex items-center mt-2">
+                  <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center mr-2">
+                    <Check className="h-3 w-3 text-white" />
+                  </div>
+                  <span className="text-sm text-gray-600">Connected to GoHighLevel</span>
+                </div>
               </div>
 
-              {/* Business Phone */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Business Phone
-                </label>
-                <Input
-                  value={businessPhone}
-                  onChange={(e) => setBusinessPhone(e.target.value)}
-                  className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
-                  placeholder="Enter business phone number"
-                />
+              <div className="flex flex-col w-1/2  ">
+                <div className=" flex flex-col gap-2">
+                  <label className="text-md font-bold font-manrope text-gray-700">
+                    Alternative Appointment Link
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <div
+                      className={`w-10 h-6 rounded-full relative cursor-pointer transition-colors ${isAlternativeLinkEnabled ? 'bg-green-500' : 'bg-gray-300'}`}
+                      onClick={() => setIsAlternativeLinkEnabled(!isAlternativeLinkEnabled)}
+                    >
+                      <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${isAlternativeLinkEnabled ? 'right-1' : 'left-1'}`}></div>
+                    </div>
+                    <span className="text-sm font-semibold font-manrope text-gray-500 mr-2">Enable</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Choose Where AI Transfers Calls Section */}
+            <h3 className="text-2xl font-bold font-manrope text-gray-900">Choose Where AI Transfers Calls</h3>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="w-full space-y-4 ">
+                <div className='flex  flex-col gap-2'>
+                  <div className='flex items-center justify-start gap-1'>
+                    <label className="block text-md font-bold font-manrope text-gray-700 ">
+                      Call Transfer Number
+                    </label>
+                    <Image src="/images/agent/tooltip.svg" alt='check' width={30} height={30} className='w-4 h-4' />
+                  </div>
+                  <Input
+                    value={callTransferNumber}
+                    onChange={(e) => setCallTransferNumber(e.target.value)}
+                    className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                    placeholder="+1 (647) 444-"
+                  />
+                </div>
+                <div className='flex  flex-col gap-2'>
+                  <div className='flex items-center justify-start gap-1'>
+                    <label className="block text-md font-bold font-manrope text-gray-700 ">
+                      Core Services
+                    </label>
+                    <Image src="/images/agent/tooltip.svg" alt='check' width={30} height={30} className='w-4 h-4' />
+                  </div>
+                  <div>
+                    <div className="flex items-center space-x-2">
+                      <Select value={newService} onValueChange={setNewService}>
+                        <SelectTrigger className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]">
+                          <SelectValue placeholder="Select service" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {availableServices.map((service) => (
+                            <SelectItem key={service} value={service}>
+                              {service}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <Button onClick={addService} className="bg-[#4A48FF] hover:bg-[#4A48FF] text-white px-3 py-2 rounded">
+                        + Add
+                      </Button>
+                    </div>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {selectedServices.map((service, index) => (
+                        <Badge key={index} variant="secondary" className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full flex items-center space-x-1">
+                          <span>{service}</span>
+                          <button
+                            onClick={() => removeService(service)}
+                            className="ml-1 hover:text-red-500 transition-colors"
+                          >
+                            <X className="h-3 w-3" />
+                          </button>
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {/* Business Email */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Business Email
-                </label>
-                <Input
-                  value={businessEmail}
-                  onChange={(e) => setBusinessEmail(e.target.value)}
-                  className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
-                  placeholder="Enter business email"
-                />
+              {/* Clarifying Questions Section */}
+              <div className="space-y-2">
+                <div className='flex items-center justify-start gap-1'>
+                  <label className="block text-md font-bold font-manrope text-gray-700 ">
+                    Clarifying Questions
+                  </label>
+                  <Image src="/images/agent/tooltip.svg" alt='check' width={30} height={30} className='w-4 h-4' />
+                </div>
+              
+                <div className="space-y-2 ">
+                  <div className="flex items-center space-x-2">
+                    <Input
+                      value={newQuestion}
+                      onChange={(e) => setNewQuestion(e.target.value)}
+                      className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                      placeholder="What kind of repair do you need?"
+                    />
+                    <Button onClick={addQuestion} className="bg-[#4A48FF] hover:bg-[#4A48FF] text-white px-3 py-2 rounded">
+                      + Add
+                    </Button>
+                  </div>
+                  {clarifyingQuestions.map((question, index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <Input
+                        value={question}
+                        onChange={(e) => {
+                          const newQuestions = [...clarifyingQuestions]
+                          newQuestions[index] = e.target.value
+                          setClarifyingQuestions(newQuestions)
+                        }}
+                        className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                        placeholder="What kind of repair do you need?"
+                      />
+                      <button
+                        onClick={() => removeQuestion(index)}
+                        className="text-red-500 hover:text-red-700"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
+            </div>
 
-              {/* Business Website */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Business Website
-                </label>
-                <Input
-                  value={businessWebsite}
-                  onChange={(e) => setBusinessWebsite(e.target.value)}
-                  className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
-                  placeholder="Enter website URL"
-                />
-              </div>
+            {/* Agent Availability Section */}
+            <div className="space-y-4">
+              <h3 className="text-2xl font-bold font-manrope text-gray-900">Agent Availability</h3>
+              <div className="space-y-4">
 
-              {/* Business Address */}
-              <div className="lg:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Business Address
-                </label>
-                <Textarea
-                  value={businessAddress}
-                  onChange={(e) => setBusinessAddress(e.target.value)}
-                  className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
-                  placeholder="Enter complete business address"
-                  rows={3}
-                />
-              </div>
+                <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                  <div>
+                    <h4 className="font-bold text-md font-manrope text-gray-900">24/7 availability</h4>
+                    <p className="text-sm font-bold font-manrope text-gray-600">Always available - Will answer call anytime, any day</p>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-sm font-bold font-manrope  text-gray-600">Custom hours</span>
+                    <div
+                      className={`w-10 h-6 rounded-full relative cursor-pointer transition-colors ${customHours ? 'bg-green-500' : 'bg-gray-300'}`}
+                      onClick={() => setCustomHours(!customHours)}
+                    >
+                      <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${customHours ? 'right-1' : 'left-1'}`}></div>
+                    </div>
+                    <span className="text-sm font-bold font-manrope text-gray-600">24/7</span>
+                  </div>
+                </div>
 
-              {/* Business Hours */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Business Hours
-                </label>
-                <Input
-                  value={businessHours}
-                  onChange={(e) => setBusinessHours(e.target.value)}
-                  className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
-                  placeholder="e.g., Mon-Fri 9AM-5PM"
-                />
-              </div>
+                {/* Custom Hours List */}
+                {customHours && (
+                  <div className="space-y-3">
+                    {Object.entries(dailyHours).map(([day, hours]) => (
+                      <div key={day} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                        <div className="flex items-center space-x-4 flex-1">
+                          <span className="font-medium text-gray-900 capitalize min-w-[80px]">
+                            {day.charAt(0).toUpperCase() + day.slice(1)}
+                          </span>
 
-              {/* Business Description */}
-              <div className="lg:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Business Description
-                </label>
-                <Textarea
-                  value={businessDescription}
-                  onChange={(e) => setBusinessDescription(e.target.value)}
-                  className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
-                  placeholder="Describe your business and services"
-                  rows={4}
-                />
+                          <Select
+                            value={hours.startTime}
+                            onValueChange={(value) => updateDailyHours(day, 'startTime', value)}
+                          >
+                            <SelectTrigger className="w-32 border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {generateTimeOptions().map((option) => (
+                                <SelectItem key={option.value} value={option.value}>
+                                  {option.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+
+                          <span className="text-gray-500">to</span>
+
+                          <Select
+                            value={hours.endTime}
+                            onValueChange={(value) => updateDailyHours(day, 'endTime', value)}
+                          >
+                            <SelectTrigger className="w-32 border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {generateTimeOptions().map((option) => (
+                                <SelectItem key={option.value} value={option.value}>
+                                  {option.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="flex items-center space-x-3">
+                          <span className={`text-sm ${hours.enabled ? 'text-green-600' : 'text-red-600'}`}>
+                            {hours.enabled ? 'Opened' : 'Closed'}
+                          </span>
+                          <div
+                            className={`w-10 h-6 rounded-full relative cursor-pointer transition-colors ${hours.enabled ? 'bg-blue-500' : 'bg-gray-300'}`}
+                            onClick={() => updateDailyHours(day, 'enabled', !hours.enabled)}
+                          >
+                            <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${hours.enabled ? 'right-1' : 'left-1'}`}></div>
+                          </div>
+                          <span className={`text-sm ${hours.enabled ? 'text-green-600' : 'text-red-600'}`}>
+                            {hours.enabled ? 'Opened' : 'Closed'}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -426,7 +707,7 @@ export default function AIAgentPage() {
             <div className="bg-gray-50 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Review Your Agent Setup</h3>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Agent Profile Summary */}
                 <div className="space-y-4">
                   <h4 className="font-medium text-gray-900 flex items-center">
@@ -454,6 +735,30 @@ export default function AIAgentPage() {
                     <p><span className="font-medium">Website:</span> {businessWebsite || 'Not provided'}</p>
                   </div>
                 </div>
+
+                {/* Agent Availability Summary */}
+                <div className="space-y-4">
+                  <h4 className="font-medium text-gray-900 flex items-center">
+                    <Check className="h-5 w-5 text-green-500 mr-2" />
+                    Agent Availability
+                  </h4>
+                  <div className="space-y-2 text-sm text-gray-600">
+                    <p><span className="font-medium">Mode:</span> {customHours ? 'Custom Hours' : '24/7 Available'}</p>
+                    {customHours && (
+                      <div className="mt-2">
+                        <p className="font-medium mb-1">Daily Schedule:</p>
+                        {Object.entries(dailyHours).map(([day, hours]) => (
+                          <p key={day} className="ml-2">
+                            <span className="capitalize">{day}:</span> {hours.enabled ?
+                              `${formatTimeForDisplay(hours.startTime)} - ${formatTimeForDisplay(hours.endTime)}` :
+                              'Closed'
+                            }
+                          </p>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -464,7 +769,7 @@ export default function AIAgentPage() {
                   <Check className="h-5 w-5 text-blue-600" />
                 </div>
                 <div className="ml-3">
-                  <h3 className="text-sm font-medium text-blue-800">
+                  <h3 className="text-md font-bold font-manrope text-blue-800">
                     Ready to Launch
                   </h3>
                   <div className="mt-2 text-sm text-blue-700">
@@ -526,7 +831,7 @@ export default function AIAgentPage() {
                               </span>
                             </div>
                           </div>
-                          <span className="text-sm font-medium text-gray-900 text-center absolute md:-bottom-6 -bottom-10 md:whitespace-nowrap whitespace-pre-wrap">Agent Profile</span>
+                          <span className="text-md font-bold font-manrope text-gray-900 text-center absolute md:-bottom-6 -bottom-10 md:whitespace-nowrap whitespace-pre-wrap">Agent Profile</span>
                         </div>
 
                         {/* Connecting Line 1-2 */}
@@ -579,7 +884,7 @@ export default function AIAgentPage() {
                         Back
                       </Button>
                     )}
-                    
+
                     {agentprofileStep < 3 ? (
                       <Button
                         onClick={() => setAgentProfileStep(agentprofileStep + 1)}
