@@ -21,13 +21,13 @@ export function SignupProgress({ currentStep, totalSteps = 4 }: SignupProgressPr
                   "w-10 h-10 rounded-full flex items-center justify-center text-md font-bold font-manrope relative",
                   step <= currentStep
                     ? "bg-[#4A48FF] text-white"
-                    : "bg-gray-300 text-gray-600"
+                    : "bg-[#D9D9D9] text-gray-600"
                 )}>
                 {step <= currentStep && (
-                  <div className="absolute inset-0 bg-[#4A48FF] rounded-full scale-150 opacity-60" />
+                  <div className="absolute inset-0 bg-[#7f7df7] rounded-full scale-150 opacity-60" />
                 )}
                 {step > currentStep && (
-                  <div className="absolute inset-0 bg-gray-300 rounded-full scale-125 opacity-80" />
+                  <div className="absolute inset-0 bg-[#F5F5F5] rounded-full scale-125 opacity-80" />
                 )}
                 <span className="relative z-10">{step}</span>
               </div>
