@@ -31,6 +31,29 @@ import { Switch } from '@/components/ui/switch'
 import DashboardSidebar from '@/components/dashboard/DashboardSidebar'
 import Header from '@/components/header/header'
 import Image from 'next/image'
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler,
+} from 'chart.js'
+import { Line } from 'react-chartjs-2'
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+)
 
 export default function AgentDetailPage() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
@@ -455,8 +478,200 @@ export default function AgentDetailPage() {
       case 'performance':
         return (
           <div className="space-y-6">
-            <h3 className="text-2xl font-bold text-gray-900">Performance Analytics</h3>
-            <p className="text-gray-600">Performance metrics and analytics will be displayed here.</p>
+            {/* Key Performance Indicators (KPIs) Section */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+              {/* Total Calls */}
+              <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600">Total Calls</p>
+                    <p className="text-2xl font-bold text-gray-900">247</p>
+                  </div>
+                  <div className="flex items-center text-green-600">
+                    <span className="text-sm font-medium">+2.3%</span>
+                    <span className="text-sm ml-1">^</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Avg Call Duration */}
+              <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600">Avg Call Duration</p>
+                    <p className="text-2xl font-bold text-gray-900">2m 11s</p>
+                  </div>
+                  <div className="flex items-center text-green-600">
+                    <span className="text-sm font-medium">+2.3%</span>
+                    <span className="text-sm ml-1">^</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Appointment Rate */}
+              <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600">Appointment Rate</p>
+                    <p className="text-2xl font-bold text-gray-900">27%</p>
+                  </div>
+                  <div className="flex items-center text-red-600">
+                    <span className="text-sm font-medium">+2.3%</span>
+                    <span className="text-sm ml-1">v</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Unique Callers */}
+              <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600">Unique Callers</p>
+                    <p className="text-2xl font-bold text-gray-900">22</p>
+                  </div>
+                  <div className="flex items-center text-red-600">
+                    <span className="text-sm font-medium">+2.3%</span>
+                    <span className="text-sm ml-1">v</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Conversion Rate */}
+              <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600">Conversion Rate</p>
+                    <p className="text-2xl font-bold text-gray-900">18%</p>
+                  </div>
+                  <div className="flex items-center text-red-600">
+                    <span className="text-sm font-medium">+2.3%</span>
+                    <span className="text-sm ml-1">v</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Performance Trends Graph Section */}
+            <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-bold text-gray-900">Performance Trends (Last 7 Days)</h3>
+                <Button className="bg-[#4A48FF] hover:bg-[#3a38ef] text-white">
+                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17l9.2-9.2M17 17V7H7" />
+                  </svg>
+                  View analytics
+                </Button>
+              </div>
+
+              {/* Chart.js Graph Container */}
+              <div className="h-64">
+                <Line
+                  data={{
+                    labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                    datasets: [
+                      {
+                        label: 'Total Call',
+                        data: [25, 26, 32, 29, 31, 30, 27],
+                        borderColor: '#10B981',
+                        backgroundColor: '#10B981',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#10B981',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        tension: 0.3,
+                        fill: false,
+                      },
+                      {
+                        label: 'Appointment',
+                        data: [9, 16, 32, 15, 21, 20, 15],
+                        borderColor: '#3B82F6',
+                        backgroundColor: '#3B82F6',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#3B82F6',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        tension: 0.3,
+                        fill: false,
+                      },
+                    ],
+                  }}
+                  options={{
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                      legend: {
+                        display: false,
+                      },
+                      tooltip: {
+                        backgroundColor: '#ffffff',
+                        titleColor: '#000000',
+                        bodyColor: '#000000',
+                        borderColor: '#e5e7eb',
+                        borderWidth: 1,
+                        cornerRadius: 8,
+                        displayColors: true,
+                        callbacks: {
+                          title: function(context) {
+                            return context[0].label;
+                          },
+                          label: function(context) {
+                            return `${context.dataset.label}: ${context.parsed.y}`;
+                          },
+                        },
+                      },
+                    },
+                    scales: {
+                      x: {
+                        grid: {
+                          display: true,
+                          drawBorder: false,
+                          borderDash: [5, 5],
+                          color: '#e5e7eb',
+                        },
+                        ticks: {
+                          color: '#6b7280',
+                          font: {
+                            size: 12,
+                          },
+                        },
+                      },
+                      y: {
+                        beginAtZero: true,
+                        max: 35,
+                        grid: {
+                          display: true,
+                          drawBorder: false,
+                          borderDash: [5, 5],
+                          color: '#e5e7eb',
+                        },
+                        ticks: {
+                          stepSize: 7,
+                          color: '#6b7280',
+                          font: {
+                            size: 12,
+                          },
+                        },
+                      },
+                    },
+                    interaction: {
+                      intersect: false,
+                      mode: 'index',
+                    },
+                    elements: {
+                      point: {
+                        hoverBackgroundColor: '#ffffff',
+                        hoverBorderColor: '#10B981',
+                        hoverBorderWidth: 2,
+                      },
+                    },
+                  }}
+                />
+              </div>
+            </div>
           </div>
         )
 
