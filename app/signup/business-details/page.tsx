@@ -16,7 +16,7 @@ export default function BusinessDetailsPage() {
   const [phoneNumber, setPhoneNumber] = useState("")
 
   const handleNext = () => {
-    router.push("/signup/meet-agent-final")
+    router.push("/signup/meet-agent")
   }
 
   const handleBack = () => {
