@@ -26,6 +26,9 @@ export default function SettingsPage() {
   const [phoneNumber, setPhoneNumber] = useState('')
   const [showCancelModal, setShowCancelModal] = useState(false)
   const [showManageModal, setShowManageModal] = useState(false)
+  const [webhooksEnabled, setWebhooksEnabled] = useState(true)
+  const [webhookUrl, setWebhookUrl] = useState('')
+  const [webhookSecret, setWebhookSecret] = useState('')
 
   const handleSaveChanges = () => {
     // Handle save changes logic
@@ -72,6 +75,11 @@ export default function SettingsPage() {
   const handleChangePlan = () => {
     // Handle change plan logic
     console.log('Changing plan')
+  }
+
+  const handleSaveWebhookConfiguration = () => {
+    // Handle save webhook configuration logic
+    console.log('Saving webhook configuration:', { webhooksEnabled, webhookUrl, webhookSecret })
   }
 
   return (
@@ -451,9 +459,71 @@ export default function SettingsPage() {
 
             {/* Developer Content */}
             {activeTab === 'developer' && (
-              <div className="bg-white rounded-lg shadow-sm p-8">
-                <div className="text-center py-12">
-                  <p className="text-gray-500 font-semibold font-manrope">Developer settings coming soon...</p>
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <h2 className="text-3xl font-bold font-manrope text-gray-900 mb-4">Enable Webhooks</h2>
+                <div className="flex items-center justify-between mb-6">
+                  <span className="text-lg font-semibold font-manrope text-gray-900">Enable Webhooks</span>
+                  <div className="relative inline-block w-12 h-6 transition duration-200 ease-in-out">
+                    <input
+                      type="checkbox"
+                      id="webhook-toggle"
+                      className="sr-only"
+                      checked={webhooksEnabled}
+                      onChange={(e) => setWebhooksEnabled(e.target.checked)}
+                    />
+                    <label
+                      htmlFor="webhook-toggle"
+                      className={`block w-12 h-6 rounded-full cursor-pointer transition-colors duration-200 ease-in-out ${
+                        webhooksEnabled ? 'bg-[#4A48FF]' : 'bg-gray-300'
+                      }`}
+                    >
+                      <div className={`w-5 h-5 bg-white rounded-full shadow transition-transform duration-200 ease-in-out ${
+                        webhooksEnabled ? 'transform translate-x-6' : 'transform translate-x-1'
+                      }`}></div>
+                    </label>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  <div>
+                    <Label htmlFor="webhook-url" className="text-lg font-semibold font-manrope text-gray-900 mb-2 block">
+                      Webhook URL
+                    </Label>
+                    <Input
+                      id="webhook-url"
+                      type="url"
+                      placeholder="Enter webhook URL"
+                      value={webhookUrl}
+                      onChange={(e) => setWebhookUrl(e.target.value)}
+                      className="w-full h-12 font-manrope font-semibold text-md"
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="webhook-secret" className="text-lg font-semibold font-manrope text-gray-900 mb-2 block">
+                      Webhook Secret (Optional)
+                    </Label>
+                    <Input
+                      id="webhook-secret"
+                      type="password"
+                      placeholder="Enter webhook Secret"
+                      value={webhookSecret}
+                      onChange={(e) => setWebhookSecret(e.target.value)}
+                      className="w-full h-12 font-manrope font-semibold text-md"
+                    />
+                    <p className="text-sm font-semibold font-manrope text-gray-500 mt-1">
+                      Used for HMAC-SHA256 signature verification
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex justify-end mt-8">
+                  <Button
+                    onClick={handleSaveWebhookConfiguration}
+                    className="bg-[#4A48FF] hover:bg-[#4A48FF] text-white px-6 py-3 rounded-lg font-bold text-lg font-manrope"
+                  >
+                    Save configuration
+                  </Button>
                 </div>
               </div>
             )}

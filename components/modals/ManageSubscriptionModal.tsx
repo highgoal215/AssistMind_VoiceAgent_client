@@ -82,12 +82,12 @@ export default function ManageSubscriptionModal({
               className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-semibold font-manrope"
             >
               <Image
-                                src="/images/setting/download.svg"
-                                alt="download"
-                                width={40}
-                                height={40}
-                                className="w-4 h-4"
-                              />
+                src="/images/setting/download.svg"
+                alt="download"
+                width={40}
+                height={40}
+                className="w-4 h-4"
+              />
             </button>
           </div>
         </div>
