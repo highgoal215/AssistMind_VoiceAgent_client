@@ -71,10 +71,12 @@ const CallVolumeChart = ({ timeRange }: CallVolumeChartProps) => {
         titleFont: {
           size: 14,
           weight: '600',
+          family: 'Manrope, sans-serif',
         },
         bodyFont: {
           size: 14,
           weight: '700',
+          family: 'Manrope, sans-serif',
         },
         callbacks: {
           title: (context: any) => {
@@ -96,7 +98,8 @@ const CallVolumeChart = ({ timeRange }: CallVolumeChartProps) => {
         ticks: {
           color: '#6B7280',
           font: {
-            size: 12,
+            size: 14,
+            family: 'Manrope, sans-serif',
           },
         },
         border: {
@@ -110,7 +113,8 @@ const CallVolumeChart = ({ timeRange }: CallVolumeChartProps) => {
             stepSize: 15,
             color: '#6B7280',
             font: {
-              size: 12,
+              size: 14,
+              family: 'Manrope, sans-serif',
             },
             callback: function(value: any) {
               return value === 0 ? '00' : value.toString()

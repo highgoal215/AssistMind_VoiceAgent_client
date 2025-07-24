@@ -32,9 +32,10 @@ export function GradientBackground({ children }: GradientBackgroundProps) {
               className="w-full h-full"
             />
           </div>
-          <div className="flex pl-[68px] pt-[280px]">
+          <div className="flex pl-[68px] pt-48">
             <h1 className="text-5xl font-bold leading-tight mb-6 ">
-            Never Miss a Call. Never Lose a Lead. Powered by AI.
+              Never Miss a Call. Never Lose a Lead. Powered <br/>
+             by AI.
           </h1>
           </div>
         </div>

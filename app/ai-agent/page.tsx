@@ -10,7 +10,13 @@ import {
   X,
   ChevronDown as ChevronDownIcon,
   Search,
-  Menu
+  Menu,
+  Check,
+  Building2,
+  Phone,
+  Mail,
+  Globe,
+  MapPin
 } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -20,6 +26,8 @@ import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import DashboardSidebar from '@/components/dashboard/DashboardSidebar'
+import Header from '@/components/header/header'
+import { SignupProgress } from '@/components/signup-progress'
 
 export default function AIAgentPage() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
@@ -30,6 +38,16 @@ export default function AIAgentPage() {
   const [selectedVoice, setSelectedVoice] = useState('female-calm')
   const [language, setLanguage] = useState('English')
   const [agentprofileStep, setAgentProfileStep] = React.useState(1)
+
+  // Business Details State
+  const [businessName, setBusinessName] = useState('')
+  const [businessPhone, setBusinessPhone] = useState('')
+  const [businessEmail, setBusinessEmail] = useState('')
+  const [businessWebsite, setBusinessWebsite] = useState('')
+  const [businessAddress, setBusinessAddress] = useState('')
+  const [businessHours, setBusinessHours] = useState('')
+  const [businessDescription, setBusinessDescription] = useState('')
+
   // Handle body scroll when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -54,6 +72,311 @@ export default function AIAgentPage() {
     { value: 'male-energetic', label: 'Male - Energetic and Friendly' }
   ]
 
+  const renderStepContent = () => {
+    switch (agentprofileStep) {
+      case 1:
+        return (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+            {/* Left Column - Agent Profile */}
+            <div className="space-y-6">
+              {/* Agent Avatar */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-4">
+                  Agent Avatar
+                </label>
+                <div className="flex flex-row items-center space-x-4">
+                  <div className="relative">
+                    <Avatar className="w-16 h-16">
+                      <AvatarImage src="/images/user-profile.jpg" />
+                      <AvatarFallback className="bg-blue-600 text-white text-lg">A</AvatarFallback>
+                    </Avatar>
+                    {/* Purple line overlay */}
+                    <div className="absolute inset-0 w-1 bg-[#4A48FF] rounded-l-full"></div>
+                  </div>
+                  <Button variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50 w-full sm:w-auto">
+                    <Upload className="h-4 w-4 mr-2" />
+                    Upload
+                  </Button>
+                </div>
+              </div>
+
+              {/* Agent Name */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  What's your agent's name?
+                </label>
+                <Input
+                  value={agentName}
+                  onChange={(e) => setAgentName(e.target.value)}
+                  className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                />
+              </div>
+
+              {/* Role */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Role
+                </label>
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {roles.map((role, index) => (
+                    <Badge
+                      key={index}
+                      variant="secondary"
+                      className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full flex items-center space-x-1"
+                    >
+                      <span>{role}</span>
+                      <button
+                        onClick={() => removeRole(role)}
+                        className="ml-1 hover:text-red-500"
+                      >
+                        <X className="h-3 w-3" />
+                      </button>
+                    </Badge>
+                  ))}
+                </div>
+                <Button variant="outline" size="sm" className="text-gray-500 border-gray-300">
+                  <ChevronDownIcon className="h-4 w-4 mr-1" />
+                  Add more roles
+                </Button>
+              </div>
+
+              {/* Welcome Message */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Welcome Message
+                </label>
+                <Textarea
+                  value={welcomeMessage}
+                  onChange={(e) => setWelcomeMessage(e.target.value)}
+                  className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF] min-h-[100px]"
+                  placeholder="Enter your welcome message..."
+                />
+              </div>
+            </div>
+
+            {/* Right Column - Voice and Language */}
+            <div className="space-y-6">
+              {/* Voice Selection */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Choose your agent's voice
+                </label>
+                <Select value={selectedVoice} onValueChange={setSelectedVoice}>
+                  <SelectTrigger className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {voiceOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Language */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Language
+                </label>
+                <Input
+                  value={language}
+                  onChange={(e) => setLanguage(e.target.value)}
+                  className="border-gray-300 bg-gray-50 cursor-not-allowed"
+                  disabled
+                />
+              </div>
+
+              {/* Preview Voice */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-4">
+                  Preview Voice
+                </label>
+                <div className="flex flex-row items-center space-x-4">
+                  <Button
+                    size="icon"
+                    className="w-12 h-12 bg-[#4A48FF] hover:bg-[#3a39e8] rounded-full"
+                  >
+                    <Play className="h-5 w-5 text-white ml-0.5" />
+                  </Button>
+                  <div className="flex-1 w-full sm:w-auto">
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="bg-[#4A48FF] h-2 rounded-full" style={{ width: '30%' }}></div>
+                    </div>
+                  </div>
+                  <span className="text-sm text-gray-500 self-start sm:self-auto">1m 12s</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+
+      case 2:
+        return (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Business Name */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Business Name
+                </label>
+                <Input
+                  value={businessName}
+                  onChange={(e) => setBusinessName(e.target.value)}
+                  className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                  placeholder="Enter your business name"
+                />
+              </div>
+
+              {/* Business Phone */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Business Phone
+                </label>
+                <Input
+                  value={businessPhone}
+                  onChange={(e) => setBusinessPhone(e.target.value)}
+                  className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                  placeholder="Enter business phone number"
+                />
+              </div>
+
+              {/* Business Email */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Business Email
+                </label>
+                <Input
+                  value={businessEmail}
+                  onChange={(e) => setBusinessEmail(e.target.value)}
+                  className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                  placeholder="Enter business email"
+                />
+              </div>
+
+              {/* Business Website */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Business Website
+                </label>
+                <Input
+                  value={businessWebsite}
+                  onChange={(e) => setBusinessWebsite(e.target.value)}
+                  className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                  placeholder="Enter website URL"
+                />
+              </div>
+
+              {/* Business Address */}
+              <div className="lg:col-span-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Business Address
+                </label>
+                <Textarea
+                  value={businessAddress}
+                  onChange={(e) => setBusinessAddress(e.target.value)}
+                  className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                  placeholder="Enter complete business address"
+                  rows={3}
+                />
+              </div>
+
+              {/* Business Hours */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Business Hours
+                </label>
+                <Input
+                  value={businessHours}
+                  onChange={(e) => setBusinessHours(e.target.value)}
+                  className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                  placeholder="e.g., Mon-Fri 9AM-5PM"
+                />
+              </div>
+
+              {/* Business Description */}
+              <div className="lg:col-span-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Business Description
+                </label>
+                <Textarea
+                  value={businessDescription}
+                  onChange={(e) => setBusinessDescription(e.target.value)}
+                  className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                  placeholder="Describe your business and services"
+                  rows={4}
+                />
+              </div>
+            </div>
+          </div>
+        )
+
+      case 3:
+        return (
+          <div className="space-y-6">
+            {/* Review Summary */}
+            <div className="bg-gray-50 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Review Your Agent Setup</h3>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Agent Profile Summary */}
+                <div className="space-y-4">
+                  <h4 className="font-medium text-gray-900 flex items-center">
+                    <Check className="h-5 w-5 text-green-500 mr-2" />
+                    Agent Profile
+                  </h4>
+                  <div className="space-y-2 text-sm text-gray-600">
+                    <p><span className="font-medium">Name:</span> {agentName}</p>
+                    <p><span className="font-medium">Roles:</span> {roles.join(', ')}</p>
+                    <p><span className="font-medium">Voice:</span> {voiceOptions.find(v => v.value === selectedVoice)?.label}</p>
+                    <p><span className="font-medium">Language:</span> {language}</p>
+                  </div>
+                </div>
+
+                {/* Business Details Summary */}
+                <div className="space-y-4">
+                  <h4 className="font-medium text-gray-900 flex items-center">
+                    <Check className="h-5 w-5 text-green-500 mr-2" />
+                    Business Details
+                  </h4>
+                  <div className="space-y-2 text-sm text-gray-600">
+                    <p><span className="font-medium">Business:</span> {businessName || 'Not provided'}</p>
+                    <p><span className="font-medium">Phone:</span> {businessPhone || 'Not provided'}</p>
+                    <p><span className="font-medium">Email:</span> {businessEmail || 'Not provided'}</p>
+                    <p><span className="font-medium">Website:</span> {businessWebsite || 'Not provided'}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Launch Confirmation */}
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <div className="flex items-start">
+                <div className="flex-shrink-0">
+                  <Check className="h-5 w-5 text-blue-600" />
+                </div>
+                <div className="ml-3">
+                  <h3 className="text-sm font-medium text-blue-800">
+                    Ready to Launch
+                  </h3>
+                  <div className="mt-2 text-sm text-blue-700">
+                    <p>
+                      Your AI agent is configured and ready to start handling calls.
+                      Click "Launch Campaign" to activate your agent and begin receiving calls.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+
+      default:
+        return null
+    }
+  }
+
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar */}
@@ -67,270 +390,104 @@ export default function AIAgentPage() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden lg:ml-0">
         {/* Header */}
-        <header className="bg-white border-b border-gray-200 px-4 lg:px-6 py-4">
-          <div className="flex items-center justify-between">
-            {/* Mobile Menu Button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsMobileMenuOpen(true)}
-              className="lg:hidden mr-2"
-            >
-              <Menu className="h-5 w-5" />
-            </Button>
-
-            {/* Search Bar */}
-            <div className="flex items-center flex-1 max-w-sm lg:max-w-md">
-              <div className="relative w-full">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                <Input
-                  placeholder="Search"
-                  className="pl-10 w-full bg-gray-100 border-gray-200 text-sm"
-                />
-              </div>
-            </div>
-
-            {/* Right Side Actions */}
-            <div className="flex items-center space-x-2 lg:space-x-4">
-              {/* Dark Mode Button - Hidden on mobile */}
-              <Button variant="outline" className="hidden lg:flex bg-gray-100 border-gray-200 text-gray-900 hover:bg-gray-200">
-                <Moon className="h-4 w-4 mr-2" />
-                Dark
-              </Button>
-
-              {/* Notifications */}
-              <Button variant="ghost" size="icon" className="relative">
-                <Bell className="h-5 w-5" />
-                <span className="absolute -top-1 -right-1 h-5 w-5 bg-blue-500 text-white text-xs rounded-full flex items-center justify-center font-manrope">
-                  2
-                </span>
-              </Button>
-
-              {/* User Profile */}
-              <div className="flex items-center space-x-2">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src="/images/user-profile.jpg" />
-                  <AvatarFallback>U</AvatarFallback>
-                </Avatar>
-                <ChevronDown className="h-4 w-4 text-gray-600 hidden lg:block" />
-              </div>
-            </div>
-          </div>
-        </header>
+        <Header onMobileMenuToggle={() => setIsMobileMenuOpen(true)} />
 
         {/* AI Agent Content */}
         <main className="flex-1 overflow-auto p-4 lg:p-6">
-          <div className="mx-auto max-w-6xl">
+          <div className="mx-auto">
             {/* Main White Card */}
             <Card className="bg-white shadow-sm">
               <CardContent className="p-6 lg:p-8">
                 {/* Header Section */}
-                <div className="mb-8">
+                <div className="flex flex-col">
                   {/* Title */}
-                  <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-6">
+                  <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">
                     Let's Finalize Your Agent Setup!
                   </h1>
 
                   {/* Progress Steps */}
-                  <div className="flex justify-between items-center shadow-lg border border-gray-200">
-                    <div className="flex items-center  ">
-                      {/* Step 1 */}
-                      <div className="relative">
-                        <div className={`w-12 h-12 ${agentprofileStep >= 1 ? 'bg-[#EDEDFF]' : 'bg-gray-50'} rounded-full flex items-center justify-center`}>
-                          <div className={`w-10 h-10 ${agentprofileStep >= 1 ? 'bg-[#4A48FF] text-white' : 'bg-gray-200 text-gray-500'} rounded-full flex items-center justify-center text-sm font-bold`}>
-                            1
+                  <div className="w-full mb-16">
+                    <div className="flex flex-col items-center">
+                      {/* Desktop Version */}
+                      <div className='flex items-center justify-center w-full'>
+                        {/* Step 1 */}
+                        <div className="flex flex-col items-center relative">
+                          <div className={`md:w-14 md:h-14 w-12 h-12 rounded-full flex justify-center items-center ${agentprofileStep >= 1 ? 'bg-[#E5ECFD]' : 'bg-gray-200'}`}>
+                            <div className={`md:w-10 md:h-10 w-8 h-8 ${agentprofileStep >= 1 ? 'bg-[#4A48FF]' : 'bg-gray-200'} rounded-full flex items-center justify-center`}>
+                              <span className={`text-sm font-semibold ${agentprofileStep >= 1 ? 'text-white' : 'text-gray-500'}`}>
+                                1
+                              </span>
+                            </div>
                           </div>
+                          <span className="text-sm font-medium text-gray-900 text-center absolute md:-bottom-6 -bottom-10 md:whitespace-nowrap whitespace-pre-wrap">Agent Profile</span>
                         </div>
-                      </div>
 
-                      {/* Connecting Line */}
-                      <div className="w-16 h-0.5 bg-gray-200 mx-2"></div>
+                        {/* Connecting Line 1-2 */}
+                        <div className={`w-80 h-0.5 mx-1 self-center ${agentprofileStep >= 2 ? 'bg-[#4A48FF]' : 'bg-gray-200'}`}></div>
 
-                      {/* Step 2 */}
-                      <div className="relative">
-                        <div className={`w-12 h-12 ${agentprofileStep >= 2 ? 'bg-[#EDEDFF]' : 'bg-gray-50'} rounded-full flex items-center justify-center`}>
-                          <div className={`w-10 h-10 ${agentprofileStep >= 2 ? 'bg-[#4A48FF] text-white' : 'bg-gray-200 text-gray-500'} rounded-full flex items-center justify-center text-sm font-bold`}>
-                            2
+                        {/* Step 2 */}
+                        <div className="flex flex-col items-center relative">
+                          <div className={`md:w-14 md:h-14 w-12 h-12 rounded-full flex justify-center items-center ${agentprofileStep >= 2 ? 'bg-[#E5ECFD]' : 'bg-[#F5F5F5]'}`}>
+                            <div className={`md:w-10 md:h-10 w-8 h-8 ${agentprofileStep >= 2 ? 'bg-[#4A48FF]' : 'bg-[#D9D9D9]'} rounded-full flex items-center justify-center`}>
+                              <span className={`text-sm font-semibold ${agentprofileStep >= 2 ? 'text-white' : 'text-gray-500'}`}>
+                                2
+                              </span>
+                            </div>
                           </div>
+                          <span className="text-sm font-medium text-gray-900 text-center absolute md:-bottom-6 -bottom-10 md:whitespace-nowrap whitespace-pre-wrap">Business Details</span>
                         </div>
-                      </div>
 
-                      {/* Connecting Line */}
-                      <div className="w-16 h-0.5 bg-gray-200 mx-2"></div>
+                        {/* Connecting Line 2-3 */}
+                        <div className={`w-80 h-0.5 mx-1 self-center ${agentprofileStep >= 3 ? 'bg-[#4A48FF]' : 'bg-gray-200'}`}></div>
 
-                      {/* Step 3 */}
-                      <div className="relative">
-                        <div className={`w-12 h-12 ${agentprofileStep >= 3 ? 'bg-[#EDEDFF]' : 'bg-gray-50'} rounded-full flex items-center justify-center`}>
-                          <div className={`w-10 h-10 ${agentprofileStep >= 3 ? 'bg-[#4A48FF] text-white' : 'bg-gray-200 text-gray-500'} rounded-full flex items-center justify-center text-sm font-bold`}>
-                            3
+                        {/* Step 3 */}
+                        <div className="flex flex-col items-center relative">
+                          <div className={`md:w-14 md:h-14 w-12 h-12 rounded-full flex justify-center items-center ${agentprofileStep >= 3 ? 'bg-[#E5ECFD]' : 'bg-[#F5F5F5]'}`}>
+                            <div className={`md:w-10 md:h-10 w-8 h-8 ${agentprofileStep >= 3 ? 'bg-[#4A48FF]' : 'bg-gray-200'} rounded-full flex items-center justify-center`}>
+                              <span className={`text-sm font-semibold ${agentprofileStep >= 3 ? 'text-white' : 'text-gray-500'}`}>
+                                3
+                              </span>
+                            </div>
                           </div>
+                          <span className="text-sm font-medium text-gray-900 text-center absolute md:-bottom-6 -bottom-10 md:whitespace-nowrap md:w-auto w-20">Final Review & Launch</span>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Main Content Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  {/* Left Column - Agent Profile */}
-                  <div className="space-y-6">
-                    {/* Agent Avatar */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-4">
-                        Agent Avatar
-                      </label>
-                      <div className="flex items-center space-x-4">
-                        <Avatar className="w-16 h-16">
-                          <AvatarImage src="/images/user-profile.jpg" />
-                          <AvatarFallback className="bg-blue-600 text-white text-lg">A</AvatarFallback>
-                        </Avatar>
-                        <Button variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50">
-                          <Upload className="h-4 w-4 mr-2" />
-                          Upload
-                        </Button>
-                      </div>
-                    </div>
-
-                    {/* Agent Name */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        What's your agent's name?
-                      </label>
-                      <Input
-                        value={agentName}
-                        onChange={(e) => setAgentName(e.target.value)}
-                        className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
-                      />
-                    </div>
-
-                    {/* Role */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Role
-                      </label>
-                      <div className="flex flex-wrap gap-2 mb-2">
-                        {roles.map((role, index) => (
-                          <Badge
-                            key={index}
-                            variant="secondary"
-                            className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full flex items-center space-x-1"
-                          >
-                            <span>{role}</span>
-                            <button
-                              onClick={() => removeRole(role)}
-                              className="ml-1 hover:text-red-500"
-                            >
-                              <X className="h-3 w-3" />
-                            </button>
-                          </Badge>
-                        ))}
-                      </div>
-                      <Button variant="outline" size="sm" className="text-gray-500 border-gray-300">
-                        <ChevronDownIcon className="h-4 w-4 mr-1" />
-                        Add more roles
-                      </Button>
-                    </div>
-
-                    {/* Welcome Message */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Welcome Message
-                      </label>
-                      <Textarea
-                        value={welcomeMessage}
-                        onChange={(e) => setWelcomeMessage(e.target.value)}
-                        className="border-[#4A48FF] focus:border-[#4A48FF] focus:ring-[#4A48FF] min-h-[100px]"
-                        placeholder="Enter your welcome message..."
-                      />
-                    </div>
-                  </div>
-
-                  {/* Right Column - Voice and Language */}
-                  <div className="space-y-6">
-                    {/* Voice Selection */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Choose your agent's voice
-                      </label>
-                      <Select value={selectedVoice} onValueChange={setSelectedVoice}>
-                        <SelectTrigger className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {voiceOptions.map((option) => (
-                            <SelectItem key={option.value} value={option.value}>
-                              {option.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    {/* Language */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Language
-                      </label>
-                      <Input
-                        value={language}
-                        onChange={(e) => setLanguage(e.target.value)}
-                        className="border-gray-300 bg-gray-50 cursor-not-allowed"
-                        disabled
-                      />
-                    </div>
-
-                    {/* Preview Voice */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-4">
-                        Preview Voice
-                      </label>
-                      <div className="flex items-center space-x-4">
-                        <Button
-                          size="icon"
-                          className="w-12 h-12 bg-[#4A48FF] hover:bg-[#3a39e8] rounded-full"
-                        >
-                          <Play className="h-5 w-5 text-white ml-0.5" />
-                        </Button>
-                        <div className="flex-1">
-                          <div className="w-full bg-gray-200 rounded-full h-2">
-                            <div className="bg-[#4A48FF] h-2 rounded-full" style={{ width: '30%' }}></div>
-                          </div>
-                        </div>
-                        <span className="text-sm text-gray-500">1m 12s</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                {/* Step Content */}
+                {renderStepContent()}
 
                 {/* Next Button */}
                 <div className="flex justify-end mt-8">
                   {/* Action Buttons */}
-                  <div className="flex justify-end space-x-4">
+                  <div className="flex flex-row justify-end space-x-4 w-auto">
                     {agentprofileStep > 1 && (
                       <Button
                         variant="outline"
                         onClick={() => setAgentProfileStep(agentprofileStep - 1)}
-                        className="px-6 py-2 rounded-lg bg-white border-gray-300 text-gray-900 hover:bg-gray-50"
+                        className="w-full sm:w-auto px-6 py-2 rounded-lg bg-white border-gray-300 text-gray-900 hover:bg-gray-50"
                       >
                         Back
                       </Button>
                     )}
                     <Button
                       variant="outline"
-                      className="px-6 py-2 rounded-lg bg-white border-gray-300 text-gray-900 hover:bg-gray-50"
+                      className="w-full sm:w-auto px-6 py-2 rounded-lg bg-white border-gray-300 text-gray-900 hover:bg-gray-50"
                     >
                       Cancel
                     </Button>
                     {agentprofileStep < 3 ? (
                       <Button
                         onClick={() => setAgentProfileStep(agentprofileStep + 1)}
-                        className="px-6 py-2 rounded-lg bg-[#4A48FF] hover:bg-[#3a38ef] text-white"
+                        className="w-full sm:w-auto px-6 py-2 rounded-lg bg-[#4A48FF] hover:bg-[#3a38ef] text-white"
                       >
                         Next
                       </Button>
                     ) : (
                       <Button
-                        className="px-6 py-2 rounded-lg bg-[#4A48FF] hover:bg-[#3a38ef] text-white"
+                        className="w-full sm:w-auto px-6 py-2 rounded-lg bg-[#4A48FF] hover:bg-[#3a38ef] text-white"
                       >
                         Launch Campaign
                       </Button>

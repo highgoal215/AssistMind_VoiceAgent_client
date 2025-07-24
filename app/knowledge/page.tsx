@@ -28,7 +28,7 @@ import { Switch } from '@/components/ui/switch'
 import { Progress } from '@/components/ui/progress'
 import { useToast } from '@/hooks/use-toast'
 import DashboardSidebar from '../../components/dashboard/DashboardSidebar'
-
+import Header from '@/components/header/header'
 interface Document {
   id: number
   fileName: string
@@ -366,47 +366,7 @@ export default function KnowledgeBasePage() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden lg:ml-0">
         {/* Header */}
-        <header className="bg-white border-b border-gray-200 px-4 lg:px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              {/* Mobile Menu Button */}
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsMobileMenuOpen(true)}
-                className="lg:hidden"
-              >
-                <Menu className="h-5 w-5" />
-              </Button>
-            </div>
-
-            {/* Right Side Actions */}
-            <div className="flex items-center space-x-2 lg:space-x-4">
-              {/* Dark Mode Button - Hidden on mobile */}
-              <Button variant="outline" className="hidden lg:flex bg-gray-100 border-gray-200 text-gray-900 hover:bg-gray-200">
-                <Moon className="h-4 w-4 mr-2" />
-                Dark
-              </Button>
-
-              {/* Notifications */}
-              <Button variant="ghost" size="icon" className="relative">
-                <Bell className="h-5 w-5" />
-                <span className="absolute -top-1 -right-1 h-5 w-5 bg-blue-500 text-white text-xs rounded-full flex items-center justify-center font-manrope">
-                  2
-                </span>
-              </Button>
-
-              {/* User Profile */}
-              <div className="flex items-center space-x-2">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src="/images/user-profile.jpg" />
-                  <AvatarFallback>U</AvatarFallback>
-                </Avatar>
-                <ChevronDown className="h-4 w-4 text-gray-600 hidden lg:block" />
-              </div>
-            </div>
-          </div>
-        </header>
+        <Header onMobileMenuToggle={() => setIsMobileMenuOpen(true)} />
 
         {/* Knowledge Base Content */}
         <main className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6">

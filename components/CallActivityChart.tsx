@@ -114,7 +114,8 @@ const CallActivityChart = () => {
         ticks: {
           color: '#6B7280',
           font: {
-            size: 12,
+            size: 14,
+            family: 'Manrope, sans-serif',
           },
         },
         border: {
@@ -131,7 +132,8 @@ const CallActivityChart = () => {
           stepSize: 10,
           color: '#6B7280',
           font: {
-            size: 12,
+            size: 14,
+            family: 'Manrope, sans-serif',
           },
           callback: function(value: any) {
             return value === 0 ? '00' : value.toString()

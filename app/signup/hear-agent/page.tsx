@@ -47,34 +47,36 @@ export default function HearAgentPage() {
 
             <div className="flex-1 flex flex-col justify-center lg:justify-start items-center lg:items-start space-y-6 lg:space-y-0 lg:pt-[40px]">
               {/* Header Section */}
-              <div className="text-center lg:text-start lg:mb-8 mb-0 lg:mt-0 md:mt-12">
+              <div className="text-center lg:text-start lg:mb-8 mb-0 lg:mt-12 md:mt-12">
                 <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2 font-manrope">Hear Your AI Agent</h2>
-                <p className="text-gray-600 font-manrope lg:text-lg">
+                <p className="text-gray-600 font-manrope lg:text-lg font-semibold">
                   Listen to how your AI agent sounds. You can customize voice and tone anytime
                 </p>
               </div>
 
               {/* Audio Player Section */}
               <div className="bg-white rounded-lg p-6 lg:p-4 mb-8 lg:mb-0 shadow-sm border border-gray-100 w-full lg:max-w-none lg:w-full">
-                <h3 className="font-manrope lg:font-bold text-gray-900 mb-4 lg:mb-6 font-manrope lg:text-lg">Agent Intro Sample</h3>
+                <h3 className=" lg:font-bold text-gray-900 mb-4 lg:mb-6 font-manrope lg:text-lg font-bold">Agent Intro Sample</h3>
 
-                <div className="flex items-center space-x-4 lg:space-x-6 p-2 lg:p-2 bg-white rounded-lg lg:rounded-lg shadow-sm border border-gray-100">
+                <div className="flex items-center space-x-3 lg:space-x-4 p-3 lg:p-4 bg-gray-50 rounded-lg">
                   <button
                     onClick={togglePlay}
-                    className="w-12 lg:w-10 h-12 lg:h-10 bg-indigo-600 hover:bg-indigo-700 rounded-full flex items-center justify-center text-white flex-shrink-0"
+                    className="w-10 h-10 lg:w-12 lg:h-12 bg-[#4A48FF] hover:bg-[#3A38EF] rounded-full flex items-center justify-center text-white flex-shrink-0 transition-colors"
                   >
-                    {isPlaying ? <Pause className="w-5 lg:w-6 h-5 lg:h-6" /> : <Play className="w-5 lg:w-6 h-5 lg:h-6 ml-1" />}
+                    {isPlaying ? <Pause className="w-4 h-4 lg:w-5 lg:h-5" /> : <Play className="w-4 h-4 lg:w-5 lg:h-5 ml-0.5" />}
                   </button>
 
-                  <div className="flex-1">
-                    <div className="w-full bg-gray-200 rounded-full h-2 lg:h-3 relative">
-                      <div className="bg-gray-300 h-2 lg:h-3 rounded-full w-1/3 relative">
-                        <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-3 lg:w-4 h-3 lg:h-4 bg-white rounded-full shadow-sm border border-gray-200"></div>
+                  <div className="flex-1 flex flex-col lg:flex-row lg:justify-between lg:items-center space-y-2 lg:space-y-0">
+                    <div className="w-full lg:w-auto bg-gray-300 rounded-full h-2 relative">
+                      <div
+                        className="bg-gray-400 h-2 rounded-full transition-all duration-300"
+                        style={{ width: '65%' }}
+                      >
+                        <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-2.5 h-2.5 lg:w-3 lg:h-3 bg-gray-200 rounded-full shadow-sm border border-gray-300"></div>
                       </div>
                     </div>
-                    <div className="flex justify-between text-sm text-gray-500 mt-1 lg:mt-2">
-                      <span className="font-manrope">0:00</span>
-                      <span className="font-manrope">1m 12s</span>
+                    <div className="flex justify-end text-xs lg:text-sm text-gray-600">
+                      <span className="font-manrope font-medium">1m 12s</span>
                     </div>
                   </div>
                 </div>
@@ -85,13 +87,13 @@ export default function HearAgentPage() {
                 <Button
                   onClick={handleBack}
                   variant="outline"
-                  className="flex-1 lg:w-[193px] h-12 lg:h-[56px] bg-white border-gray-300 text-gray-900 font-manrope rounded-lg lg:rounded-none hover:bg-gray-50"
+                  className="flex-1 lg:w-[193px] h-12 lg:h-[56px] bg-white border-gray-300 text-gray-900 font-manrope rounded-lg  hover:bg-gray-50 font-bold"
                 >
                   Back
                 </Button>
                 <Button
                   onClick={handleNext}
-                  className="flex-1 lg:w-[193px] h-12 lg:h-[56px] bg-indigo-600 hover:bg-indigo-700 text-white font-manrope rounded-lg lg:rounded-none"
+                  className="flex-1 lg:w-[193px] h-12 lg:h-[56px] bg-indigo-600 hover:bg-indigo-700 text-white font-manrope rounded-lg font-bold"
                 >
                   Next
                 </Button>
