@@ -347,15 +347,15 @@ export default function MessagesPage() {
 
                       {/* Contact Details */}
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-1 sm:mb-2">
+                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-1 sm:mb-2 font-manrope">
                           Julio Caesar
                         </h3>
-                        <p className="text-sm sm:text-base text-gray-600 mb-1 sm:mb-2">
+                        <p className="text-sm sm:text-base text-gray-600 mb-1 sm:mb-2 font-bold font-manrope">
                           +1 (555) 123-4567
                         </p>
                         <div className="flex items-center space-x-2">
                           <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full flex-shrink-0"></div>
-                          <span className="text-xs sm:text-sm text-gray-500">
+                          <span className="text-xs sm:text-sm text-gray-50 font-bold font-manrope">
                             Last active: 1h ago
                           </span>
                         </div>
@@ -369,10 +369,10 @@ export default function MessagesPage() {
                     <div className="flex w-full lg:flex-1 flex-col space-y-3 lg:space-y-4 lg:pl-8">
                       {/* Tags */}
                       <div className="flex flex-wrap gap-2">
-                        <Badge className="bg-red-100 text-red-700 text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full">
+                        <Badge className="bg-red-100 text-red-700 text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full font-bold">
                           High Priority
                         </Badge>
-                        <Badge className="bg-blue-100 text-blue-700 text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full">
+                        <Badge className="bg-blue-100 text-blue-700 text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full font-bold">
                           <Calendar className="h-3 w-3 mr-1" />
                           Appointment
                         </Badge>
@@ -381,7 +381,7 @@ export default function MessagesPage() {
                       {/* Message Preview and View Button */}
                       <div className="flex w-full justify-between items-start space-x-3">
                         {/* Message Preview */}
-                        <p className="text-xs sm:text-sm text-gray-600 flex-1 min-w-0">
+                        <p className="text-xs sm:text-sm text-gray-600 flex-1 min-w-0 font-bold">
                           Lorem ipsum dolor sit amet consectetur. Quis ultrices praesent mauris quis sagittis neque urna amet. Pretium tri...
                         </p>
 
