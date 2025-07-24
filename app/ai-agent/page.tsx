@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import {
   Bell,
   Moon,
@@ -31,8 +32,10 @@ import Header from '@/components/header/header'
 import { SignupProgress } from '@/components/signup-progress'
 import Image from 'next/image'
 export default function AIAgentPage() {
+  const router = useRouter()
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [showLoading, setShowLoading] = useState(false)
   const [agentName, setAgentName] = useState('Luna')
   const [roles, setRoles] = useState(['Receptionist', 'Appointment Booker'])
   const [welcomeMessage, setWelcomeMessage] = useState('Hi, I\'m {{agent_name}} from {{company_name}}. How can I help you today?')
@@ -51,6 +54,7 @@ export default function AIAgentPage() {
   const [language, setLanguage] = useState('English')
   const [agentprofileStep, setAgentProfileStep] = React.useState(1)
   const [avatarImage, setAvatarImage] = useState<string | null>(null)
+  const [agentInstructions, setAgentInstructions] = useState('')
 
   // Business Details State
   const [businessName, setBusinessName] = useState('GreenTech Services')
@@ -67,7 +71,6 @@ export default function AIAgentPage() {
   const [alternativeLink, setAlternativeLink] = useState('')
   const [isCalendarDropdownOpen, setIsCalendarDropdownOpen] = useState(false)
   const [connectedPlatforms, setConnectedPlatforms] = useState<string[]>([])
-  const [connectionStatus, setConnectionStatus] = useState<'connected' | 'not-connected'>('not-connected')
 
   // Call Transfer State
   const [callTransferNumber, setCallTransferNumber] = useState('+1 (647) 444-')
@@ -93,6 +96,11 @@ export default function AIAgentPage() {
     saturday: { enabled: true, startTime: '09:00', endTime: '22:00' },
     sunday: { enabled: true, startTime: '09:00', endTime: '22:00' }
   })
+
+  // Toggle custom hours function
+  const toggleCustomHours = () => {
+    setCustomHours(prev => !prev)
+  }
 
   // Handle body scroll when mobile menu is open
   useEffect(() => {
@@ -147,14 +155,14 @@ export default function AIAgentPage() {
     setTimeout(() => {
       if (!connectedPlatforms.includes(platform)) {
         setConnectedPlatforms([...connectedPlatforms, platform])
-        setConnectionStatus('connected')
       } else {
         setConnectedPlatforms(connectedPlatforms.filter(p => p !== platform))
-        if (connectedPlatforms.length === 1) {
-          setConnectionStatus('not-connected')
-        }
       }
     }, 1000)
+  }
+
+  const getConnectionStatus = () => {
+    return connectedPlatforms.length > 0 ? 'connected' : 'not-connected'
   }
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -408,11 +416,11 @@ export default function AIAgentPage() {
               </div>
 
               {/* Preview Voice */}
-              <div className='flex flex-col'>
+              <div className='flex flex-col '>
                 <label className="block text-sm font-manrope font-bold text-gray-700 mb-2 ">
                   Preview Voice
                 </label>
-                <div className="flex items-center space-x-4 border border-gray-300 shadow-lg h-10 rounded-md">
+                <div className="flex items-center space-x-4 border border-gray-300 shadow-lg h-10 rounded-md px-1">
                   <Button
                     size="icon"
                     className="w-8 h-8 bg-[#4A48FF] hover:bg-[#3a39e8] rounded-full"
@@ -512,84 +520,73 @@ export default function AIAgentPage() {
                   {/* Calendar Platform Dropdown Menu */}
                   {isCalendarDropdownOpen && (
                     <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
-                      <div
-                        onClick={() => handleCalendarPlatformSelect('Google Calendar')}
-                        className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer"
-                      >
+                      <div className="flex items-center justify-between px-3 py-2 hover:bg-gray-100">
                         <span className="text-gray-700">Google Calendar</span>
+                        <Button 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleConnectPlatform('Google Calendar');
+                          }}
+                          className={`px-3 py-1 text-xs font-manrope font-bold ${
+                            connectedPlatforms.includes('Google Calendar') 
+                              ? 'bg-green-600 hover:bg-green-700 text-white' 
+                              : 'bg-[#4A48FF] hover:bg-[#3a38ef] text-white'
+                          }`}
+                        >
+                          {connectedPlatforms.includes('Google Calendar') ? 'Google Calendar connected' : 'Connect'}
+                        </Button>
                       </div>
-                      <div
-                        onClick={() => handleCalendarPlatformSelect('Calendly')}
-                        className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer"
-                      >
+                      <div className="flex items-center justify-between px-3 py-2 hover:bg-gray-100">
                         <span className="text-gray-700">Calendly</span>
+                        <Button 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleConnectPlatform('Calendly');
+                          }}
+                          className={`px-3 py-1 text-xs font-manrope font-bold ${
+                            connectedPlatforms.includes('Calendly') 
+                              ? 'bg-green-600 hover:bg-green-700 text-white' 
+                              : 'bg-[#4A48FF] hover:bg-[#3a38ef] text-white'
+                          }`}
+                        >
+                          {connectedPlatforms.includes('Calendly') ? 'Calendly connected' : 'Connect'}
+                        </Button>
                       </div>
-                      <div
-                        onClick={() => handleCalendarPlatformSelect('GoHighLevel')}
-                        className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer"
-                      >
+                      <div className="flex items-center justify-between px-3 py-2 hover:bg-gray-100">
                         <span className="text-gray-700">GoHighLevel</span>
+                        <Button 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleConnectPlatform('GoHighLevel');
+                          }}
+                          className={`px-3 py-1 text-xs font-manrope font-bold ${
+                            connectedPlatforms.includes('GoHighLevel') 
+                              ? 'bg-green-600 hover:bg-green-700 text-white' 
+                              : 'bg-[#4A48FF] hover:bg-[#3a38ef] text-white'
+                          }`}
+                        >
+                          {connectedPlatforms.includes('GoHighLevel') ? 'GoHighLevel connected' : 'Connect'}
+                        </Button>
                       </div>
                     </div>
                   )}
                 </div>
                 
-                {/* Platform List */}
-                <div className="space-y-2 mt-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-700">Google Calendar</span>
-                    <Button 
-                      onClick={() => handleConnectPlatform('Google Calendar')}
-                      className={`px-4 py-1 text-sm ${
-                        connectedPlatforms.includes('Google Calendar') 
-                          ? 'bg-green-600 hover:bg-green-700 text-white' 
-                          : 'bg-[#4A48FF] hover:bg-[#3a38ef] text-white'
-                      }`}
-                    >
-                      {connectedPlatforms.includes('Google Calendar') ? 'Connected' : 'Connect'}
-                    </Button>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-700">Calendly</span>
-                    <Button 
-                      onClick={() => handleConnectPlatform('Calendly')}
-                      className={`px-4 py-1 text-sm ${
-                        connectedPlatforms.includes('Calendly') 
-                          ? 'bg-green-600 hover:bg-green-700 text-white' 
-                          : 'bg-[#4A48FF] hover:bg-[#3a38ef] text-white'
-                      }`}
-                    >
-                      {connectedPlatforms.includes('Calendly') ? 'Connected' : 'Connect'}
-                    </Button>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-700">GoHighLevel</span>
-                    <Button 
-                      onClick={() => handleConnectPlatform('GoHighLevel')}
-                      className={`px-4 py-1 text-sm ${
-                        connectedPlatforms.includes('GoHighLevel') 
-                          ? 'bg-green-600 hover:bg-green-700 text-white' 
-                          : 'bg-[#4A48FF] hover:bg-[#3a38ef] text-white'
-                      }`}
-                    >
-                      {connectedPlatforms.includes('GoHighLevel') ? 'Connected' : 'Connect'}
-                    </Button>
-                  </div>
-                </div>
+
                 
                 {/* Status Indicator */}
                 <div className="flex items-center mt-2">
                   <div className={`w-4 h-4 rounded-full flex items-center justify-center mr-2 ${
-                    connectionStatus === 'connected' ? 'bg-green-500' : 'bg-red-500'
+                    getConnectionStatus() === 'connected' ? 'bg-green-500' : 'bg-red-500'
                   }`}>
-                    {connectionStatus === 'connected' ? (
+                    {getConnectionStatus() === 'connected' ? (
                       <Check className="h-3 w-3 text-white" />
                     ) : (
                       <X className="h-3 w-3 text-white" />
                     )}
                   </div>
                   <span className="text-sm text-gray-600">
-                    {connectionStatus === 'connected' ? 'Platform connected' : 'Not connected'}
+                    {getConnectionStatus() === 'connected' ? 'Platform connected' : 'Not connected'}
                   </span>
                 </div>
               </div>
@@ -602,7 +599,7 @@ export default function AIAgentPage() {
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-semibold font-manrope text-gray-500">Enable</span>
                   <div
-                    className={`w-10 h-6 rounded-full relative cursor-pointer transition-colors ${isAlternativeLinkEnabled ? 'bg-blue-500' : 'bg-gray-300'}`}
+                    className={`w-10 h-6 rounded-full relative cursor-pointer transition-colors ${isAlternativeLinkEnabled ? 'bg-[#34C759]' : 'bg-gray-300'}`}
                     onClick={() => setIsAlternativeLinkEnabled(!isAlternativeLinkEnabled)}
                   >
                     <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${isAlternativeLinkEnabled ? 'right-1' : 'left-1'}`}></div>
@@ -736,30 +733,54 @@ export default function AIAgentPage() {
               <h3 className="text-2xl font-bold font-manrope text-gray-900">Agent Availability</h3>
               <div className="space-y-4">
 
+                {/* 24/7 Availability Card - Always visible */}
                 <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
                   <div>
                     <h4 className="font-bold text-md font-manrope text-gray-900">24/7 availability</h4>
                     <p className="text-sm font-bold font-manrope text-gray-600">Always available - Will answer call anytime, any day</p>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <span className="text-sm font-bold font-manrope  text-gray-600">Custom hours</span>
+                    <span className="text-sm font-bold font-manrope text-gray-600">Custom hours</span>
                     <div
                       className={`w-10 h-6 rounded-full relative cursor-pointer transition-colors ${customHours ? 'bg-green-500' : 'bg-gray-300'}`}
-                      onClick={() => setCustomHours(!customHours)}
+                      onClick={toggleCustomHours}
                     >
                       <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${customHours ? 'right-1' : 'left-1'}`}></div>
                     </div>
-                    <span className="text-sm font-bold font-manrope text-gray-600">24/7</span>
+                    <span className="text-sm font-bold font-manrope text-gray-600">{customHours ? 'Custom' : '24/7'}</span>
                   </div>
                 </div>
 
-                {/* Custom Hours List */}
+                {/* Show all days when custom hours is disabled */}
+                {!customHours && (
+                  <div className="space-y-3 border border-red-500 ">
+                    {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day) => (
+                      <div key={day} className="flex items-center justify-between p-4 border  border-gray-200 rounded-lg">
+                        <div className="flex items-center space-x-4 flex-1">
+                          <span className="font-bold text-gray-900 capitalize min-w-[80px]">
+                            {day.charAt(0).toUpperCase() + day.slice(1)}
+                          </span>
+                          <span className="text-gray-500">24/7 Available</span>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <span className="text-sm text-green-600">Opened</span>
+                          <div className="w-10 h-6 rounded-full bg-green-500 relative">
+                            <div className="w-4 h-4 bg-white rounded-full absolute top-1 right-1"></div>
+                          </div>
+                          <span className="text-sm text-green-600">Opened</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Custom Hours List - Only show when custom hours is enabled */}
                 {customHours && (
-                  <div className="space-y-3">
+                  <div className="space-y-3 flex flex-col justify-between">
                     {Object.entries(dailyHours).map(([day, hours]) => (
                       <div key={day} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
-                        <div className="flex items-center space-x-4 flex-1">
-                          <span className="font-medium text-gray-900 capitalize min-w-[80px]">
+                        <div className="flex justify-between items-center space-x-4  w-full">
+                          <span className="font-bold text-gray-900 capitalize min-w-[80px]">
                             {day.charAt(0).toUpperCase() + day.slice(1)}
                           </span>
 
@@ -778,9 +799,6 @@ export default function AIAgentPage() {
                               ))}
                             </SelectContent>
                           </Select>
-
-                          <span className="text-gray-500">to</span>
-
                           <Select
                             value={hours.endTime}
                             onValueChange={(value) => updateDailyHours(day, 'endTime', value)}
@@ -824,81 +842,57 @@ export default function AIAgentPage() {
       case 3:
         return (
           <div className="space-y-6">
-            {/* Review Summary */}
-            <div className="bg-gray-50 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Review Your Agent Setup</h3>
-
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Agent Profile Summary */}
-                <div className="space-y-4">
-                  <h4 className="font-medium text-gray-900 flex items-center">
-                    <Check className="h-5 w-5 text-green-500 mr-2" />
-                    Agent Profile
-                  </h4>
-                  <div className="space-y-2 text-sm text-gray-600">
-                    <p><span className="font-medium">Name:</span> {agentName}</p>
-                    <p><span className="font-medium">Roles:</span> {roles.join(', ')}</p>
-                    <p><span className="font-medium">Voice:</span> {voiceOptions.find(v => v.value === selectedVoice)?.label}</p>
-                    <p><span className="font-medium">Language:</span> {language}</p>
-                  </div>
+            {/* Agent Behavior Header */}
+            <div className="flex items-center justify-between mt-6">
+              <div className="flex items-center space-x-2">
+                <h3 className="text-2xl font-bold font-manrope text-gray-900">Agent Behavior</h3>
+                <div className="w-5 h-5 bg-gray-200 rounded-full flex items-center justify-center">
+                  <span className="text-xs text-gray-600">i</span>
                 </div>
-
-                {/* Business Details Summary */}
-                <div className="space-y-4">
-                  <h4 className="font-medium text-gray-900 flex items-center">
-                    <Check className="h-5 w-5 text-green-500 mr-2" />
-                    Business Details
-                  </h4>
-                  <div className="space-y-2 text-sm text-gray-600">
-                    <p><span className="font-medium">Business:</span> {businessName || 'Not provided'}</p>
-                    <p><span className="font-medium">Phone:</span> {businessPhone || 'Not provided'}</p>
-                    <p><span className="font-medium">Email:</span> {businessEmail || 'Not provided'}</p>
-                    <p><span className="font-medium">Website:</span> {businessWebsite || 'Not provided'}</p>
-                  </div>
-                </div>
-
-                {/* Agent Availability Summary */}
-                <div className="space-y-4">
-                  <h4 className="font-medium text-gray-900 flex items-center">
-                    <Check className="h-5 w-5 text-green-500 mr-2" />
-                    Agent Availability
-                  </h4>
-                  <div className="space-y-2 text-sm text-gray-600">
-                    <p><span className="font-medium">Mode:</span> {customHours ? 'Custom Hours' : '24/7 Available'}</p>
-                    {customHours && (
-                      <div className="mt-2">
-                        <p className="font-medium mb-1">Daily Schedule:</p>
-                        {Object.entries(dailyHours).map(([day, hours]) => (
-                          <p key={day} className="ml-2">
-                            <span className="capitalize">{day}:</span> {hours.enabled ?
-                              `${formatTimeForDisplay(hours.startTime)} - ${formatTimeForDisplay(hours.endTime)}` :
-                              'Closed'
-                            }
-                          </p>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
+              </div>
+              <div className="flex space-x-3">
+                <Button variant="outline" className="bg-gray-100 text-gray-700 hover:bg-gray-200 font-manrope font-bold">
+                  Test my Agent
+                </Button>
+                <Button 
+                  onClick={() => {
+                    setShowLoading(true)
+                    setTimeout(() => {
+                      router.push('/ai-agent/agentdetail')
+                    }, 5000) // Show loading for 5 seconds
+                  }}
+                  className="bg-[#4A48FF] hover:bg-[#4A48FF] text-white font-manrope font-bold"
+                >
+                  Launch my Agent
+                </Button>
               </div>
             </div>
 
-            {/* Launch Confirmation */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <div className="flex items-start">
-                <div className="flex-shrink-0">
-                  <Check className="h-5 w-5 text-blue-600" />
-                </div>
-                <div className="ml-3">
-                  <h3 className="text-md font-bold font-manrope text-blue-800">
-                    Ready to Launch
-                  </h3>
-                  <div className="mt-2 text-sm text-blue-700">
-                    <p>
-                      Your AI agent is configured and ready to start handling calls.
-                      Click "Launch Campaign" to activate your agent and begin receiving calls.
-                    </p>
+            {/* Note Section */}
+            <div className="bg-gray-50 rounded-lg p-4">
+              <p className="text-sm font-manrope font-bold text-gray-600">
+                Note: This is your AI agent's default behavior — automatically generated based on your setup. You can tweak it below or launch your agent as is.
+              </p>
+            </div>
+
+            <hr className="border-gray-200" />
+
+            {/* Agent Instructions */}
+            <div className="space-y-4">
+              <h4 className="text-2xl font-bold font-manrope text-gray-900">Agent Instructions</h4>
+              <div className="relative">
+                <Textarea
+                  value={agentInstructions || `${agentName}, ${roles.join(', ')}, ${selectedServices.join(', ')}, You are a helpful customer service representative. Be professional, friendly, and efficient. Always ask for clarification if you're unsure about what the customer needs.`}
+                  onChange={(e) => setAgentInstructions(e.target.value)}
+                  className="min-h-[200px] border-gray-300 focus:border-blue-500 focus:ring-blue-500 resize-none"
+                  placeholder="Enter agent instructions..."
+                  maxLength={2000}
+                />
+                <div className="absolute bottom-3 left-3 flex items-center space-x-1">
+                  <div className="w-4 h-4 bg-red-100 rounded-full flex items-center justify-center">
+                    <span className="text-xs text-red-600">i</span>
                   </div>
+                  <span className="text-sm font-manrope font-bold text-gray-500">2000-character limit</span>
                 </div>
               </div>
             </div>
@@ -908,6 +902,73 @@ export default function AIAgentPage() {
       default:
         return null
     }
+  }
+
+  // Show loading screen
+  if (showLoading) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl p-8 max-w-md w-full text-center shadow-2xl">
+          {/* Logo */}
+          <div className="flex items-center justify-center mb-8">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                <div className="w-4 h-4 bg-white rounded-full"></div>
+              </div>
+              <div className="flex items-center">
+                <span className="text-2xl font-bold text-gray-900">AssistMind</span>
+                <span className="text-2xl font-bold text-purple-600 ml-1">AI</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Circular Progress */}
+          <div className="relative w-24 h-24 mx-auto mb-6">
+            {/* Background circle */}
+            <div className="w-24 h-24 rounded-full border-4 border-gray-200"></div>
+            
+            {/* Progress circle */}
+            <div 
+              className="absolute top-0 left-0 w-24 h-24 rounded-full border-4 border-transparent border-t-purple-600 transition-all duration-300 ease-out animate-spin"
+            ></div>
+            
+            {/* Center icon */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                <div className="w-3 h-3 bg-white rounded-full"></div>
+              </div>
+            </div>
+          </div>
+
+          {/* Main Message */}
+          <h2 className="text-xl font-bold text-gray-900 mb-6">
+            Setting up your AI agent...
+            <br />
+            <span className="text-gray-600 font-normal">please wait</span>
+          </h2>
+
+          {/* Steps */}
+          <div className="space-y-3">
+            {[
+              "Loading your business details and preferences...",
+              "Customizing call flow and conversation logic...",
+              "Syncing with your calendar and integrations...",
+              "Setting voice tone and personalization...",
+              "Running final checks — your agent is almost ready!"
+            ].map((step, index) => (
+              <div key={index} className="flex items-center space-x-3">
+                <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
+                  <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <span className="text-sm font-medium text-gray-900">{step}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -935,7 +996,9 @@ export default function AIAgentPage() {
                 <div className="flex flex-col space-y-8">
                   {/* Title */}
                   <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">
-                    Let's Finalize Your Agent Setup!
+                    {agentprofileStep === 1 && "Let's Finalize Your Agent Setup!"}
+                    {agentprofileStep === 2 && "Business Details & Availability"}
+                    {agentprofileStep === 3 && "Final Review & Launch"}
                   </h1>
 
                   {/* Progress Steps */}
@@ -993,35 +1056,29 @@ export default function AIAgentPage() {
                 {renderStepContent()}
 
                 {/* Next Button */}
-                <div className="flex justify-end mt-8">
-                  {/* Action Buttons */}
-                  <div className="flex flex-row justify-end space-x-4 w-auto">
-                    {agentprofileStep > 1 && (
-                      <Button
-                        variant="outline"
-                        onClick={() => setAgentProfileStep(agentprofileStep - 1)}
-                        className="w-full sm:w-auto px-6 py-2 rounded-lg bg-white border-gray-300 text-gray-900 hover:bg-gray-50"
-                      >
-                        Back
-                      </Button>
-                    )}
+                {agentprofileStep < 3 && (
+                  <div className="flex justify-end mt-8">
+                    {/* Action Buttons */}
+                    <div className="flex flex-row justify-end space-x-4 w-auto">
+                      {agentprofileStep > 1 && (
+                        <Button
+                          variant="outline"
+                          onClick={() => setAgentProfileStep(agentprofileStep - 1)}
+                          className="w-full sm:w-auto px-6 py-2 rounded-lg bg-white border-gray-300 text-gray-900 hover:bg-gray-50"
+                        >
+                          Back
+                        </Button>
+                      )}
 
-                    {agentprofileStep < 3 ? (
                       <Button
                         onClick={() => setAgentProfileStep(agentprofileStep + 1)}
                         className="w-full sm:w-auto px-6 py-2 rounded-lg bg-[#4A48FF] hover:bg-[#3a38ef] text-white"
                       >
                         Next
                       </Button>
-                    ) : (
-                      <Button
-                        className="w-full sm:w-auto px-6 py-2 rounded-lg bg-[#4A48FF] hover:bg-[#3a38ef] text-white"
-                      >
-                        Launch Campaign
-                      </Button>
-                    )}
+                    </div>
                   </div>
-                </div>
+                )}
               </CardContent>
             </Card>
           </div>
