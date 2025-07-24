@@ -97,6 +97,11 @@ export default function AIAgentPage() {
     sunday: { enabled: true, startTime: '09:00', endTime: '22:00' }
   })
 
+  // Toggle custom hours function
+  const toggleCustomHours = () => {
+    setCustomHours(prev => !prev)
+  }
+
   // Handle body scroll when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -728,24 +733,48 @@ export default function AIAgentPage() {
               <h3 className="text-2xl font-bold font-manrope text-gray-900">Agent Availability</h3>
               <div className="space-y-4">
 
+                {/* 24/7 Availability Card - Always visible */}
                 <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
                   <div>
                     <h4 className="font-bold text-md font-manrope text-gray-900">24/7 availability</h4>
                     <p className="text-sm font-bold font-manrope text-gray-600">Always available - Will answer call anytime, any day</p>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <span className="text-sm font-bold font-manrope  text-gray-600">Custom hours</span>
+                    <span className="text-sm font-bold font-manrope text-gray-600">Custom hours</span>
                     <div
                       className={`w-10 h-6 rounded-full relative cursor-pointer transition-colors ${customHours ? 'bg-green-500' : 'bg-gray-300'}`}
-                      onClick={() => setCustomHours(!customHours)}
+                      onClick={toggleCustomHours}
                     >
                       <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${customHours ? 'right-1' : 'left-1'}`}></div>
                     </div>
-                    <span className="text-sm font-bold font-manrope text-gray-600">24/7</span>
+                    <span className="text-sm font-bold font-manrope text-gray-600">{customHours ? 'Custom' : '24/7'}</span>
                   </div>
                 </div>
 
-                {/* Custom Hours List */}
+                {/* Show all days when custom hours is disabled */}
+                {!customHours && (
+                  <div className="space-y-3">
+                    {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day) => (
+                      <div key={day} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                        <div className="flex items-center space-x-4 flex-1">
+                          <span className="font-medium text-gray-900 capitalize min-w-[80px]">
+                            {day.charAt(0).toUpperCase() + day.slice(1)}
+                          </span>
+                          <span className="text-gray-500">24/7 Available</span>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <span className="text-sm text-green-600">Opened</span>
+                          <div className="w-10 h-6 rounded-full bg-green-500 relative">
+                            <div className="w-4 h-4 bg-white rounded-full absolute top-1 right-1"></div>
+                          </div>
+                          <span className="text-sm text-green-600">Opened</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Custom Hours List - Only show when custom hours is enabled */}
                 {customHours && (
                   <div className="space-y-3">
                     {Object.entries(dailyHours).map(([day, hours]) => (

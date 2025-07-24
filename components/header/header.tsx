@@ -16,7 +16,7 @@ export default function Header({ onMobileMenuToggle }: HeaderProps) {
     const pathname = usePathname()
     
     // Pages that should show search input
-    const pagesWithSearch = ['/dashboard', '/ai-agent']
+    const pagesWithSearch = ['/dashboard', '/ai-agent', '/ai-agent/agentdetail']
     const shouldShowSearch = pagesWithSearch.includes(pathname)
     
     return (
