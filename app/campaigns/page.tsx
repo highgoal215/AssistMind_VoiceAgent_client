@@ -3,18 +3,12 @@
 import React from 'react'
 import {
   Search,
-  Bell,
-  Moon,
-  ChevronDown,
   Phone,
   CheckCircle,
   Users,
   TrendingUp,
-  Clock,
   RefreshCw,
   Download,
-  Menu,
-  MoreVertical,
   Play,
   Pause,
   Upload,
@@ -206,7 +200,7 @@ export default function CampaignsPage() {
   ]
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-gray-50 border border-red-500">
       {/* Sidebar */}
       <DashboardSidebar
         isCollapsed={sidebarCollapsed}
@@ -250,7 +244,7 @@ export default function CampaignsPage() {
                       <CardContent className="p-6">
                         <div className="flex items-center justify-between">
                           <div className="flex-1">
-                            <h3 className="text-sm font-medium text-gray-600 mb-1 font-bold font-manrope">{card.title}</h3>
+                            <h3 className="text-sm  text-gray-600 mb-1 font-bold font-manrope">{card.title}</h3>
                             <div className="flex items-center space-x-2">
                               <span className="text-2xl font-bold text-gray-900 font-manrope">{card.value}</span>
                               {card.badge && (
