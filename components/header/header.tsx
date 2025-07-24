@@ -22,7 +22,7 @@ export default function Header({ onMobileMenuToggle }: HeaderProps) {
     return (
         <>
         {/* Header */}
-        <header className="bg-white border-gray-200 px-4 lg:px-6 py-4 border">
+        <header className="bg-white border border-gray-300 px-4 lg:px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Mobile Menu Button - Always on left */}
             <Button
