@@ -241,135 +241,161 @@ export default function SettingsPage() {
                     </Button>
                   </div>
                 </div>
-
-                {/* Current Subscription Section */}
-                <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-                  <h2 className="text-xl font-bold font-manrope text-gray-900 mb-2">Current Subscription</h2>
-                  <p className="text-sm font-semibold font-manrope text-gray-600 mb-4">Your current plan.</p>
-
-                  <div className="bg-gray-50 rounded-lg p-4 mb-4">
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-lg font-bold font-manrope text-gray-900">Billing Information</h3>
+                <div className="bg-white rounded-lg shadow-sm p-6 mb-6 gap-10">
+                  <h2 className="text-3xl font-bold font-manrope text-gray-900">Current Subscription</h2>
+                  <p className="text-md font-bold font-manrope text-gray-900">Your current Plan</p>
+                  {/* Billing Information Section */}
+                  <div className="bg-white rounded-lg shadow-sm p-6 mb-6 border border-gray-300 mt-6">
+                    <div className="flex items-center justify-between mb-6">
+                      <h2 className="text-2xl font-bold font-manrope text-gray-900">Billing Information</h2>
                       <button
                         onClick={handleUpdateInformation}
-                        className="flex items-center space-x-1 text-[#4A48FF] hover:text-[#4A48FF] font-semibold font-manrope"
+                        className="flex items-center space-x-1 text-gray-600 hover:text-gray-800 font-semibold font-manrope"
                       >
-                        <Edit className="w-4 h-4" />
                         <span>Update Information</span>
+                        <Edit className="w-4 h-4" />
                       </button>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                      <div>
-                        <p className="text-sm font-semibold font-manrope text-gray-600 mb-1">Name</p>
-                        <p className="text-sm font-semibold font-manrope text-gray-900">Alex B.</p>
+
+                    <div className="space-y-6">
+                      {/* Name and Email Row */}
+                      <div className="flex gap-4">
+                        <div>
+                          <p className="text-sm font-semibold font-manrope text-gray-900 mb-2">Name</p>
+                          <p className="text-lg font-bold font-manrope text-gray-900">Alex B.</p>
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold font-manrope text-gray-900 mb-2">Email</p>
+                          <p className="text-lg font-bold font-manrope text-gray-900">alexb.@gmail.com</p>
+                        </div>
                       </div>
+
+                      {/* Amount Row */}
                       <div>
-                        <p className="text-sm font-semibold font-manrope text-gray-600 mb-1">Email</p>
-                        <p className="text-sm font-semibold font-manrope text-gray-900">alexb.@gmail.com</p>
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold font-manrope text-gray-600 mb-1">Amount</p>
-                        <p className="text-sm font-semibold font-manrope text-gray-900">$50 per month</p>
+                        <p className="text-sm font-semibold font-manrope text-gray-900 mb-2">Amount</p>
+                        <p className="text-2xl font-bold font-manrope text-gray-900">$50 per month</p>
                       </div>
                     </div>
-                    <div className="flex space-x-3">
+
+                    {/* Action Buttons */}
+                    <div className="flex justify-end space-x-3 mt-6">
                       <Button
                         onClick={handleCancelSubscription}
-                        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md font-semibold font-manrope"
+                        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-semibold font-manrope"
                       >
                         Cancel Subscription
                       </Button>
                       <Button
                         onClick={handleChangePlan}
-                        className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-md font-semibold font-manrope"
+                        className="bg-white border border-gray-300 hover:bg-gray-50 text-gray-900 px-4 py-2 rounded-lg font-semibold font-manrope"
                       >
                         Change Plan
                       </Button>
                     </div>
                   </div>
-                </div>
 
-                {/* Pricing Plans Section */}
-                <div className="space-y-6">
-                  <h2 className="text-xl font-bold font-manrope text-gray-900">Pricing Plans</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {/* Basic Plan */}
-                    <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-                      <div className="relative">
-                        <span className="absolute top-0 right-0 bg-purple-100 text-[#4A48FF] px-2 py-1 rounded text-xs font-semibold font-manrope">
-                          Popular
-                        </span>
+                  {/* Pricing Plans Section */}
+                  <div className="space-y-6">
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {/* Basic Plan */}
+                      <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+                        <div className="relative">
+                          <span className="absolute top-0 right-0 bg-purple-100 text-[#4A48FF] px-2 py-1 rounded text-xs font-semibold font-manrope">
+                            Popular
+                          </span>
+                        </div>
+                        <h3 className="text-xl font-bold font-manrope text-gray-900 mb-2">Basic plan</h3>
+                        <div className="mb-4">
+                          <span className="text-3xl font-bold font-manrope text-gray-900">$10</span>
+                          <span className="text-sm font-semibold font-manrope text-gray-600"> per month</span>
+                        </div>
+                        <p className="text-sm font-semibold font-manrope text-gray-600 mb-4">Our most popular plan.</p>
+                        <Button className="w-full bg-[#4A48FF] hover:bg-[#4A48FF] text-white py-2 rounded-md font-semibold font-manrope mb-4">
+                          Get started
+                        </Button>
+                        <div className="mb-4">
+                          <h4 className="text-sm font-bold font-manrope text-gray-900 mb-2">FEATURES</h4>
+                          <p className="text-sm font-semibold font-manrope text-gray-600 mb-3">Everything in our free plan plus....</p>
+                        </div>
+                        <ul className="space-y-2">
+                          {['Access to basic features', 'Basic reporting and analytics', 'Up to 10 individual users', '20 GB individual data', 'Basic chat and email support'].map((feature) => (
+                            <li key={feature} className="flex items-center space-x-2">
+                              <div className="w-4 h-4 bg-[#4A48FF] rounded-full flex items-center justify-center">
+                                <Check className="w-3 h-3 text-white" />
+                                <Image src="/images/setting/paymentcheck.svg" alt="check" width={10} height={10} className='w-3 h-3' />
+                              </div>
+                              <span className="text-sm font-semibold font-manrope text-gray-700">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                      <h3 className="text-xl font-bold font-manrope text-gray-900 mb-2">Basic plan</h3>
-                      <div className="mb-4">
-                        <span className="text-3xl font-bold font-manrope text-gray-900">$10</span>
-                        <span className="text-sm font-semibold font-manrope text-gray-600"> per month</span>
-                      </div>
-                      <p className="text-sm font-semibold font-manrope text-gray-600 mb-4">Our most popular plan.</p>
-                      <Button className="w-full bg-[#4A48FF] hover:bg-[#4A48FF] text-white py-2 rounded-md font-semibold font-manrope mb-4">
-                        Get started
-                      </Button>
-                      <ul className="space-y-2">
-                        {['Access to basic features', 'Basic reporting and analytics', 'Up to 10 individual users', '20 GB individual data', 'Basic chat and email support'].map((feature) => (
-                          <li key={feature} className="flex items-center space-x-2">
-                            <Check className="w-4 h-4 text-[#4A48FF]" />
-                            <span className="text-sm font-semibold font-manrope text-gray-700">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
 
-                    {/* Business Plan - Current */}
-                    <div className="bg-[#4A48FF] rounded-lg shadow-sm p-6 text-white">
-                      <div className="relative">
-                        <span className="absolute top-0 right-0 bg-white text-[#4A48FF] px-2 py-1 rounded text-xs font-semibold font-manrope">
-                          Current Plan
-                        </span>
+                      {/* Business Plan - Current */}
+                      <div className="bg-[#4A48FF] rounded-lg shadow-sm p-6 text-white">
+                        <div className="relative">
+                          <span className="absolute top-0 right-0 bg-white text-[#4A48FF] px-2 py-1 rounded text-xs font-semibold font-manrope">
+                            Current Plan
+                          </span>
+                        </div>
+                        <h3 className="text-xl font-bold font-manrope text-white mb-2">Business plan</h3>
+                        <div className="mb-4">
+                          <span className="text-3xl font-bold font-manrope text-white">$50</span>
+                          <span className="text-sm font-semibold font-manrope text-purple-200"> per month</span>
+                        </div>
+                        <p className="text-sm font-semibold font-manrope text-purple-200 mb-4">Growing teams up to 20 users.</p>
+                        <Button
+                          onClick={handleChangePlan}
+                          className="w-full bg-white text-[#4A48FF] hover:bg-gray-100 py-2 rounded-md font-semibold font-manrope mb-4 border border-[#4A48FF]"
+                        >
+                          Change Plan
+                        </Button>
+                        <div className="mb-4">
+                          <h4 className="text-sm font-bold font-manrope text-white mb-2">FEATURES</h4>
+                          <p className="text-sm font-semibold font-manrope text-purple-200 mb-3">Everything in Basic plus....</p>
+                        </div>
+                        <ul className="space-y-2">
+                          {['200+ integrations', 'Advanced reporting and analytics', 'Up to 20 individual users', '40 GB individual data', 'Priority chat and email support'].map((feature) => (
+                            <li key={feature} className="flex items-center space-x-2">
+                              <div className="w-4 h-4 bg-white rounded-full flex items-center justify-center">
+                                <Check className="w-3 h-3 text-[#4A48FF]" />
+                              </div>
+                              <span className="text-sm font-semibold font-manrope text-purple-200">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                      <h3 className="text-xl font-bold font-manrope text-white mb-2">Business plan</h3>
-                      <div className="mb-4">
-                        <span className="text-3xl font-bold font-manrope text-white">$50</span>
-                        <span className="text-sm font-semibold font-manrope text-purple-200"> per month</span>
-                      </div>
-                      <p className="text-sm font-semibold font-manrope text-purple-200 mb-4">Growing teams up to 20 users.</p>
-                      <Button
-                        onClick={handleChangePlan}
-                        className="w-full bg-white text-[#4A48FF] hover:bg-gray-100 py-2 rounded-md font-semibold font-manrope mb-4 border border-[#4A48FF]"
-                      >
-                        Change Plan
-                      </Button>
-                      <ul className="space-y-2">
-                        {['200+ integrations', 'Advanced reporting and analytics', 'Up to 20 individual users', '40 GB individual data', 'Priority chat and email support'].map((feature) => (
-                          <li key={feature} className="flex items-center space-x-2">
-                            <Check className="w-4 h-4 text-white" />
-                            <span className="text-sm font-semibold font-manrope text-purple-200">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
 
-                    {/* Enterprise Plan */}
-                    <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-                      <h3 className="text-xl font-bold font-manrope text-gray-900 mb-2">Enterprise plan</h3>
-                      <div className="mb-4">
-                        <span className="text-3xl font-bold font-manrope text-gray-900">$99</span>
-                        <span className="text-sm font-semibold font-manrope text-gray-600"> per month</span>
+                      {/* Enterprise Plan */}
+                      <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+                        <h3 className="text-xl font-bold font-manrope text-gray-900 mb-2">Enterprise plan</h3>
+                        <div className="mb-4">
+                          <span className="text-3xl font-bold font-manrope text-gray-900">$99</span>
+                          <span className="text-sm font-semibold font-manrope text-gray-600"> per month</span>
+                        </div>
+                        <p className="text-sm font-semibold font-manrope text-gray-600 mb-4">Advanced features + unlimited users.</p>
+                        <Button className="w-full bg-[#4A48FF] hover:bg-[#4A48FF] text-white py-2 rounded-md font-semibold font-manrope mb-4">
+                          Get started
+                        </Button>
+                        <div className="mb-4">
+                          <h4 className="text-sm font-bold font-manrope text-gray-900 mb-2">FEATURES</h4>
+                          <p className="text-sm font-semibold font-manrope text-gray-600 mb-3">Everything in Business plus....</p>
+                        </div>
+                        <ul className="space-y-2">
+                          {['Advanced custom fields', 'Audit log and data history', 'Unlimited individual users', 'Unlimited individual data', 'Personalized + priority service'].map((feature) => (
+                            <li key={feature} className="flex items-center space-x-2">
+                              <div className="w-4 h-4 bg-[#4A48FF] rounded-full flex items-center justify-center">
+                                <Image src="/images/setting/paymentcheck.svg" alt="check" width={10} height={10} className='w-3 h-3' />
+                              </div>
+                              <span className="text-sm font-semibold font-manrope text-gray-700">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                      <p className="text-sm font-semibold font-manrope text-gray-600 mb-4">Advanced features + unlimited users.</p>
-                      <Button className="w-full bg-[#4A48FF] hover:bg-[#4A48FF] text-white py-2 rounded-md font-semibold font-manrope mb-4">
-                        Get started
-                      </Button>
-                      <ul className="space-y-2">
-                        {['Advanced custom fields', 'Audit log and data history', 'Unlimited individual users', 'Unlimited individual data', 'Personalized + priority service'].map((feature) => (
-                          <li key={feature} className="flex items-center space-x-2">
-                            <Check className="w-4 h-4 text-[#4A48FF]" />
-                            <span className="text-sm font-semibold font-manrope text-gray-700">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
                     </div>
                   </div>
                 </div>
+                
               </>
             )}
 
