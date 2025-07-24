@@ -23,7 +23,7 @@ const navigationItems = [
   { name: 'Messages', icon: '/images/sidebar/message.svg', href: '/messages', current: false },
   { name: 'Knowledge Base', icon: '/images/sidebar/knowledge.svg', href: '/knowledge', current: false },
   { name: 'Integrations', icon: '/images/sidebar/integration.svg', href: '/integrations', current: false },
-  { name: 'Settings', icon: '/images/sidebar/settings.svg', href: '/settings', current: false },
+  { name: 'Settings', icon: '/images/sidebar/settings.svg', href: '/setting', current: false },
 ]
 
 interface DashboardSidebarProps {
