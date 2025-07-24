@@ -62,9 +62,12 @@ export default function AIAgentPage() {
   const [businessDescription, setBusinessDescription] = useState('')
 
   // Booking Setup State
-  const [calendarPlatform, setCalendarPlatform] = useState('gohighlevel')
+  const [calendarPlatform, setCalendarPlatform] = useState('')
   const [isAlternativeLinkEnabled, setIsAlternativeLinkEnabled] = useState(false)
   const [alternativeLink, setAlternativeLink] = useState('')
+  const [isCalendarDropdownOpen, setIsCalendarDropdownOpen] = useState(false)
+  const [connectedPlatforms, setConnectedPlatforms] = useState<string[]>([])
+  const [connectionStatus, setConnectionStatus] = useState<'connected' | 'not-connected'>('not-connected')
 
   // Call Transfer State
   const [callTransferNumber, setCallTransferNumber] = useState('+1 (647) 444-')
@@ -111,13 +114,16 @@ export default function AIAgentPage() {
       if (isRoleDropdownOpen && !target.closest('.role-dropdown')) {
         setIsRoleDropdownOpen(false)
       }
+      if (isCalendarDropdownOpen && !target.closest('.calendar-dropdown')) {
+        setIsCalendarDropdownOpen(false)
+      }
     }
 
     document.addEventListener('mousedown', handleClickOutside)
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [isRoleDropdownOpen])
+  }, [isRoleDropdownOpen, isCalendarDropdownOpen])
 
   const removeRole = (roleToRemove: string) => {
     setRoles(roles.filter(role => role !== roleToRemove))
@@ -129,6 +135,26 @@ export default function AIAgentPage() {
     } else {
       setRoles([...roles, role])
     }
+  }
+
+  const handleCalendarPlatformSelect = (platform: string) => {
+    setCalendarPlatform(platform)
+    setIsCalendarDropdownOpen(false)
+  }
+
+  const handleConnectPlatform = (platform: string) => {
+    // Simulate connection process
+    setTimeout(() => {
+      if (!connectedPlatforms.includes(platform)) {
+        setConnectedPlatforms([...connectedPlatforms, platform])
+        setConnectionStatus('connected')
+      } else {
+        setConnectedPlatforms(connectedPlatforms.filter(p => p !== platform))
+        if (connectedPlatforms.length === 1) {
+          setConnectionStatus('not-connected')
+        }
+      }
+    }, 1000)
   }
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -462,46 +488,141 @@ export default function AIAgentPage() {
             {/* Booking Setup Section */}
             <h3 className="text-2xl font-bold font-manrope text-gray-900">Booking Setup</h3>
             <div className="flex space-x-6">
-              <div className='flex  flex-col w-1/2 gap-2'>
+              {/* Left Column - Select Calendar Platform */}
+              <div className='flex flex-col w-1/2 gap-2 calendar-dropdown'>
                 <div className='flex items-center justify-start gap-1'>
                   <label className="block text-md font-bold font-manrope text-gray-700 ">
                     Select Calendar Platform
                   </label>
                   <Image src="/images/agent/tooltip.svg" alt='check' width={30} height={30} className='w-4 h-4' />
                 </div>
-                <Select value={calendarPlatform} onValueChange={setCalendarPlatform}>
-                  <SelectTrigger className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]">
-                    <SelectValue placeholder="Select calendar platform" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="gohighlevel">GoHighLevel</SelectItem>
-                    <SelectItem value="calendly">Calendly</SelectItem>
-                    <SelectItem value="google">Google Calendar</SelectItem>
-                  </SelectContent>
-                </Select>
-                <div className="flex items-center mt-2">
-                  <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center mr-2">
-                    <Check className="h-3 w-3 text-white" />
+                
+                {/* Calendar Platform Dropdown */}
+                <div className="relative">
+                  <button
+                    onClick={() => setIsCalendarDropdownOpen(!isCalendarDropdownOpen)}
+                    className="w-full flex items-center justify-between p-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#4A48FF] focus:border-[#4A48FF]"
+                  >
+                    <span className="text-gray-700">
+                      {calendarPlatform ? calendarPlatform : "Select platform"}
+                    </span>
+                    <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${isCalendarDropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {/* Calendar Platform Dropdown Menu */}
+                  {isCalendarDropdownOpen && (
+                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
+                      <div
+                        onClick={() => handleCalendarPlatformSelect('Google Calendar')}
+                        className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                      >
+                        <span className="text-gray-700">Google Calendar</span>
+                      </div>
+                      <div
+                        onClick={() => handleCalendarPlatformSelect('Calendly')}
+                        className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                      >
+                        <span className="text-gray-700">Calendly</span>
+                      </div>
+                      <div
+                        onClick={() => handleCalendarPlatformSelect('GoHighLevel')}
+                        className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                      >
+                        <span className="text-gray-700">GoHighLevel</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                
+                {/* Platform List */}
+                <div className="space-y-2 mt-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-700">Google Calendar</span>
+                    <Button 
+                      onClick={() => handleConnectPlatform('Google Calendar')}
+                      className={`px-4 py-1 text-sm ${
+                        connectedPlatforms.includes('Google Calendar') 
+                          ? 'bg-green-600 hover:bg-green-700 text-white' 
+                          : 'bg-[#4A48FF] hover:bg-[#3a38ef] text-white'
+                      }`}
+                    >
+                      {connectedPlatforms.includes('Google Calendar') ? 'Connected' : 'Connect'}
+                    </Button>
                   </div>
-                  <span className="text-sm text-gray-600">Connected to GoHighLevel</span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-700">Calendly</span>
+                    <Button 
+                      onClick={() => handleConnectPlatform('Calendly')}
+                      className={`px-4 py-1 text-sm ${
+                        connectedPlatforms.includes('Calendly') 
+                          ? 'bg-green-600 hover:bg-green-700 text-white' 
+                          : 'bg-[#4A48FF] hover:bg-[#3a38ef] text-white'
+                      }`}
+                    >
+                      {connectedPlatforms.includes('Calendly') ? 'Connected' : 'Connect'}
+                    </Button>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-700">GoHighLevel</span>
+                    <Button 
+                      onClick={() => handleConnectPlatform('GoHighLevel')}
+                      className={`px-4 py-1 text-sm ${
+                        connectedPlatforms.includes('GoHighLevel') 
+                          ? 'bg-green-600 hover:bg-green-700 text-white' 
+                          : 'bg-[#4A48FF] hover:bg-[#3a38ef] text-white'
+                      }`}
+                    >
+                      {connectedPlatforms.includes('GoHighLevel') ? 'Connected' : 'Connect'}
+                    </Button>
+                  </div>
+                </div>
+                
+                {/* Status Indicator */}
+                <div className="flex items-center mt-2">
+                  <div className={`w-4 h-4 rounded-full flex items-center justify-center mr-2 ${
+                    connectionStatus === 'connected' ? 'bg-green-500' : 'bg-red-500'
+                  }`}>
+                    {connectionStatus === 'connected' ? (
+                      <Check className="h-3 w-3 text-white" />
+                    ) : (
+                      <X className="h-3 w-3 text-white" />
+                    )}
+                  </div>
+                  <span className="text-sm text-gray-600">
+                    {connectionStatus === 'connected' ? 'Platform connected' : 'Not connected'}
+                  </span>
                 </div>
               </div>
 
-              <div className="flex flex-col w-1/2  ">
-                <div className=" flex flex-col gap-2">
-                  <label className="text-md font-bold font-manrope text-gray-700">
-                    Alternative Appointment Link
-                  </label>
-                  <div className="flex items-center gap-2">
-                    <div
-                      className={`w-10 h-6 rounded-full relative cursor-pointer transition-colors ${isAlternativeLinkEnabled ? 'bg-green-500' : 'bg-gray-300'}`}
-                      onClick={() => setIsAlternativeLinkEnabled(!isAlternativeLinkEnabled)}
-                    >
-                      <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${isAlternativeLinkEnabled ? 'right-1' : 'left-1'}`}></div>
-                    </div>
-                    <span className="text-sm font-semibold font-manrope text-gray-500 mr-2">Enable</span>
+              {/* Right Column - Alternative Appointment Link */}
+              <div className="flex flex-col w-1/2 gap-2">
+                <label className="text-md font-bold font-manrope text-gray-700">
+                  Alternative Appointment Link
+                </label>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-semibold font-manrope text-gray-500">Enable</span>
+                  <div
+                    className={`w-10 h-6 rounded-full relative cursor-pointer transition-colors ${isAlternativeLinkEnabled ? 'bg-blue-500' : 'bg-gray-300'}`}
+                    onClick={() => setIsAlternativeLinkEnabled(!isAlternativeLinkEnabled)}
+                  >
+                    <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${isAlternativeLinkEnabled ? 'right-1' : 'left-1'}`}></div>
                   </div>
                 </div>
+                
+                {/* Booking URL Input - Only show when enabled */}
+                {isAlternativeLinkEnabled && (
+                  <div className="mt-2">
+                    <label className="block text-sm font-manrope text-gray-700 mb-1">
+                      Booking URL
+                    </label>
+                    <Input
+                      value={alternativeLink}
+                      onChange={(e) => setAlternativeLink(e.target.value)}
+                      className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                      placeholder="https://yourwebsite.com/contact"
+                    />
+                  </div>
+                )}
               </div>
             </div>
 
