@@ -263,30 +263,30 @@ export default function AgentDetailPage() {
 
                 <div className="flex flex-col space-y-4">
                   {/* Business Name */}
-                 <div className='flex flex-row space-x-4'>
-                 <div className='flex-1'>
-                    <label className="block text-md font-manrope font-bold text-gray-700 mb-2">
-                      Business Name
-                    </label>
-                    <Input
-                      value={businessName}
-                      onChange={(e) => setBusinessName(e.target.value)}
-                      className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
-                    />
-                  </div>
+                  <div className='flex flex-row space-x-4'>
+                    <div className='flex-1'>
+                      <label className="block text-md font-manrope font-bold text-gray-700 mb-2">
+                        Business Name
+                      </label>
+                      <Input
+                        value={businessName}
+                        onChange={(e) => setBusinessName(e.target.value)}
+                        className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                      />
+                    </div>
 
-                  {/* Phone Number */}
-                  <div className='flex-1'>
-                    <label className="block text-md font-manrope font-bold text-gray-700 mb-2">
-                      Phone Number
-                    </label>
-                    <Input
-                      value={phoneNumber}
-                      onChange={(e) => setPhoneNumber(e.target.value)}
-                      className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
-                    />
+                    {/* Phone Number */}
+                    <div className='flex-1'>
+                      <label className="block text-md font-manrope font-bold text-gray-700 mb-2">
+                        Phone Number
+                      </label>
+                      <Input
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                        className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                      />
+                    </div>
                   </div>
-                 </div>
 
                   {/* Address */}
                   <div>
@@ -402,10 +402,12 @@ export default function AgentDetailPage() {
                       Alternative Appointment Link
                     </label>
                     <div className="flex items-center space-x-2">
-                      <Switch
-                        checked={isAlternativeLinkEnabled}
-                        onCheckedChange={setIsAlternativeLinkEnabled}
-                      />
+                      <div
+                        className={`w-10 h-6 rounded-full relative cursor-pointer transition-colors ${isAlternativeLinkEnabled ? 'bg-[#34C759]' : 'bg-gray-300'}`}
+                        onClick={() => setIsAlternativeLinkEnabled(!isAlternativeLinkEnabled)}
+                      >
+                        <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${isAlternativeLinkEnabled ? 'right-1' : 'left-1'}`}></div>
+                      </div>
                       <span className="text-sm text-gray-600">Enable</span>
                     </div>
                   </div>
@@ -500,69 +502,61 @@ export default function AgentDetailPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
               {/* Total Calls */}
               <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600">Total Calls</p>
-                    <p className="text-2xl font-bold text-gray-900">247</p>
+                <div className="flex items-top justify-between">
+                  <div className='flex flex-col'>
+                    <p className="text-md font-bold font-manrope text-gray-600">Total Calls</p>
+                    <p className="text-4xl font-bold text-gray-900">247</p>
                   </div>
-                  <div className="flex items-center text-green-600">
-                    <span className="text-sm font-medium">+2.3%</span>
+                  <div className="flex items-top text-green-600">
+                    <span className="text-md font-semibold">+2.3%</span>
                     <span className="text-sm ml-1">^</span>
                   </div>
                 </div>
               </div>
-
-              {/* Avg Call Duration */}
               <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600">Avg Call Duration</p>
-                    <p className="text-2xl font-bold text-gray-900">2m 11s</p>
+                <div className="flex items-top justify-between">
+                  <div className='flex flex-col'>
+                    <p className="text-md font-bold font-manrope text-gray-600">Avg Call Duration</p>
+                    <p className="text-4xl font-bold text-gray-900">2m 11s</p>
                   </div>
-                  <div className="flex items-center text-green-600">
-                    <span className="text-sm font-medium">+2.3%</span>
+                  <div className="flex items-top text-green-600">
+                    <span className="text-md font-semibold">+2.3%</span>
                     <span className="text-sm ml-1">^</span>
                   </div>
                 </div>
               </div>
-
-              {/* Appointment Rate */}
               <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600">Appointment Rate</p>
-                    <p className="text-2xl font-bold text-gray-900">27%</p>
+                <div className="flex items-top justify-between">
+                  <div className='flex flex-col'>
+                    <p className="text-md font-bold font-manrope text-gray-600">Appointment Rate</p>
+                    <p className="text-4xl font-bold text-gray-900">27%</p>
                   </div>
-                  <div className="flex items-center text-red-600">
-                    <span className="text-sm font-medium">+2.3%</span>
+                  <div className="flex items-top text-red-600">
+                    <span className="text-md font-semibold">+2.3%</span>
                     <span className="text-sm ml-1">v</span>
                   </div>
                 </div>
               </div>
-
-              {/* Unique Callers */}
               <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600">Unique Callers</p>
-                    <p className="text-2xl font-bold text-gray-900">22</p>
+                <div className="flex items-top justify-between">
+                  <div className='flex flex-col'>
+                    <p className="text-md font-bold font-manrope text-gray-600">Unique Callers</p>
+                    <p className="text-4xl font-bold text-gray-900">24</p>
                   </div>
-                  <div className="flex items-center text-red-600">
-                    <span className="text-sm font-medium">+2.3%</span>
+                  <div className="flex items-top text-red-600">
+                    <span className="text-md font-semibold">+2.3%</span>
                     <span className="text-sm ml-1">v</span>
                   </div>
                 </div>
               </div>
-
-              {/* Conversion Rate */}
               <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600">Conversion Rate</p>
-                    <p className="text-2xl font-bold text-gray-900">18%</p>
+                <div className="flex items-top justify-between">
+                  <div className='flex flex-col'>
+                    <p className="text-md font-bold font-manrope text-gray-600">Conversion Rate</p>
+                    <p className="text-4xl font-bold text-gray-900">18%</p>
                   </div>
-                  <div className="flex items-center text-red-600">
-                    <span className="text-sm font-medium">+2.3%</span>
+                  <div className="flex items-top text-red-600">
+                    <span className="text-md font-semibold">+2.3%</span>
                     <span className="text-sm ml-1">v</span>
                   </div>
                 </div>
@@ -572,8 +566,8 @@ export default function AgentDetailPage() {
             {/* Performance Trends Graph Section */}
             <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-bold text-gray-900">Performance Trends (Last 7 Days)</h3>
-                <Button className="bg-[#4A48FF] hover:bg-[#3a38ef] text-white">
+                <h3 className="text-3xl font-bold font-manrope text-gray-900">Performance Trends (Last 7 Days)</h3>
+                <Button className="bg-[#4A48FF] hover:bg-[#3a38ef] text-white font-bold font-manrope">
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17l9.2-9.2M17 17V7H7" />
                   </svg>
@@ -633,10 +627,10 @@ export default function AgentDetailPage() {
                         cornerRadius: 8,
                         displayColors: true,
                         callbacks: {
-                          title: function(context) {
+                          title: function (context) {
                             return context[0].label;
                           },
-                          label: function(context) {
+                          label: function (context) {
                             return `${context.dataset.label}: ${context.parsed.y}`;
                           },
                         },
@@ -651,7 +645,8 @@ export default function AgentDetailPage() {
                         ticks: {
                           color: '#6b7280',
                           font: {
-                            size: 12,
+                            size: 16,
+                            family: 'Manrope, sans-serif',
                           },
                         },
                       },
@@ -666,7 +661,8 @@ export default function AgentDetailPage() {
                           stepSize: 7,
                           color: '#6b7280',
                           font: {
-                            size: 12,
+                            size: 16,
+                            family: 'Manrope, sans-serif',
                           },
                         },
                       },
@@ -693,69 +689,48 @@ export default function AgentDetailPage() {
         return (
           <div className="space-y-6">
             {/* Identity & Voice Section */}
-            <div className="bg-white rounded-lg border border-gray-200 shadow-md p-6">
+            <div className="bg-white rounded-lg  p-6">
               {/* Header */}
               <div className="mb-6">
                 <h3 className="text-3xl font-bold text-gray-900 mb-2">Identity & Voice</h3>
                 <p className="text-gray-600">Configure call handling rules and behavior</p>
               </div>
 
-              <div className="space-y-6">
-                {/* Blocked Numbers */}
-                <div>
-                  <label className="block text-md font-manrope font-bold text-gray-700 mb-2">
-                    Blocked Numbers
-                  </label>
-                  <div className="flex items-center space-x-2 mb-3">
-                    <Input
-                      value={newBlockedNumber}
-                      onChange={(e) => setNewBlockedNumber(e.target.value)}
-                      placeholder="Enter number to block"
-                      className="flex-1 border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
-                    />
-                    <Button 
-                      onClick={addBlockedNumber}
-                      className="bg-[#4A48FF] hover:bg-[#3a38ef] text-white px-4 py-2 rounded"
-                    >
-                      + Add
-                    </Button>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {blockedNumbers.map((number, index) => (
-                      <Badge 
-                        key={index} 
-                        variant="secondary" 
-                        className="bg-red-100 text-red-700 px-3 py-1 rounded-full flex items-center space-x-1"
-                      >
-                        <span>{number}</span>
-                        <button
-                          onClick={() => removeBlockedNumber(number)}
-                          className="ml-1 hover:text-red-900 transition-colors"
-                        >
-                          <X className="h-3 w-3" />
-                        </button>
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
+              <div className="space-y-6  max-w-4xl">
+                <div className='flex justify-between gap-2'>
+                  {/* Blocked Numbers */}
+                  <div className='flex w-2/3 flex-col'>
+                    <label className="block text-md font-manrope font-bold text-gray-700 mb-2">
+                      Blocked Numbers
+                    </label>
+                    <div className="flex items-center space-x-2 mb-3">
+                      <Input
+                        value={newBlockedNumber}
+                        onChange={(e) => setNewBlockedNumber(e.target.value)}
+                        placeholder="Enter number to block"
+                        className="flex-1 border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                      />
+                    </div>
 
-                {/* Maximum Call Duration */}
-                <div>
-                  <label className="block text-md font-manrope font-bold text-gray-700 mb-2">
-                    Maximum Call Duration
-                  </label>
-                  <Select value={maxCallDuration} onValueChange={setMaxCallDuration}>
-                    <SelectTrigger className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="5 Minutes">5 Minutes</SelectItem>
-                      <SelectItem value="10 Minutes">10 Minutes</SelectItem>
-                      <SelectItem value="15 Minutes">15 Minutes</SelectItem>
-                      <SelectItem value="30 Minutes">30 Minutes</SelectItem>
-                      <SelectItem value="No Limit">No Limit</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  </div>
+                  {/* Maximum Call Duration */}
+                  <div className='flex w-1/3 flex-col'>
+                    <label className="block text-md font-manrope font-bold text-gray-700 mb-2">
+                      Maximum Call Duration
+                    </label>
+                    <Select value={maxCallDuration} onValueChange={setMaxCallDuration}>
+                      <SelectTrigger className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="5 Minutes">5 Minutes</SelectItem>
+                        <SelectItem value="10 Minutes">10 Minutes</SelectItem>
+                        <SelectItem value="15 Minutes">15 Minutes</SelectItem>
+                        <SelectItem value="30 Minutes">30 Minutes</SelectItem>
+                        <SelectItem value="No Limit">No Limit</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
 
                 {/* Detect & Limit Voicemails */}
@@ -932,7 +907,7 @@ export default function AgentDetailPage() {
         <main className="flex-1 overflow-auto p-4 lg:p-6">
           <div className="mx-auto">
             {/* Main White Card */}
-            <Card className="bg-white shadow-sm">
+            <Card className="">
               <CardContent className="p-6 lg:p-8">
                 {/* Header Section */}
                 <div className="flex flex-col space-y-6">
@@ -946,8 +921,8 @@ export default function AgentDetailPage() {
                         variant={isAgentPaused ? "outline" : "default"}
                         onClick={() => setIsAgentPaused(!isAgentPaused)}
                         className={`flex items-center space-x-2 text-md font-manrope font-bold ${isAgentPaused
-                            ? 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
-                            : 'bg-[#4A48FF] hover:[#4A48FF] text-white'
+                          ? 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
+                          : 'bg-[#4A48FF] hover:[#4A48FF] text-white'
                           }`}
                       >
                         <Pause className="h-4 w-4" />
@@ -973,8 +948,8 @@ export default function AgentDetailPage() {
                           key={tab.id}
                           onClick={() => setActiveTab(tab.id)}
                           className={`py-2 px-4 rounded-md font-bold text-md font-manrope transition-all duration-200 ${activeTab === tab.id
-                              ? 'bg-[#EDEDFF] text-[#4A48FF]'
-                              : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+                            ? 'bg-[#EDEDFF] text-[#4A48FF]'
+                            : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
                             }`}
                         >
                           {tab.label}

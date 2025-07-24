@@ -416,11 +416,11 @@ export default function AIAgentPage() {
               </div>
 
               {/* Preview Voice */}
-              <div className='flex flex-col'>
+              <div className='flex flex-col '>
                 <label className="block text-sm font-manrope font-bold text-gray-700 mb-2 ">
                   Preview Voice
                 </label>
-                <div className="flex items-center space-x-4 border border-gray-300 shadow-lg h-10 rounded-md">
+                <div className="flex items-center space-x-4 border border-gray-300 shadow-lg h-10 rounded-md px-1">
                   <Button
                     size="icon"
                     className="w-8 h-8 bg-[#4A48FF] hover:bg-[#3a39e8] rounded-full"
@@ -599,7 +599,7 @@ export default function AIAgentPage() {
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-semibold font-manrope text-gray-500">Enable</span>
                   <div
-                    className={`w-10 h-6 rounded-full relative cursor-pointer transition-colors ${isAlternativeLinkEnabled ? 'bg-blue-500' : 'bg-gray-300'}`}
+                    className={`w-10 h-6 rounded-full relative cursor-pointer transition-colors ${isAlternativeLinkEnabled ? 'bg-[#34C759]' : 'bg-gray-300'}`}
                     onClick={() => setIsAlternativeLinkEnabled(!isAlternativeLinkEnabled)}
                   >
                     <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${isAlternativeLinkEnabled ? 'right-1' : 'left-1'}`}></div>
@@ -753,11 +753,11 @@ export default function AIAgentPage() {
 
                 {/* Show all days when custom hours is disabled */}
                 {!customHours && (
-                  <div className="space-y-3">
+                  <div className="space-y-3 border border-red-500 ">
                     {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day) => (
-                      <div key={day} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                      <div key={day} className="flex items-center justify-between p-4 border  border-gray-200 rounded-lg">
                         <div className="flex items-center space-x-4 flex-1">
-                          <span className="font-medium text-gray-900 capitalize min-w-[80px]">
+                          <span className="font-bold text-gray-900 capitalize min-w-[80px]">
                             {day.charAt(0).toUpperCase() + day.slice(1)}
                           </span>
                           <span className="text-gray-500">24/7 Available</span>
@@ -776,11 +776,11 @@ export default function AIAgentPage() {
 
                 {/* Custom Hours List - Only show when custom hours is enabled */}
                 {customHours && (
-                  <div className="space-y-3">
+                  <div className="space-y-3 flex flex-col justify-between">
                     {Object.entries(dailyHours).map(([day, hours]) => (
                       <div key={day} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
-                        <div className="flex items-center space-x-4 flex-1">
-                          <span className="font-medium text-gray-900 capitalize min-w-[80px]">
+                        <div className="flex justify-between items-center space-x-4  w-full">
+                          <span className="font-bold text-gray-900 capitalize min-w-[80px]">
                             {day.charAt(0).toUpperCase() + day.slice(1)}
                           </span>
 
@@ -799,9 +799,6 @@ export default function AIAgentPage() {
                               ))}
                             </SelectContent>
                           </Select>
-
-                          <span className="text-gray-500">to</span>
-
                           <Select
                             value={hours.endTime}
                             onValueChange={(value) => updateDailyHours(day, 'endTime', value)}
