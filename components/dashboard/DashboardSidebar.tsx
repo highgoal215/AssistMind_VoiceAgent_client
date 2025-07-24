@@ -23,7 +23,7 @@ const navigationItems = [
   { name: 'Messages', icon: '/images/sidebar/message.svg', href: '/messages', current: false },
   { name: 'Knowledge Base', icon: '/images/sidebar/knowledge.svg', href: '/knowledge', current: false },
   { name: 'Integrations', icon: '/images/sidebar/integration.svg', href: '/integrations', current: false },
-  { name: 'Settings', icon: '/images/sidebar/settings.svg', href: '/settings', current: false },
+  { name: 'Settings', icon: '/images/sidebar/settings.svg', href: '/setting', current: false },
 ]
 
 interface DashboardSidebarProps {
@@ -53,7 +53,7 @@ export default function DashboardSidebar({
       
       {/* Sidebar */}
       <div className={cn(
-        "bg-[#FFFFFF] flex flex-col h-full transition-all duration-300 fixed lg:relative z-50",
+        "bg-[#FFFFFF] flex flex-col h-full transition-all duration-300 fixed lg:relative z-50 border border-gray-200",
         isCollapsed ? "w-16" : "w-64",
         isMobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
       )}>
@@ -92,10 +92,10 @@ export default function DashboardSidebar({
         {/* Navigation */}
         <nav className={cn(
           "flex-1 py-6",
-          isCollapsed ? "px-2" : "px-4"
+          isCollapsed ? "px-2" : "px-4  "
         )}>
-          <div className="mb-4">
-            {!isCollapsed && <h3 className="text-sm font-manrope text-gray-400 uppercase tracking-wider">Menu</h3>}
+          <div className="mb-1 ">
+            {!isCollapsed && <h3 className="text-sm font-manrope font-semibold text-gray-400 ">Menu</h3>}
           </div>
           <ul className="space-y-2">
             {navigationItems.map((item) => {
@@ -108,11 +108,11 @@ export default function DashboardSidebar({
                         href={item.href}
                         onClick={onMobileClose}
                         className={cn(
-                          "flex items-center space-x-3 rounded-lg text-sm font-manrope transition-colors",
+                          "flex items-center space-x-3 rounded-lg text-md font-manrope font-bold transition-colors",
                           isCollapsed ? "px-2 py-3 justify-center" : "px-3 py-2",
                           isActive
-                            ? "bg-[#4A48FF] text-white"
-                            : "text-gray-800 hover:bg-[#c0bff0] hover:text-black font-manrope font-bold"
+                            ? "bg-[#4A48FF] text-white shadow-lg"
+                            : "text-gray-800 hover:bg-gray-300 hover:text-black font-manrope font-bold"
                         )}
                       >
                         <Image 
@@ -143,9 +143,9 @@ export default function DashboardSidebar({
         {!isCollapsed && (
           <div className="p-4">
             <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg p-4 text-white">
-              <h3 className="text-lg font-bold mb-2">7 Day Free Trial</h3>
-              <p className="text-sm mb-2">30 minutes of free usage.</p>
-              <p className="text-sm mb-3">3 days left</p>
+              <h3 className="text-lg font-bold font-manrope mb-2">7 Day Free Trial</h3>
+              <p className="text-sm font-bold font-manrope mb-2">30 minutes of free usage.</p>
+              <p className="text-sm font-bold font-manrope mb-3">3 days left</p>
 
               {/* Progress Bar */}
               <div className="w-full bg-white/20 rounded-full h-2 mb-2">
@@ -155,10 +155,10 @@ export default function DashboardSidebar({
                 ></div>
               </div>
 
-              <p className="text-sm mb-4">18 / 30 minutes used</p>
+              <p className="text-sm font-bold font-manrope mb-4">18 / 30 minutes used</p>
 
               <Button
-                className="w-full bg-white text-gray-900 hover:bg-gray-100 font-manrope"
+                className="w-full bg-white text-gray-900 hover:bg-gray-100 font-manrope font-bold"
                 size="sm"
               >
                 Upgrade Plan

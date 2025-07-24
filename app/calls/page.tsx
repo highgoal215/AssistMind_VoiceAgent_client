@@ -31,6 +31,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import DashboardSidebar from '@/components/dashboard/DashboardSidebar'
 import Link from 'next/link'
 import Image from 'next/image'
+import Header from '@/components/header/header'
 interface Call {
   id: string
   caller: string
@@ -169,46 +170,7 @@ export default function CallsPage() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden lg:ml-0">
         {/* Header */}
-        <header className="bg-white border-b border-gray-200 px-4 lg:px-6 py-4">
-          <div className="flex items-center justify-end">
-            {/* Mobile Menu Button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsMobileMenuOpen(true)}
-              className="lg:hidden mr-2"
-            >
-              <Menu className="h-5 w-5" />
-            </Button>
-
-
-            {/* Right Side Actions */}
-            <div className="flex items-center space-x-2 lg:space-x-4">
-              {/* Dark Mode Button - Hidden on mobile */}
-              <Button variant="outline" className="hidden lg:flex bg-gray-100 border-gray-200 text-gray-900 hover:bg-gray-200">
-                <Moon className="h-4 w-4 mr-2" />
-                Dark
-              </Button>
-
-              {/* Notifications */}
-              <Button variant="ghost" size="icon" className="relative">
-                <Bell className="h-5 w-5" />
-                <span className="absolute -top-1 -right-1 h-5 w-5 bg-blue-500 text-white text-xs rounded-full flex items-center justify-center font-manrope">
-                  1
-                </span>
-              </Button>
-
-              {/* User Profile */}
-              <div className="flex items-center space-x-2">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src="/images/user-profile.jpg" />
-                  <AvatarFallback>U</AvatarFallback>
-                </Avatar>
-                <ChevronDown className="h-4 w-4 text-gray-600 hidden lg:block" />
-              </div>
-            </div>
-          </div>
-        </header>
+        <Header onMobileMenuToggle={() => setIsMobileMenuOpen(true)} />
 
         {/* Main Content */}
         <main className="flex-1 overflow-auto p-4 lg:p-6">
@@ -218,12 +180,12 @@ export default function CallsPage() {
               <Card className="bg-white shadow-sm">
                 <CardContent className="p-4 lg:p-6">
                   <div className="flex items-center space-x-3 lg:space-x-4">
-                    <div className="w-10 h-10 lg:w-12 lg:h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                    <div className="w-10 h-10 lg:w-12 lg:h-12 bg-[#EFEEFF] rounded-full flex items-center justify-center">
                       <Phone className="w-5 h-5 lg:w-6 lg:h-6 text-[#4A48FF]" />
                     </div>
                     <div>
-                      <p className="text-sm font-manrope text-gray-600">Total Calls</p>
-                      <p className="text-xl lg:text-2xl font-bold text-gray-900">{totalCalls}</p>
+                      <p className="text-md font-bold font-manrope text-gray-600">Total Calls</p>
+                      <p className="text-xl lg:text-3xl font-bold font-manrope text-gray-900">{totalCalls}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -232,12 +194,12 @@ export default function CallsPage() {
               <Card className="bg-white shadow-sm">
                 <CardContent className="p-4 lg:p-6">
                   <div className="flex items-center space-x-3 lg:space-x-4">
-                    <div className="w-10 h-10 lg:w-12 lg:h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                    <div className="w-10 h-10 lg:w-12 lg:h-12 bg-[#EFEEFF] rounded-full flex items-center justify-center">
                       <Clock className="w-5 h-5 lg:w-6 lg:h-6 text-[#4A48FF]" />
                     </div>
                     <div>
-                      <p className="text-sm font-manrope text-gray-600">Average Duration</p>
-                      <p className="text-xl lg:text-2xl font-bold text-gray-900">{averageDuration}</p>
+                      <p className="text-md font-bold font-manrope text-gray-600">Average Duration</p>
+                      <p className="text-xl lg:text-3xl font-bold font-manrope text-gray-900">{averageDuration}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -246,12 +208,12 @@ export default function CallsPage() {
               <Card className="bg-white shadow-sm sm:col-span-2 lg:col-span-1">
                 <CardContent className="p-4 lg:p-6">
                   <div className="flex items-center space-x-3 lg:space-x-4">
-                    <div className="w-10 h-10 lg:w-12 lg:h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                    <div className="w-10 h-10 lg:w-12 lg:h-12 bg-[#EFEEFF] rounded-full flex items-center justify-center">
                       <User className="w-5 h-5 lg:w-6 lg:h-6 text-[#4A48FF]" />
                     </div>
                     <div>
-                      <p className="text-sm font-manrope text-gray-600">Unique Callers</p>
-                      <p className="text-xl lg:text-2xl font-bold text-gray-900">{uniqueCallers.toString().padStart(2, '0')}</p>
+                      <p className="text-md font-bold font-manrope text-gray-600">Unique Callers</p>
+                      <p className="text-xl lg:text-3xl font-bold font-manrope text-gray-900">{uniqueCallers.toString().padStart(2, '0')}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -263,7 +225,7 @@ export default function CallsPage() {
               <div className="p-4 lg:p-6 border-b border-gray-200">
                 <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
                   <div className="flex flex-col w-full gap-4">
-                    <h2 className="text-lg lg:text-xl font-semibold text-gray-900">Call Log</h2>
+                    <h2 className="text-3xl lg:text-3xl font-bold font-manrope text-gray-900">Call Log</h2>
                     <div className="flex flex-col lg:flex-row lg:justify-between space-y-3 lg:space-y-0 lg:space-x-2">
                       <div className='flex items-center space-x-3'>
                         <Input
@@ -279,7 +241,7 @@ export default function CallsPage() {
                       <div className="flex items-center space-x-3">
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
-                            <Button variant="outline" size="sm">
+                            <Button variant="outline" size="sm" className='font-bold font-manrope'>
                               Filter
                               <Image src="/images/call/mage_filter.svg" alt="filter" width={16} height={16} className='w-1/2 h-1/2' />
                               <ChevronDown className="w-4 h-4 ml-2" />
@@ -376,23 +338,23 @@ export default function CallsPage() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="font-manrope">CALLER</TableHead>
-                      <TableHead className="font-manrope">NUMBER</TableHead>
-                      <TableHead className="font-manrope">DATE & TIME</TableHead>
-                      <TableHead className="font-manrope">
+                      <TableHead className="font-manrope font-bold">CALLER</TableHead>
+                      <TableHead className="font-manrope font-bold">NUMBER</TableHead>
+                      <TableHead className="font-manrope font-bold">DATE & TIME</TableHead>
+                      <TableHead className="font-manrope font-bold">
                         <div className="flex items-center space-x-1">
                           <span>DURATION</span>
                           <ArrowUpDown className="w-4 h-4" />
                         </div>
                       </TableHead>
-                      <TableHead className="font-manrope">TYPE</TableHead>
-                      <TableHead className="font-manrope">
+                      <TableHead className="font-manrope font-bold">TYPE</TableHead>
+                      <TableHead className="font-manrope font-bold">
                         <div className="flex items-center space-x-1">
                           <span>STATUS</span>
                           <ArrowUpDown className="w-4 h-4" />
                         </div>
                       </TableHead>
-                      <TableHead className="font-manrope">ACTIONS</TableHead>
+                      <TableHead className="font-manrope font-bold">ACTIONS</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -402,10 +364,10 @@ export default function CallsPage() {
                         className="hover:bg-gray-50 cursor-pointer"
                         onClick={() => window.location.href = `/calls/${call.id}`}
                       >
-                        <TableCell className="font-manrope">{call.caller}</TableCell>
-                        <TableCell>{call.number}</TableCell>
-                        <TableCell>{call.dateTime}</TableCell>
-                        <TableCell>{call.duration}</TableCell>
+                        <TableCell className="font-manrope font-bold">{call.caller}</TableCell>
+                        <TableCell className="font-manrope font-bold">{call.number}</TableCell>
+                        <TableCell className="font-manrope font-bold">{call.dateTime}</TableCell>
+                        <TableCell className="font-manrope font-bold">{call.duration}</TableCell>
                         <TableCell>
                           <Badge className={getTypeColor(call.type)}>
                             {call.type.charAt(0).toUpperCase() + call.type.slice(1)}

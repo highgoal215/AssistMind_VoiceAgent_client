@@ -29,7 +29,7 @@ import { Textarea } from '@/components/ui/textarea'
 import DashboardSidebar from '@/components/dashboard/DashboardSidebar'
 import NodePalette from '@/components/call-flow/NodePalette'
 import CallFlowNode from '@/components/call-flow/CallFlowNode'
-
+import Header from '@/components/header/header'
 interface FlowNode {
   id: string
   type: 'start' | 'response' | 'question' | 'transfer' | 'action'
@@ -270,45 +270,7 @@ export default function CallFlowBuilderPage() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden lg:ml-0">
         {/* Header */}
-        <header className="bg-white border-b border-gray-200 px-4 lg:px-6 py-4">
-          <div className="flex items-center justify-end">
-            {/* Mobile Menu Button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsMobileMenuOpen(true)}
-              className="lg:hidden mr-2"
-            >
-              <Menu className="h-5 w-5" />
-            </Button>
-            
-            {/* Right Side Actions */}
-            <div className="flex items-center space-x-2 lg:space-x-4">
-              {/* Dark Mode Button - Hidden on mobile */}
-              <Button variant="outline" className="hidden lg:flex bg-gray-100 border-gray-200 text-gray-900 hover:bg-gray-200">
-                <Moon className="h-4 w-4 mr-2" />
-                Dark
-              </Button>
-
-              {/* Notifications */}
-              <Button variant="ghost" size="icon" className="relative">
-                <Bell className="h-5 w-5" />
-                <span className="absolute -top-1 -right-1 h-5 w-5 bg-blue-500 text-white text-xs rounded-full flex items-center justify-center font-manrope">
-                  1
-                </span>
-              </Button>
-
-              {/* User Profile */}
-              <div className="flex items-center space-x-2">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src="/images/user-profile.jpg" />
-                  <AvatarFallback>U</AvatarFallback>
-                </Avatar>
-                <ChevronDown className="h-4 w-4 text-gray-600 hidden lg:block" />
-              </div>
-            </div>
-          </div>
-        </header>
+        <Header onMobileMenuToggle={() => setIsMobileMenuOpen(true)} />
 
         {/* Call Flow Builder Content */}
         <main className="flex-1 flex overflow-hidden">
@@ -316,6 +278,7 @@ export default function CallFlowBuilderPage() {
           <NodePalette
             onDragStart={handleDragStart}
             onCreateCustomNode={createCustomNode}
+            isReadOnly={false}
           />
 
           {/* Canvas Area */}
@@ -330,7 +293,7 @@ export default function CallFlowBuilderPage() {
                         variant="outline"
                         size="sm"
                         onClick={editSelectedNode}
-                        className="bg-white border-gray-200 text-gray-700 hover:bg-gray-50 h-8 lg:h-9 px-3 lg:px-4 text-sm"
+                        className="bg-white border-gray-200 text-gray-700 hover:bg-gray-50 h-8 lg:h-9 px-3 lg:px-4 text-sm font-bold font-manrope"
                       >
                         <Edit className="h-4 w-4 mr-2" />
                         Edit
@@ -339,7 +302,7 @@ export default function CallFlowBuilderPage() {
                         variant="outline"
                         size="sm"
                         onClick={deleteSelectedNode}
-                        className="bg-white border-red-200 text-red-700 hover:bg-red-50 h-8 lg:h-9 px-3 lg:px-4 text-sm"
+                        className="bg-white border-red-200 text-red-700 hover:bg-red-50 h-8 lg:h-9 px-3 lg:px-4 text-sm font-bold font-manrope"
                       >
                         <Trash2 className="h-4 w-4 mr-2" />
                         Delete
@@ -352,7 +315,7 @@ export default function CallFlowBuilderPage() {
                     variant="outline"
                     size="sm"
                     onClick={clearCanvas}
-                    className="bg-white border-gray-200 text-gray-700 hover:bg-gray-50 h-8 lg:h-9 px-3 lg:px-4 text-sm"
+                    className="bg-white border-gray-200 text-gray-700 hover:bg-gray-50 h-8 lg:h-9 px-3 lg:px-4 text-sm font-bold font-manrope"
                   >
                     <X className="h-4 w-4 mr-2" />
                     Clear
@@ -361,7 +324,7 @@ export default function CallFlowBuilderPage() {
                     size="sm"
                     onClick={saveFlow}
                     data-save-button
-                    className="bg-[#4A48FF] hover:bg-[#3A38FF] text-white h-8 lg:h-9 px-3 lg:px-4 text-sm"
+                    className="bg-[#4A48FF] hover:bg-[#3A38FF] text-white h-8 lg:h-9 px-3 lg:px-4 text-sm font-bold font-manrope"
                   >
                     <Save className="h-4 w-4 mr-2" />
                     Save Flow
@@ -445,13 +408,13 @@ export default function CallFlowBuilderPage() {
             <div className="bg-white border-t border-gray-200 px-4 lg:px-6 py-3">
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
                 <div className="flex items-center space-x-2">
-                  <Button variant="outline" size="sm" className="h-8 w-8 p-0" onClick={handleZoomIn}>
+                  <Button variant="outline" size="sm" className="h-8 w-8 p-0 font-bold font-manrope" onClick={handleZoomIn}>
                     <Plus className="h-4 w-4" />
                   </Button>
-                  <Button variant="outline" size="sm" className="h-8 w-8 p-0" onClick={handleZoomOut}>
+                  <Button variant="outline" size="sm" className="h-8 w-8 p-0 font-bold font-manrope" onClick={handleZoomOut}>
                     <Minus className="h-4 w-4" />
                   </Button>
-                  <Button variant="outline" size="sm" className="h-8 w-8 p-0" onClick={handleZoomReset}>
+                  <Button variant="outline" size="sm" className="h-8 w-8 p-0 font-bold font-manrope" onClick={handleZoomReset}>
                     <Maximize className="h-4 w-4" />
                   </Button>
                   <span className="text-sm text-gray-600 ml-2">{Math.round(zoom * 100)}%</span>
@@ -464,8 +427,8 @@ export default function CallFlowBuilderPage() {
                     className="px-3 lg:px-4 py-2 text-sm font-semibold rounded-md transition-all data-[state=on]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 hover:data-[state=off]:bg-gray-50"
                   >
                     <Eye className="h-4 w-4 mr-2" />
-                    <span className="hidden lg:inline">Visual Editor</span>
-                    <span className="lg:hidden">Visual</span>
+                    <span className="hidden lg:inline font-bold font-manrope">Visual Editor</span>
+                    <span className="lg:hidden font-bold font-manrope">Visual</span>
                   </ToggleGroupItem>
                   <ToggleGroupItem
                     value="text"
@@ -473,8 +436,8 @@ export default function CallFlowBuilderPage() {
                     className="px-3 lg:px-4 py-2 text-sm font-semibold rounded-md transition-all data-[state=on]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 hover:data-[state=off]:bg-gray-50"
                   >
                     <FileText className="h-4 w-4 mr-2" />
-                    <span className="hidden lg:inline">Text Preview</span>
-                    <span className="lg:hidden">Text</span>
+                    <span className="hidden lg:inline font-bold font-manrope">Text Preview</span>
+                    <span className="lg:hidden font-bold font-manrope">Text</span>
                   </ToggleGroupItem>
                   <ToggleGroupItem
                     value="json"
@@ -482,7 +445,7 @@ export default function CallFlowBuilderPage() {
                     className="px-3 lg:px-4 py-2 text-sm font-semibold rounded-md transition-all data-[state=on]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 hover:data-[state=off]:bg-gray-50"
                   >
                     <Code className="h-4 w-4 mr-2" />
-                    <span className="hidden lg:inline">JSON Config</span>
+                    <span className="hidden lg:inline font-bold font-manrope">JSON Config</span>
                     <span className="lg:hidden">JSON</span>
                   </ToggleGroupItem>
                 </ToggleGroup>

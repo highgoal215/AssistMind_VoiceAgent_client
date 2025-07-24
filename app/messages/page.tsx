@@ -34,6 +34,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import DashboardSidebar from '../../components/dashboard/DashboardSidebar'
 import Image from 'next/image'
 import Link from 'next/link'
+import Header from '@/components/header/header'
 export default function MessagesPage() {
   const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
@@ -119,47 +120,7 @@ export default function MessagesPage() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden lg:ml-0">
         {/* Header */}
-        <header className="bg-white border-b border-gray-200 px-4 lg:px-6 py-4">
-          <div className="flex items-center justify-end">
-            {/* Mobile Menu Button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsMobileMenuOpen(true)}
-              className="lg:hidden mr-2"
-            >
-              <Menu className="h-5 w-5" />
-            </Button>
-
-
-
-            {/* Right Side Actions */}
-            <div className="flex items-center space-x-2 lg:space-x-4">
-              {/* Dark Mode Button - Hidden on mobile */}
-              <Button variant="outline" className="hidden lg:flex bg-gray-100 border-gray-200 text-gray-900 hover:bg-gray-200">
-                <Moon className="h-4 w-4 mr-2" />
-                Dark
-              </Button>
-
-              {/* Notifications */}
-              <Button variant="ghost" size="icon" className="relative">
-                <Bell className="h-5 w-5" />
-                <span className="absolute -top-1 -right-1 h-5 w-5 bg-blue-500 text-white text-xs rounded-full flex items-center justify-center font-manrope">
-                  2
-                </span>
-              </Button>
-
-              {/* User Profile */}
-              <div className="flex items-center space-x-2">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src="/images/user-profile.jpg" />
-                  <AvatarFallback>U</AvatarFallback>
-                </Avatar>
-                <ChevronDown className="h-4 w-4 text-gray-600 hidden lg:block" />
-              </div>
-            </div>
-          </div>
-        </header>
+        <Header onMobileMenuToggle={() => setIsMobileMenuOpen(true)} />
 
         {/* Messages Content */}
         <main className="flex-1 overflow-auto p-4 lg:p-6">
@@ -386,15 +347,15 @@ export default function MessagesPage() {
 
                       {/* Contact Details */}
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-1 sm:mb-2">
+                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-1 sm:mb-2 font-manrope">
                           Julio Caesar
                         </h3>
-                        <p className="text-sm sm:text-base text-gray-600 mb-1 sm:mb-2">
+                        <p className="text-sm sm:text-base text-gray-600 mb-1 sm:mb-2 font-bold font-manrope">
                           +1 (555) 123-4567
                         </p>
                         <div className="flex items-center space-x-2">
                           <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full flex-shrink-0"></div>
-                          <span className="text-xs sm:text-sm text-gray-500">
+                          <span className="text-xs sm:text-sm text-gray-50 font-bold font-manrope">
                             Last active: 1h ago
                           </span>
                         </div>
@@ -408,10 +369,10 @@ export default function MessagesPage() {
                     <div className="flex w-full lg:flex-1 flex-col space-y-3 lg:space-y-4 lg:pl-8">
                       {/* Tags */}
                       <div className="flex flex-wrap gap-2">
-                        <Badge className="bg-red-100 text-red-700 text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full">
+                        <Badge className="bg-red-100 text-red-700 text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full font-bold">
                           High Priority
                         </Badge>
-                        <Badge className="bg-blue-100 text-blue-700 text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full">
+                        <Badge className="bg-blue-100 text-blue-700 text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full font-bold">
                           <Calendar className="h-3 w-3 mr-1" />
                           Appointment
                         </Badge>
@@ -420,7 +381,7 @@ export default function MessagesPage() {
                       {/* Message Preview and View Button */}
                       <div className="flex w-full justify-between items-start space-x-3">
                         {/* Message Preview */}
-                        <p className="text-xs sm:text-sm text-gray-600 flex-1 min-w-0">
+                        <p className="text-xs sm:text-sm text-gray-600 flex-1 min-w-0 font-bold">
                           Lorem ipsum dolor sit amet consectetur. Quis ultrices praesent mauris quis sagittis neque urna amet. Pretium tri...
                         </p>
 

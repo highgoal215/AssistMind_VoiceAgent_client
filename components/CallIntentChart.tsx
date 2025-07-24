@@ -88,12 +88,12 @@ const CallIntentChart = () => {
       {/* Legend */}
       <div className="flex-shrink-0 ml-8 space-y-4">
         {legendData.map((item, index) => (
-          <div key={index} className="flex items-center space-x-3 text-sm">
+          <div key={index} className="flex items-center space-x-3 text-md">
             <div
               className="w-3 h-3 rounded-full"
               style={{ backgroundColor: item.color }}
             />
-            <span className="text-gray-700 font-manrope">{item.name}</span>
+            <span className="text-gray-700 font-manrope font-bold">{item.name}</span>
           </div>
         ))}
       </div>
