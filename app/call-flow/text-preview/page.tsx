@@ -171,10 +171,9 @@ export default function TextPreviewPage() {
           {/* Node Palette */}
           <div className="w-80 bg-white border-r border-gray-200 p-6 overflow-y-auto">
             <div className="mb-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-2">Node Palette</h2>
+              <h2 className="text-3xl font-bold font-manrope text-gray-900 mb-2">Node Palette</h2>
               <p className="text-sm text-gray-600">Drag blocks to canvas</p>
             </div>
-
             <div className="space-y-4">
               <div>
                 <h3 className="text-sm font-manrope text-gray-700 mb-3">Logic Blocks</h3>

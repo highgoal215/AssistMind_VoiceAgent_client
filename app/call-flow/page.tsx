@@ -292,7 +292,7 @@ export default function CallFlowBuilderPage() {
                         variant="outline"
                         size="sm"
                         onClick={editSelectedNode}
-                        className="bg-white border-gray-200 text-gray-700 hover:bg-gray-50 h-8 lg:h-9 px-3 lg:px-4 text-sm"
+                        className="bg-white border-gray-200 text-gray-700 hover:bg-gray-50 h-8 lg:h-9 px-3 lg:px-4 text-sm font-bold font-manrope"
                       >
                         <Edit className="h-4 w-4 mr-2" />
                         Edit
@@ -301,7 +301,7 @@ export default function CallFlowBuilderPage() {
                         variant="outline"
                         size="sm"
                         onClick={deleteSelectedNode}
-                        className="bg-white border-red-200 text-red-700 hover:bg-red-50 h-8 lg:h-9 px-3 lg:px-4 text-sm"
+                        className="bg-white border-red-200 text-red-700 hover:bg-red-50 h-8 lg:h-9 px-3 lg:px-4 text-sm font-bold font-manrope"
                       >
                         <Trash2 className="h-4 w-4 mr-2" />
                         Delete

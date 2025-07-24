@@ -255,13 +255,13 @@ export default function JsonConfigPage() {
           {/* Node Palette */}
           <div className="w-80 bg-white border-r border-gray-200 p-6 overflow-y-auto">
             <div className="mb-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-2">Node Palette</h2>
-              <p className="text-sm text-gray-600">Drag blocks to canvas</p>
+              <h2 className="text-3xl font-bold font-manrope text-gray-900 mb-2">Node Palette</h2>
+              <p className="text-md font-semibold font-manrope text-gray-600">Drag blocks to canvas</p>
             </div>
 
             <div className="space-y-4">
               <div>
-                <h3 className="text-sm font-manrope text-gray-700 mb-3">Logic Blocks</h3>
+                <h3 className="text-2xl font-bold font-manrope text-gray-700 mb-3">Logic Blocks</h3>
                 <div className="space-y-3">
                   <div className="p-4 border border-gray-200 rounded-lg">
                     <div className="flex items-center space-x-3">
@@ -269,8 +269,8 @@ export default function JsonConfigPage() {
                         <Phone className="w-5 h-5" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-manrope text-gray-900">Start Call</h4>
-                        <p className="text-sm text-gray-600">Call starts here</p>
+                        <h4 className="font-manrope font-bold text-gray-900">Start Call</h4>
+                        <p className="text-sm font-manrope font-semibold text-gray-600">Call starts here</p>
                       </div>
                     </div>
                   </div>
@@ -280,8 +280,8 @@ export default function JsonConfigPage() {
                         <MessageSquare className="w-5 h-5" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-manrope text-gray-900">Response</h4>
-                        <p className="text-sm text-gray-600">AI delivers a message</p>
+                        <h4 className="font-manrope font-bold text-gray-900">Response</h4>
+                        <p className="text-sm font-manrope font-semibold text-gray-600">AI delivers a message</p>
                       </div>
                     </div>
                   </div>
@@ -291,8 +291,8 @@ export default function JsonConfigPage() {
                         <HelpCircle className="w-5 h-5" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-manrope text-gray-900">Ask Question</h4>
-                        <p className="text-sm text-gray-600">Ask & wait for caller's answer</p>
+                        <h4 className="font-manrope font-bold text-gray-900">Ask Question</h4>
+                        <p className="text-sm font-manrope font-semibold text-gray-600">Ask & wait for caller's answer</p>
                       </div>
                     </div>
                   </div>
@@ -302,8 +302,8 @@ export default function JsonConfigPage() {
                         <ArrowRight className="w-5 h-5" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-manrope text-gray-900">Transfer to Human</h4>
-                        <p className="text-sm text-gray-600">Transfers the call to a phone number</p>
+                        <h4 className="font-manrope font-bold text-gray-900">Transfer to Human</h4>
+                        <p className="text-sm font-manrope font-semibold text-gray-600">Transfers the call to a phone number</p>
                       </div>
                     </div>
                   </div>
@@ -313,8 +313,8 @@ export default function JsonConfigPage() {
                         <Zap className="w-5 h-5" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-manrope text-gray-900">Trigger Action</h4>
-                        <p className="text-sm text-gray-600">Executes external actions</p>
+                        <h4 className="font-manrope font-bold text-gray-900">Trigger Action</h4>
+                        <p className="text-sm font-manrope font-semibold text-gray-600">Executes external actions</p>
                       </div>
                     </div>
                   </div>
@@ -324,9 +324,9 @@ export default function JsonConfigPage() {
               <div className="pt-4">
                 <Button
                   variant="outline"
-                  className="w-full border-purple-200 text-purple-700 hover:bg-purple-50"
+                  className="w-full border-purple-200 text-purple-700 hover:bg-purple-50 font-bold font-manrope"
                 >
-                  <Plus className="h-4 w-4 mr-2" />
+                  <Plus className="h-4 w-4 mr-2 " />
                   Create Custom Node
                 </Button>
               </div>
