@@ -12,21 +12,22 @@ import {
   ArrowLeft,
   Edit,
   Copy,
+  Minus,
+  Maximize,
+  Download,
+  Plus,
   Phone,
   MessageSquare,
   HelpCircle,
   ArrowRight,
-  Zap,
-  Plus,
-  Minus,
-  Maximize,
-  Download
+  Zap
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import DashboardSidebar from '@/components/dashboard/DashboardSidebar'
+import NodePalette from '@/components/call-flow/NodePalette'
 import Link from 'next/link'
 
 interface FlowNode {
@@ -167,86 +168,11 @@ export default function TextPreviewPage() {
         </header>
 
         {/* Text Preview Content */}
-        <main className="flex-1 flex overflow-hidden">
+                <main className="flex-1 flex overflow-hidden">
           {/* Node Palette */}
-          <div className="w-80 bg-white border-r border-gray-200 p-6 overflow-y-auto">
-            <div className="mb-6">
-              <h2 className="text-3xl font-bold font-manrope text-gray-900 mb-2">Node Palette</h2>
-              <p className="text-sm text-gray-600">Drag blocks to canvas</p>
-            </div>
-            <div className="space-y-4">
-              <div>
-                <h3 className="text-sm font-manrope text-gray-700 mb-3">Logic Blocks</h3>
-                <div className="space-y-3">
-                  <div className="p-4 border border-gray-200 rounded-lg">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center text-white">
-                        <Phone className="w-5 h-5" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-manrope text-gray-900">Start Call</h4>
-                        <p className="text-sm text-gray-600">Call starts here</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4 border border-gray-200 rounded-lg">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center text-white">
-                        <MessageSquare className="w-5 h-5" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-manrope text-gray-900">Response</h4>
-                        <p className="text-sm text-gray-600">AI delivers a message</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4 border border-gray-200 rounded-lg">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-yellow-500 rounded-lg flex items-center justify-center text-white">
-                        <HelpCircle className="w-5 h-5" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-manrope text-gray-900">Ask Question</h4>
-                        <p className="text-sm text-gray-600">Ask & wait for caller's answer</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4 border border-gray-200 rounded-lg">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center text-white">
-                        <ArrowRight className="w-5 h-5" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-manrope text-gray-900">Transfer to Human</h4>
-                        <p className="text-sm text-gray-600">Transfers the call to a phone number</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4 border border-gray-200 rounded-lg">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-red-500 rounded-lg flex items-center justify-center text-white">
-                        <Zap className="w-5 h-5" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-manrope text-gray-900">Trigger Action</h4>
-                        <p className="text-sm text-gray-600">Executes external actions</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-4">
-                <Button
-                  variant="outline"
-                  className="w-full border-purple-200 text-purple-700 hover:bg-purple-50"
-                >
-                  <Plus className="h-4 w-4 mr-2" />
-                  Create Custom Node
-                </Button>
-              </div>
-            </div>
-          </div>
+          <NodePalette
+            isReadOnly={true}
+          />
 
           {/* Text Preview Workspace */}
           <div className="flex-1 flex flex-col">
@@ -303,7 +229,7 @@ export default function TextPreviewPage() {
                     <h3 className="text-lg font-manrope text-gray-900 mb-2">No flow configured</h3>
                     <p className="text-sm text-gray-600">Create a flow in the visual editor to see the text preview</p>
                     <Link href="/call-flow">
-                      <Button className="mt-4 bg-[#4A48FF] hover:bg-[#3A38FF] text-white">
+                      <Button className="mt-4 bg-[#4A48FF] hover:bg-[#3A38FF] text-white font-bold font-manrope">
                         <Eye className="h-4 w-4 mr-2" />
                         Go to Visual Editor
                       </Button>
@@ -394,7 +320,7 @@ export default function TextPreviewPage() {
                   <ToggleGroupItem
                     value="visual"
                     size="sm"
-                    className="px-4 py-2 text-sm font-semibold rounded-md transition-all data-[state=on]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 hover:data-[state=off]:bg-gray-50"
+                    className="px-4 py-2 text-sm font-semibold rounded-md transition-all data-[state=on]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 hover:data-[state=off]:bg-gray-50 font-bold font-manrope"
                   >
                     <Eye className="h-4 w-4 mr-2" />
                     Visual Editor
@@ -402,7 +328,7 @@ export default function TextPreviewPage() {
                   <ToggleGroupItem
                     value="text"
                     size="sm"
-                    className="px-4 py-2 text-sm font-semibold rounded-md transition-all data-[state=on]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 hover:data-[state=off]:bg-gray-50"
+                    className="px-4 py-2 text-sm font-semibold rounded-md transition-all data-[state=on]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 hover:data-[state=off]:bg-gray-50 font-bold font-manrope"
                   >
                     <FileText className="h-4 w-4 mr-2" />
                     Text Preview

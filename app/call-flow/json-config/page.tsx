@@ -14,16 +14,11 @@ import {
   Copy,
   Download,
   Upload,
-  Phone,
-  MessageSquare,
-  HelpCircle,
-  ArrowRight,
-  Zap,
-  Plus,
   Minus,
   Maximize,
   CheckCircle,
-  AlertCircle
+  AlertCircle,
+  Plus
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -32,6 +27,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import DashboardSidebar from '@/components/dashboard/DashboardSidebar'
+import NodePalette from '@/components/call-flow/NodePalette'
 import Link from 'next/link'
 
 export default function JsonConfigPage() {
@@ -253,85 +249,9 @@ export default function JsonConfigPage() {
         {/* JSON Config Content */}
         <main className="flex-1 flex overflow-hidden">
           {/* Node Palette */}
-          <div className="w-80 bg-white border-r border-gray-200 p-6 overflow-y-auto">
-            <div className="mb-6">
-              <h2 className="text-3xl font-bold font-manrope text-gray-900 mb-2">Node Palette</h2>
-              <p className="text-md font-semibold font-manrope text-gray-600">Drag blocks to canvas</p>
-            </div>
-
-            <div className="space-y-4">
-              <div>
-                <h3 className="text-2xl font-bold font-manrope text-gray-700 mb-3">Logic Blocks</h3>
-                <div className="space-y-3">
-                  <div className="p-4 border border-gray-200 rounded-lg">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center text-white">
-                        <Phone className="w-5 h-5" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-manrope font-bold text-gray-900">Start Call</h4>
-                        <p className="text-sm font-manrope font-semibold text-gray-600">Call starts here</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4 border border-gray-200 rounded-lg">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center text-white">
-                        <MessageSquare className="w-5 h-5" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-manrope font-bold text-gray-900">Response</h4>
-                        <p className="text-sm font-manrope font-semibold text-gray-600">AI delivers a message</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4 border border-gray-200 rounded-lg">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-yellow-500 rounded-lg flex items-center justify-center text-white">
-                        <HelpCircle className="w-5 h-5" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-manrope font-bold text-gray-900">Ask Question</h4>
-                        <p className="text-sm font-manrope font-semibold text-gray-600">Ask & wait for caller's answer</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4 border border-gray-200 rounded-lg">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center text-white">
-                        <ArrowRight className="w-5 h-5" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-manrope font-bold text-gray-900">Transfer to Human</h4>
-                        <p className="text-sm font-manrope font-semibold text-gray-600">Transfers the call to a phone number</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4 border border-gray-200 rounded-lg">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-red-500 rounded-lg flex items-center justify-center text-white">
-                        <Zap className="w-5 h-5" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-manrope font-bold text-gray-900">Trigger Action</h4>
-                        <p className="text-sm font-manrope font-semibold text-gray-600">Executes external actions</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-4">
-                <Button
-                  variant="outline"
-                  className="w-full border-purple-200 text-purple-700 hover:bg-purple-50 font-bold font-manrope"
-                >
-                  <Plus className="h-4 w-4 mr-2 " />
-                  Create Custom Node
-                </Button>
-              </div>
-            </div>
-          </div>
+          <NodePalette
+            isReadOnly={true}
+          />
 
           {/* JSON Config Workspace */}
           <div className="flex-1 flex flex-col">
