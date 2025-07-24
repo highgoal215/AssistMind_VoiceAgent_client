@@ -38,6 +38,7 @@ export default function AIAgentPage() {
   const [selectedVoice, setSelectedVoice] = useState('female-calm')
   const [language, setLanguage] = useState('English')
   const [agentprofileStep, setAgentProfileStep] = React.useState(1)
+  const [avatarImage, setAvatarImage] = useState<string | null>(null)
 
   // Business Details State
   const [businessName, setBusinessName] = useState('')
@@ -65,6 +66,29 @@ export default function AIAgentPage() {
     setRoles(roles.filter(role => role !== roleToRemove))
   }
 
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (file) {
+      // Check if file is an image
+      if (!file.type.startsWith('image/')) {
+        alert('Please select an image file')
+        return
+      }
+      
+      // Check file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Image size should be less than 5MB')
+        return
+      }
+
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        setAvatarImage(e.target?.result as string)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
   const voiceOptions = [
     { value: 'female-calm', label: 'Female - Calm and Professional' },
     { value: 'female-energetic', label: 'Female - Energetic and Friendly' },
@@ -84,18 +108,35 @@ export default function AIAgentPage() {
                 <label className="block text-md font-bold text-gray-700 mb-4">
                   Agent Vatar
                 </label>
-                <div className="flex items-center space-x-4">
-                  <div className="relative">
-                    <Avatar className="w-16 h-16">
-                      <AvatarImage src="/images/user-profile.jpg" />
-                      <AvatarFallback className="bg-blue-600 text-white text-lg">A</AvatarFallback>
-                    </Avatar>
-                  </div>
-                  <Button variant="outline" className="font-bold border-gray-300 text-gray-700 hover:bg-gray-50">
-                    <Upload className="h-4 w-4 mr-2 " />
-                    Upload
-                  </Button>
-                </div>
+                                 <div className="flex items-center space-x-4">
+                   <div className="relative">
+                     <Avatar className="w-16 h-16">
+                       <AvatarImage src={avatarImage || "/images/user-profile.jpg"} />
+                       <AvatarFallback className="bg-blue-600 text-white text-lg">A</AvatarFallback>
+                     </Avatar>
+                   </div>
+                   <div className="relative">
+                     <input
+                       type="file"
+                       accept="image/*"
+                       onChange={handleImageUpload}
+                       className="hidden"
+                       id="avatar-upload"
+                     />
+                     <label htmlFor="avatar-upload">
+                       <Button 
+                         variant="outline" 
+                         className="font-bold border-gray-300 text-gray-700 hover:bg-gray-50 cursor-pointer"
+                         asChild
+                       >
+                         <span>
+                           <Upload className="h-4 w-4 mr-2" />
+                           Upload
+                         </span>
+                       </Button>
+                     </label>
+                   </div>
+                 </div>
               </div>
 
               {/* Agent Name */}
@@ -466,12 +507,7 @@ export default function AIAgentPage() {
                         Back
                       </Button>
                     )}
-                    <Button
-                      variant="outline"
-                      className="w-full sm:w-auto px-6 py-2 rounded-lg bg-white border-gray-300 text-gray-900 hover:bg-gray-50"
-                    >
-                      Cancel
-                    </Button>
+                    
                     {agentprofileStep < 3 ? (
                       <Button
                         onClick={() => setAgentProfileStep(agentprofileStep + 1)}
