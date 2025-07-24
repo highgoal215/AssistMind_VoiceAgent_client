@@ -76,25 +76,23 @@ export default function AIAgentPage() {
     switch (agentprofileStep) {
       case 1:
         return (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-10  ">
             {/* Left Column - Agent Profile */}
-            <div className="space-y-6">
+            <div className="flex-1 space-y-6">
               {/* Agent Avatar */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-4">
-                  Agent Avatar
+                <label className="block text-md font-bold text-gray-700 mb-4">
+                  Agent Vatar
                 </label>
-                <div className="flex flex-row items-center space-x-4">
+                <div className="flex items-center space-x-4">
                   <div className="relative">
                     <Avatar className="w-16 h-16">
                       <AvatarImage src="/images/user-profile.jpg" />
                       <AvatarFallback className="bg-blue-600 text-white text-lg">A</AvatarFallback>
                     </Avatar>
-                    {/* Purple line overlay */}
-                    <div className="absolute inset-0 w-1 bg-[#4A48FF] rounded-l-full"></div>
                   </div>
-                  <Button variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50 w-full sm:w-auto">
-                    <Upload className="h-4 w-4 mr-2" />
+                  <Button variant="outline" className="font-bold border-gray-300 text-gray-700 hover:bg-gray-50">
+                    <Upload className="h-4 w-4 mr-2 " />
                     Upload
                   </Button>
                 </div>
@@ -102,7 +100,7 @@ export default function AIAgentPage() {
 
               {/* Agent Name */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-manrope font-bold text-gray-700 mb-2">
                   What's your agent's name?
                 </label>
                 <Input
@@ -114,55 +112,51 @@ export default function AIAgentPage() {
 
               {/* Role */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-manrope font-bold text-gray-700 mb-2">
                   Role
                 </label>
-                <div className="flex flex-wrap gap-2 mb-2">
+                <div className="flex flex-wrap gap-2 mb-2 border border-gray-300 h-10">
                   {roles.map((role, index) => (
                     <Badge
                       key={index}
                       variant="secondary"
-                      className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full flex items-center space-x-1"
+                      className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full flex items-center space-x-1 hover:bg-gray-200"
                     >
                       <span>{role}</span>
                       <button
                         onClick={() => removeRole(role)}
-                        className="ml-1 hover:text-red-500"
+                        className="ml-1 hover:text-red-500 transition-colors"
                       >
                         <X className="h-3 w-3" />
                       </button>
                     </Badge>
                   ))}
                 </div>
-                <Button variant="outline" size="sm" className="text-gray-500 border-gray-300">
-                  <ChevronDownIcon className="h-4 w-4 mr-1" />
-                  Add more roles
-                </Button>
               </div>
 
               {/* Welcome Message */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-manrope font-bold text-gray-700 mb-2">
                   Welcome Message
                 </label>
                 <Textarea
                   value={welcomeMessage}
                   onChange={(e) => setWelcomeMessage(e.target.value)}
-                  className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF] min-h-[100px]"
+                  className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF] min-h-[100px] resize-none"
                   placeholder="Enter your welcome message..."
                 />
               </div>
             </div>
 
             {/* Right Column - Voice and Language */}
-            <div className="space-y-6">
+            <div className="flex-1 space-y-6">
               {/* Voice Selection */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-bold font-manrope text-gray-700 mb-6">
                   Choose your agent's voice
                 </label>
                 <Select value={selectedVoice} onValueChange={setSelectedVoice}>
-                  <SelectTrigger className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]">
+                  <SelectTrigger className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF] font-semibold font-manrope">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -176,36 +170,36 @@ export default function AIAgentPage() {
               </div>
 
               {/* Language */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+              <div className='flex flex-col pt-6'>
+                <label className="block text-sm font-bold font-manrope text-gray-700 mb-1">
                   Language
                 </label>
                 <Input
                   value={language}
                   onChange={(e) => setLanguage(e.target.value)}
-                  className="border-gray-300 bg-gray-50 cursor-not-allowed"
+                  className="border-gray-300 bg-gray-50 cursor-not-allowed text-gray-500"
                   disabled
                 />
               </div>
 
               {/* Preview Voice */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-4">
+              <div className='flex flex-col'>
+                <label className="block text-sm font-manrope font-bold text-gray-700 mb-2 ">
                   Preview Voice
                 </label>
-                <div className="flex flex-row items-center space-x-4">
+                <div className="flex items-center space-x-4 border border-gray-300 shadow-lg h-10 rounded-md">
                   <Button
                     size="icon"
-                    className="w-12 h-12 bg-[#4A48FF] hover:bg-[#3a39e8] rounded-full"
+                    className="w-8 h-8 bg-[#4A48FF] hover:bg-[#3a39e8] rounded-full"
                   >
                     <Play className="h-5 w-5 text-white ml-0.5" />
                   </Button>
-                  <div className="flex-1 w-full sm:w-auto">
+                  <div className="flex-1">
                     <div className="w-full bg-gray-200 rounded-full h-2">
                       <div className="bg-[#4A48FF] h-2 rounded-full" style={{ width: '30%' }}></div>
                     </div>
                   </div>
-                  <span className="text-sm text-gray-500 self-start sm:self-auto">1m 12s</span>
+                  <span className="text-sm font-manrope font-semibold text-gray-500 whitespace-nowrap">1m 12s</span>
                 </div>
               </div>
             </div>
@@ -399,15 +393,15 @@ export default function AIAgentPage() {
             <Card className="bg-white shadow-sm">
               <CardContent className="p-6 lg:p-8">
                 {/* Header Section */}
-                <div className="flex flex-col">
+                <div className="flex flex-col space-y-8">
                   {/* Title */}
                   <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">
                     Let's Finalize Your Agent Setup!
                   </h1>
 
                   {/* Progress Steps */}
-                  <div className="w-full mb-16">
-                    <div className="flex flex-col items-center">
+                  <div className="mb-16">
+                    <div className="flex flex-col  justify-center items-center  border border-gray-300 h-32 shadow-md rounded-2xl">
                       {/* Desktop Version */}
                       <div className='flex items-center justify-center w-full'>
                         {/* Step 1 */}
