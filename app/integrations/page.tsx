@@ -9,6 +9,7 @@ import DashboardSidebar from '@/components/dashboard/DashboardSidebar'
 import Header from '@/components/header/header'
 import Image from 'next/image'
 import GoogleCalendarConfigModal, { GoogleCalendarConfig } from '@/components/modals/GoogleCalendarConfigModal'
+import CalendlyConfigModal, { CalendlyConfig } from '@/components/modals/CalendlyConfigModal'
 
 interface IntegrationCard {
   id: string
@@ -30,6 +31,7 @@ export default function IntegrationsPage() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isGoogleCalendarModalOpen, setIsGoogleCalendarModalOpen] = useState(false)
+  const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false)
 
   const integrations: IntegrationCard[] = [
     {
@@ -132,12 +134,20 @@ export default function IntegrationsPage() {
   const handleConfigureClick = (integrationId: string) => {
     if (integrationId === 'google-calendar') {
       setIsGoogleCalendarModalOpen(true)
+    } else if (integrationId === 'calendly') {
+      setIsCalendlyModalOpen(true)
     }
   }
 
   const handleGoogleCalendarSave = (config: GoogleCalendarConfig) => {
     // Handle saving the Google Calendar configuration
     console.log('Google Calendar config saved:', config)
+    // You can add API calls or state updates here
+  }
+
+  const handleCalendlySave = (config: CalendlyConfig) => {
+    // Handle saving the Calendly configuration
+    console.log('Calendly config saved:', config)
     // You can add API calls or state updates here
   }
 
@@ -286,6 +296,13 @@ export default function IntegrationsPage() {
         isOpen={isGoogleCalendarModalOpen}
         onClose={() => setIsGoogleCalendarModalOpen(false)}
         onSave={handleGoogleCalendarSave}
+      />
+
+      {/* Calendly Configuration Modal */}
+      <CalendlyConfigModal
+        isOpen={isCalendlyModalOpen}
+        onClose={() => setIsCalendlyModalOpen(false)}
+        onSave={handleCalendlySave}
       />
     </div>
   )
