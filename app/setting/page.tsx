@@ -8,6 +8,8 @@ import { Camera, Upload, Check, Edit, CreditCard } from 'lucide-react'
 import DashboardSidebar from '../../components/dashboard/DashboardSidebar'
 import Header from '@/components/header/header'
 import Image from 'next/image'
+import CancelSubscriptionModal from '@/components/modals/CancelSubscriptionModal'
+import ManageSubscriptionModal from '@/components/modals/ManageSubscriptionModal'
 const navigationTabs = [
   { id: 'profile', label: 'Profile' },
   { id: 'subscriptions', label: 'Subscriptions' },
@@ -22,6 +24,8 @@ export default function SettingsPage() {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
+  const [showCancelModal, setShowCancelModal] = useState(false)
+  const [showManageModal, setShowManageModal] = useState(false)
 
   const handleSaveChanges = () => {
     // Handle save changes logic
@@ -29,8 +33,7 @@ export default function SettingsPage() {
   }
 
   const handleManageSubscription = () => {
-    // Handle manage subscription logic
-    console.log('Managing subscription')
+    setShowManageModal(true)
   }
 
   const handleUpdateInformation = () => {
@@ -39,8 +42,31 @@ export default function SettingsPage() {
   }
 
   const handleCancelSubscription = () => {
-    // Handle cancel subscription logic
-    console.log('Canceling subscription')
+    setShowCancelModal(true)
+  }
+
+  const handleConfirmCancel = () => {
+    // Handle confirm cancel subscription logic
+    console.log('Confirming subscription cancellation')
+    setShowCancelModal(false)
+  }
+
+  const handleCloseModal = () => {
+    setShowCancelModal(false)
+  }
+
+  const handleCloseManageModal = () => {
+    setShowManageModal(false)
+  }
+
+  const handleUpdatePayment = () => {
+    // Handle update payment method logic
+    console.log('Updating payment method')
+  }
+
+  const handleDownloadInvoice = () => {
+    // Handle download invoice logic
+    console.log('Downloading invoice')
   }
 
   const handleChangePlan = () => {
@@ -50,6 +76,30 @@ export default function SettingsPage() {
 
   return (
     <div className="flex h-screen bg-gray-50">
+      {/* Cancel Subscription Modal */}
+      <CancelSubscriptionModal
+        isOpen={showCancelModal}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmCancel}
+        planName="Business plan"
+      />
+      
+      {/* Manage Subscription Modal */}
+      <ManageSubscriptionModal
+        isOpen={showManageModal}
+        onClose={handleCloseManageModal}
+        onChangePlan={handleChangePlan}
+        onUpdatePayment={handleUpdatePayment}
+        onCancelSubscription={handleCancelSubscription}
+        onDownloadInvoice={handleDownloadInvoice}
+        subscriptionData={{
+          plan: 'Business plan',
+          amount: '$50',
+          status: 'Active',
+          nextBillingDate: 'July 16, 2026',
+          paymentMethod: '**** 4562 VISA'
+        }}
+      />
       {/* Sidebar */}
       <DashboardSidebar
         isCollapsed={sidebarCollapsed}
