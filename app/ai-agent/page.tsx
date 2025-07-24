@@ -35,6 +35,17 @@ export default function AIAgentPage() {
   const [agentName, setAgentName] = useState('Luna')
   const [roles, setRoles] = useState(['Receptionist', 'Appointment Booker'])
   const [welcomeMessage, setWelcomeMessage] = useState('Hi, I\'m {{agent_name}} from {{company_name}}. How can I help you today?')
+  const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false)
+  const [availableRoles] = useState([
+    'Receptionist',
+    'Appointment Booker', 
+    'Lead Qualifier',
+    'Customer Support',
+    'Sales Representative',
+    'Technical Support',
+    'Booking Agent',
+    'Information Desk'
+  ])
   const [selectedVoice, setSelectedVoice] = useState('female-calm')
   const [language, setLanguage] = useState('English')
   const [agentprofileStep, setAgentProfileStep] = React.useState(1)
@@ -62,8 +73,31 @@ export default function AIAgentPage() {
     }
   }, [isMobileMenuOpen])
 
+  // Handle click outside to close role dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element
+      if (isRoleDropdownOpen && !target.closest('.role-dropdown')) {
+        setIsRoleDropdownOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isRoleDropdownOpen])
+
   const removeRole = (roleToRemove: string) => {
     setRoles(roles.filter(role => role !== roleToRemove))
+  }
+
+  const handleRoleSelect = (role: string) => {
+    if (roles.includes(role)) {
+      setRoles(roles.filter(r => r !== role))
+    } else {
+      setRoles([...roles, role])
+    }
   }
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -147,31 +181,69 @@ export default function AIAgentPage() {
                 <Input
                   value={agentName}
                   onChange={(e) => setAgentName(e.target.value)}
-                  className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                  className=" border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
                 />
               </div>
 
               {/* Role */}
-              <div>
+              <div className="role-dropdown ">
                 <label className="block text-sm font-manrope font-bold text-gray-700 mb-2">
                   Role
                 </label>
-                <div className="flex flex-wrap gap-2 mb-2 border border-gray-300 h-10">
-                  {roles.map((role, index) => (
-                    <Badge
-                      key={index}
-                      variant="secondary"
-                      className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full flex items-center space-x-1 hover:bg-gray-200"
-                    >
-                      <span>{role}</span>
-                      <button
-                        onClick={() => removeRole(role)}
-                        className="ml-1 hover:text-red-500 transition-colors"
-                      >
-                        <X className="h-3 w-3" />
-                      </button>
-                    </Badge>
-                  ))}
+                <div className="relative">
+                  {/* Role Dropdown Button */}
+                  <button
+                    onClick={() => setIsRoleDropdownOpen(!isRoleDropdownOpen)}
+                    className="w-full flex items-center justify-between p-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#4A48FF] focus:border-[#4A48FF]"
+                  >
+                    <span className="text-gray-700">Select roles</span>
+                    <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${isRoleDropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {/* Role Dropdown Menu */}
+                  {isRoleDropdownOpen && (
+                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
+                      {availableRoles.map((role) => (
+                        <div
+                          key={role}
+                          onClick={() => handleRoleSelect(role)}
+                          className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                        >
+                          <div className={`w-4 h-4 border rounded mr-3 flex items-center justify-center ${
+                            roles.includes(role) 
+                              ? 'bg-[#4A48FF] border-[#4A48FF]' 
+                              : 'border-gray-300'
+                          }`}>
+                            {roles.includes(role) && (
+                              <Check className="h-3 w-3 text-white" />
+                            )}
+                          </div>
+                          <span className="text-gray-700">{role}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Selected Roles Display */}
+                  {roles.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {roles.map((role, index) => (
+                        <Badge
+                          key={index}
+                          variant="secondary"
+                          className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full flex items-center space-x-1 hover:bg-gray-200"
+                        >
+                          <span>{role}</span>
+                          <button
+                            onClick={() => removeRole(role)}
+                            className="ml-1 hover:text-red-500 transition-colors"
+                          >
+                            <X className="h-3 w-3" />
+                          </button>
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
 
