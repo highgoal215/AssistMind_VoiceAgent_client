@@ -216,15 +216,16 @@ export default function CampaignsPage() {
 
         {/* Campaigns Content */}
         <main className="flex-1 overflow-auto p-4 lg:p-6">
+   
           <div className="space-y-6">
             {/* Navigation Tabs */}
-            <div className="flex space-x-4 bg-white rounded-lg p-1 shadow-sm w-[564px] justify-between">
+            <div className="flex space-x-4 bg-white rounded-lg p-1 shadow-sm w-[564px] justify-between ">
               {navigationTabs.map((tab) => (
                 <Button
                   key={tab.id}
                   variant="ghost"
                   onClick={() => setActiveTab(tab.id)}
-                  className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${activeTab === tab.id
+                  className={`rounded-lg px-4 py-2 h-12 text-xl font-bold font-manrope transition-colors ${activeTab === tab.id
                       ? "bg-[#EDEDFF] text-blue-700"
                       : "text-gray-900 hover:bg-gray-50"
                     }`}
@@ -244,16 +245,16 @@ export default function CampaignsPage() {
                       <CardContent className="p-6">
                         <div className="flex items-center justify-between">
                           <div className="flex-1">
-                            <h3 className="text-sm  text-gray-600 mb-1 font-bold font-manrope">{card.title}</h3>
+                            <h3 className="text-lg  text-gray-600 mb-1 font-bold font-manrope">{card.title}</h3>
                             <div className="flex items-center space-x-2">
-                              <span className="text-2xl font-bold text-gray-900 font-manrope">{card.value}</span>
+                              <span className="text-3xl font-bold text-gray-900 font-manrope">{card.value}</span>
                               {card.badge && (
                                 <Badge className="bg-green-200 text-green-700 text-xs px-2 py-1 rounded-full">
                                   {card.badge}
                                 </Badge>
                               )}
                             </div>
-                            <p className="text-sm text-gray-500 mt-1 font-bold font-manrope">{card.subtitle}</p>
+                            <p className="text-md text-gray-500 mt-1 font-bold font-manrope">{card.subtitle}</p>
                           </div>
                           <div className={`p-3 rounded-lg ${card.iconBg}`}>
                             <card.icon className={`h-6 w-6 ${card.iconColor}`} />
@@ -269,8 +270,8 @@ export default function CampaignsPage() {
                   {/* Campaign Status Breakdown */}
                   <Card className="rounded-lg shadow-sm lg:col-span-3">
                     <CardHeader>
-                      <CardTitle className="text-lg font-bold">Campaign Status Breakdown</CardTitle>
-                      <p className="text-sm text-gray-500">Breakdown of common call reasons</p>
+                      <CardTitle className="text-3xl font-bold">Campaign Status Breakdown</CardTitle>
+                      <p className="text-sm font-bold font-manrope text-gray-500">Breakdown of common call reasons</p>
                     </CardHeader>
                     <CardContent>
                       <div className="flex items-center space-x-8">
@@ -356,16 +357,16 @@ export default function CampaignsPage() {
                   {/* Call Metrics */}
                   <Card className="rounded-lg shadow-sm lg:col-span-5">
                     <CardHeader>
-                      <CardTitle className="text-lg font-bold">Call Metrics</CardTitle>
-                      <p className="text-sm text-gray-500">Overall calling performance</p>
+                      <CardTitle className="text-3xl font-manrope font-bold">Call Metrics</CardTitle>
+                      <p className="text-sm font-bold text-gray-500">Overall calling performance</p>
                     </CardHeader>
                     <CardContent>
                       <div className="grid grid-cols-3 gap-4">
                         {callMetrics.map((metric, index) => (
                           <div key={index} className="flex justify-between items-center space-x-3 p-3 bg-gray-50 rounded-lg">
                             <div>
-                              <p className="text-sm text-gray-600">{metric.title}</p>
-                              <p className="text-lg font-bold text-gray-900">{metric.value}</p>
+                              <p className="text-sm font-bold text-gray-600">{metric.title}</p>
+                              <p className="text-2xl  font-manrope font-bold text-gray-900">{metric.value}</p>
                             </div>
                             <div className={`p-2 rounded-lg ${metric.iconBg}`}>
                               <metric.icon className={`h-4 w-4 ${metric.iconColor}`} />
@@ -400,7 +401,7 @@ export default function CampaignsPage() {
 
                     <div className="flex items-center space-x-3">
                       <Select>
-                        <SelectTrigger className="w-32 bg-white border-gray-200 text-sm">
+                        <SelectTrigger className="w-32 bg-white border-gray-200 text-md font-bold font-manrope">
                           <SelectValue placeholder="Completed" />
                         </SelectTrigger>
                         <SelectContent>
@@ -414,7 +415,7 @@ export default function CampaignsPage() {
                       </Select>
 
                       <Select>
-                        <SelectTrigger className="w-32 bg-white border-gray-200 text-sm">
+                        <SelectTrigger className="w-32 bg-white border-gray-200 text-md font-bold font-manrope">
                           <SelectValue placeholder="Last 7 days" />
                         </SelectTrigger>
                         <SelectContent>
@@ -427,7 +428,7 @@ export default function CampaignsPage() {
                       </Select>
 
                       <Select>
-                        <SelectTrigger className="w-32 bg-white border-gray-200 text-sm">
+                        <SelectTrigger className="w-32 bg-white border-gray-200 text-md font-bold font-manrope">
                           <SelectValue placeholder="Newest" />
                         </SelectTrigger>
                         <SelectContent>
@@ -437,11 +438,11 @@ export default function CampaignsPage() {
                         </SelectContent>
                       </Select>
 
-                      <Button variant="outline" size="sm" className="h-9 px-3 bg-white border-gray-200 text-sm">
+                      <Button variant="outline" size="sm" className="h-9 px-3 bg-white border-gray-200 text-md font-bold font-manrope">
                         <RefreshCw className="h-4 w-4 mr-2" />
                         Refresh
                       </Button>
-                      <Button variant="outline" size="sm" className="h-9 px-3 bg-white border-gray-200 text-sm">
+                      <Button variant="outline" size="sm" className="h-9 px-3 bg-white border-gray-200 text-md font-bold font-manrope">
                         <Download className="h-4 w-4 mr-2" />
                         Export
                       </Button>
@@ -458,27 +459,27 @@ export default function CampaignsPage() {
                           {/* Header */}
                           <div className="flex items-start justify-between">
                             <div className="flex-1">
-                              <h3 className="text-lg font-semibold text-gray-900 mb-1">{campaign.title}</h3>
-                              <p className="text-sm text-gray-500">Created: {campaign.createdDate}</p>
+                              <h3 className="text-2xl font-bold text-gray-900 mb-1">{campaign.title}</h3>
+                              <p className="text-md font-semibold text-gray-500">Created: {campaign.createdDate}</p>
                             </div>
-                            <Badge className={`text-xs px-2 py-1 rounded-full ${campaign.typeColor}`}>
+                            <Badge className={`text-xs px-2 py-1 rounded-full font-semibold font-manrope ${campaign.typeColor}`}>
                               {campaign.type}
                             </Badge>
                           </div>
 
                           {/* Description */}
-                          <p className="text-sm text-gray-600 line-clamp-2">{campaign.description}</p>
+                          <p className="text-sm font-bold font-manrope text-gray-600 line-clamp-2">{campaign.description}</p>
 
                           {/* Metrics */}
                           <div className="flex items-center justify-between text-sm">
                             <div className="flex items-center space-x-4">
                               <div>
                                 <span className="text-gray-500">Recipients:</span>
-                                <span className="font-semibold text-gray-900 ml-1">{campaign.recipients}</span>
+                                <span className="font-semibold font-manrope text-gray-900 ml-1">{campaign.recipients}</span>
                               </div>
                               <div>
                                 <span className="text-gray-500">Completed:</span>
-                                <span className="font-semibold text-gray-900 ml-1">{campaign.completed}</span>
+                                <span className="font-semibold font-manrope text-gray-900 ml-1">{campaign.completed}</span>
                               </div>
                             </div>
                           </div>
@@ -486,7 +487,7 @@ export default function CampaignsPage() {
                           {/* Progress Bar */}
                           <div className="space-y-2">
                             <div className="flex items-center justify-between text-sm">
-                              <span className="text-gray-500">Progress</span>
+                              <span className="text-gray-500 font-bold font-manrope">Progress</span>
                               <span className="font-semibold text-gray-900">{campaign.progress}%</span>
                             </div>
                             <div className="w-full bg-gray-200 rounded-full h-2">
@@ -499,10 +500,10 @@ export default function CampaignsPage() {
 
                           {/* Status and Time */}
                           <div className="flex items-center justify-between">
-                            <Badge className={`text-xs px-2 py-1 rounded-full ${campaign.statusColor}`}>
+                            <Badge className={`text-sm font-bold font-manrope px-2 py-1 rounded-full ${campaign.statusColor}`}>
                               {campaign.status}
                             </Badge>
-                            <span className="text-sm text-gray-500">{campaign.timeRemaining}</span>
+                            <span className="text-sm font-bold font-manrope text-gray-500">{campaign.timeRemaining}</span>
                           </div>
 
                           {/* Action Buttons */}
@@ -529,10 +530,10 @@ export default function CampaignsPage() {
               <div className="bg-white rounded-lg p-8 shadow-sm max-w-4xl mx-auto">
                 {/* Campaign Information Header */}
                 <div className="flex flex-col justify-start mb-8">
-                                    <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                  <h2 className="text-3xl font-manrope font-bold text-gray-900 mb-2">
                     {campaignStep === 1 ? 'Campaign Information' : campaignStep === 2 ? 'Recipient Upload' : 'Campaign Timing'}
                   </h2>
-                  <p className="text-gray-500">
+                  <p className="text-gray-500 font-bold font-manrope">
                     {campaignStep === 1 ? 'Set up your campaign details and messaging' : 
                      campaignStep === 2 ? 'Add recipients via file upload or manual entry' : 
                      'Choose when to start your campaign'}
@@ -582,7 +583,7 @@ export default function CampaignsPage() {
                   <>
                     {/* Campaign Name */}
                     <div className="mb-6">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-md font-bold font-manrope text-gray-700 mb-2">
                         Campaign Name
                       </label>
                       <Input
@@ -593,7 +594,7 @@ export default function CampaignsPage() {
 
                     {/* Opening Message */}
                     <div className="mb-6">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-md font-bold font-manrope text-gray-700 mb-2">
                         Opening Message
                       </label>
                       <Input
@@ -634,7 +635,7 @@ export default function CampaignsPage() {
                     {/* Caller Instructions */}
                     <div className="mb-8">
                       <div className="flex items-center mb-2">
-                        <label className="block text-sm font-medium text-gray-700">
+                        <label className="block text-md font-bold font-manrope text-gray-700">
                           Caller Instructions
                         </label>
                         <div className="ml-2 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
@@ -654,7 +655,7 @@ export default function CampaignsPage() {
 
                       {/* Quick Insert Buttons for Caller Instructions */}
                       <div className="mt-4">
-                        <p className="text-sm font-medium text-gray-700 mb-2">Quick Insert:</p>
+                        <p className="text-md font-bold font-manrope text-gray-700 mb-2">Quick Insert:</p>
                         <div className="flex space-x-2">
                           <Button
                             variant="outline"
@@ -673,14 +674,14 @@ export default function CampaignsPage() {
                           <Button
                             variant="outline"
                             size="sm"
-                            className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
+                            className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] font-bold font-manrope px-3 py-1"
                           >
                             language
                           </Button>
                           <Button
                             variant="outline"
                             size="sm"
-                            className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-xs px-3 py-1"
+                            className="bg-[#4A48FF] text-white border-[#4A48FF] hover:bg-[#3a38ef] text-md font-bold font-manrope px-3 py-1"
                           >
                             appointment_date
                           </Button>
@@ -741,20 +742,20 @@ export default function CampaignsPage() {
                           <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
                             <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                             <h3 className="text-lg font-bold text-gray-900 mb-2">Upload recipient file</h3>
-                            <p className="text-gray-600 mb-4">Drag and drop your CSV or Excel file here, or click to browse</p>
+                            <p className="font-bold  font-manrope text-gray-600 mb-4">Drag and drop your CSV or Excel file here, or click to browse</p>
                             <Button
                               variant="outline"
                               className="border-gray-300 text-gray-700 hover:bg-gray-50"
                             >
                               Choose File
                             </Button>
-                            <p className="text-sm text-gray-500 mt-2">csv, .xlsx (max 25MB)</p>
+                            <p className="text-md font-bold font-manrope text-gray-500 mt-2">csv, .xlsx (max 25MB)</p>
                           </div>
                         </div>
 
                         {/* Template Information */}
                         <div className="mb-8">
-                          <p className="text-gray-700">Template includes: name, phone_number</p>
+                          <p className="text-gray-700 font-bold font-manrope">Template includes: name, phone_number</p>
                         </div>
                       </>
                     )}
@@ -767,7 +768,7 @@ export default function CampaignsPage() {
                           {recipients.map((recipient, index) => (
                             <div key={recipient.id} className="flex items-end space-x-4 mb-4">
                               <div className="flex-1">
-                                <label className="block text-sm font-medium text-gray-900 mb-2">
+                                <label className="block text-md font-manrope font-bold text-gray-900 mb-2">
                                   Name
                                 </label>
                                 <Input
@@ -782,7 +783,7 @@ export default function CampaignsPage() {
                                 />
                               </div>
                               <div className="flex-1">
-                                <label className="block text-sm font-medium text-gray-900 mb-2">
+                                <label className="block text-md font-manrope font-bold text-gray-900 mb-2">
                                   Phone Number
                                 </label>
                                 <Input
@@ -873,7 +874,7 @@ export default function CampaignsPage() {
                           {/* Date and Time Selection */}
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                              <label className="block text-sm font-medium text-gray-900 mb-2">
+                              <label className="block text-md font-bold font-manrope text-gray-900 mb-2">
                                 Start Date
                               </label>
                               <Input
@@ -882,7 +883,7 @@ export default function CampaignsPage() {
                               />
                             </div>
                             <div>
-                              <label className="block text-sm font-medium text-gray-900 mb-2">
+                              <label className="block text-md font-bold font-manrope text-gray-900 mb-2">
                                 Start Time
                               </label>
                               <Input
@@ -894,7 +895,7 @@ export default function CampaignsPage() {
 
                           {/* Time Zone Selection */}
                           <div>
-                            <label className="block text-sm font-medium text-gray-900 mb-2">
+                            <label className="block text-md font-bold font-manrope text-gray-900 mb-2">
                               Time Zone
                             </label>
                             <Select>
