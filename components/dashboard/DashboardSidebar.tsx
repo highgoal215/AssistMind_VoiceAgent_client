@@ -53,12 +53,12 @@ export default function DashboardSidebar({
       
       {/* Sidebar */}
       <div className={cn(
-        "bg-[#FFFFFF] flex flex-col h-full transition-all duration-300 fixed lg:relative z-50 border border-gray-300",
+        "bg-[#FFFFFF] flex flex-col h-full transition-all duration-300 fixed lg:relative z-50 border border-gray-200",
         isCollapsed ? "w-16" : "w-64",
         isMobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
       )}>
         {/* Logo Section */}
-        <div className="p-[20px] border border-gray-300">
+        <div className="p-[20px] border border-gray-200">
           <div className="flex items-center justify-between gap-1">
             {!isCollapsed && (
               <div className="flex items-center space-x-2">
@@ -111,7 +111,7 @@ export default function DashboardSidebar({
                           "flex items-center space-x-3 rounded-lg text-md font-manrope font-bold transition-colors",
                           isCollapsed ? "px-2 py-3 justify-center" : "px-3 py-2",
                           isActive
-                            ? "bg-[#4A48FF] text-white"
+                            ? "bg-[#4A48FF] text-white shadow-lg"
                             : "text-gray-800 hover:bg-gray-300 hover:text-black font-manrope font-bold"
                         )}
                       >
