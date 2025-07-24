@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Switch } from '@/components/ui/switch'
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table'
 import { Camera, Upload, Check, Edit, CreditCard } from 'lucide-react'
 import DashboardSidebar from '../../components/dashboard/DashboardSidebar'
 import Header from '@/components/header/header'
@@ -531,8 +533,103 @@ export default function SettingsPage() {
             {/* Notifications Content */}
             {activeTab === 'notifications' && (
               <div className="bg-white rounded-lg shadow-sm p-8">
-                <div className="text-center py-12">
-                  <p className="text-gray-500 font-semibold font-manrope">Notification settings coming soon...</p>
+                <div className="mb-6">
+                  <h2 className="text-3xl font-bold font-manrope text-gray-900 mb-2">Notifications</h2>
+                  <p className="text-md font-semibold font-manrope text-gray-600">
+                    The notification options selected during Agent Setup (Email/SMS or both)
+                  </p>
+                </div>
+                
+                <div className="bg-white rounded-lg border border-gray-200 p-6">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="font-bold text-gray-900">GROUP</TableHead>
+                        <TableHead className="font-bold text-gray-900">NOTIFICATION</TableHead>
+                        <TableHead className="font-bold text-gray-900">DESCRIPTION</TableHead>
+                        <TableHead className="font-bold text-gray-900">TYPE</TableHead>
+                        <TableHead className="font-bold text-gray-900">ACTION</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {/* Call Notifications */}
+                      <TableRow>
+                        <TableCell className="font-semibold text-gray-900">Call Notifications</TableCell>
+                        <TableCell className="font-semibold text-gray-900">Call summary Email</TableCell>
+                        <TableCell className="text-gray-600">Short Summary after each call</TableCell>
+                        <TableCell className="text-gray-600">Email</TableCell>
+                        <TableCell>
+                          <Switch defaultChecked />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-semibold text-gray-900"></TableCell>
+                        <TableCell className="font-semibold text-gray-900">Call Summary SMS</TableCell>
+                        <TableCell className="text-gray-600">Short SMS summary + link after every call</TableCell>
+                        <TableCell className="text-gray-600">SMS</TableCell>
+                        <TableCell>
+                          <Switch defaultChecked />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-semibold text-gray-900"></TableCell>
+                        <TableCell className="font-semibold text-gray-900">Missed call alert</TableCell>
+                        <TableCell className="text-gray-600">Notifies when a call wasn't answered by AI or human</TableCell>
+                        <TableCell className="text-gray-600">Email</TableCell>
+                        <TableCell>
+                          <Switch defaultChecked />
+                        </TableCell>
+                      </TableRow>
+                      
+                      {/* Reports & Digests */}
+                      <TableRow>
+                        <TableCell className="font-semibold text-gray-900">Reports & Digests</TableCell>
+                        <TableCell className="font-semibold text-gray-900">Weekly summary email</TableCell>
+                        <TableCell className="text-gray-600">High-level report of call activity leads, keywords</TableCell>
+                        <TableCell className="text-gray-600">Email</TableCell>
+                        <TableCell>
+                          <Switch defaultChecked />
+                        </TableCell>
+                      </TableRow>
+                      
+                      {/* Billings & Payments */}
+                      <TableRow>
+                        <TableCell className="font-semibold text-gray-900">Billings & Payments</TableCell>
+                        <TableCell className="font-semibold text-gray-900">Payment confirmation + Invoice</TableCell>
+                        <TableCell className="text-gray-600">Email receipt and invoice sent after successful payment.</TableCell>
+                        <TableCell className="text-gray-600">Email</TableCell>
+                        <TableCell>
+                          <Switch defaultChecked />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-semibold text-gray-900"></TableCell>
+                        <TableCell className="font-semibold text-gray-900">Payment failed alert</TableCell>
+                        <TableCell className="text-gray-600">Billing alert or declined payment alert</TableCell>
+                        <TableCell className="text-gray-600">Email</TableCell>
+                        <TableCell>
+                          <Switch defaultChecked />
+                        </TableCell>
+                      </TableRow>
+                      
+                      {/* Outbound Campaigns */}
+                      <TableRow>
+                        <TableCell className="font-semibold text-gray-900">Outbound Campaigns</TableCell>
+                        <TableCell className="font-semibold text-gray-900">Campaign Summary</TableCell>
+                        <TableCell className="text-gray-600">Sends a summary with call results after each outbound campaign</TableCell>
+                        <TableCell className="text-gray-600">Email</TableCell>
+                        <TableCell>
+                          <Switch defaultChecked />
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                  
+                  <div className="flex justify-end mt-6">
+                    <Button className="bg-[#4A48FF] hover:bg-[#4A48FF] text-white px-6 py-3 rounded-lg font-bold text-lg font-manrope">
+                      Save Changes
+                    </Button>
+                  </div>
                 </div>
               </div>
             )}
