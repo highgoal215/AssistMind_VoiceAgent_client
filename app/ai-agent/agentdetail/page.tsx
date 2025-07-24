@@ -91,6 +91,13 @@ export default function AgentDetailPage() {
   const [is247Available, setIs247Available] = useState(true)
   const [customHours, setCustomHours] = useState(true)
 
+  // Controls State
+  const [blockedNumbers, setBlockedNumbers] = useState(['+1 (555) 123-4567', '+1 (555) 123-4567', '+1 (555) 123-4567'])
+  const [newBlockedNumber, setNewBlockedNumber] = useState('')
+  const [maxCallDuration, setMaxCallDuration] = useState('5 Minutes')
+  const [detectVoicemails, setDetectVoicemails] = useState(true)
+  const [blockTollFree, setBlockTollFree] = useState(true)
+
   // Handle body scroll when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -145,6 +152,17 @@ export default function AgentDetailPage() {
 
   const removeQuestion = (index: number) => {
     setClarifyingQuestions(clarifyingQuestions.filter((_, i) => i !== index))
+  }
+
+  const addBlockedNumber = () => {
+    if (newBlockedNumber && !blockedNumbers.includes(newBlockedNumber)) {
+      setBlockedNumbers([...blockedNumbers, newBlockedNumber])
+      setNewBlockedNumber('')
+    }
+  }
+
+  const removeBlockedNumber = (numberToRemove: string) => {
+    setBlockedNumbers(blockedNumbers.filter(number => number !== numberToRemove))
   }
 
   const renderTabContent = () => {
@@ -628,8 +646,6 @@ export default function AgentDetailPage() {
                       x: {
                         grid: {
                           display: true,
-                          drawBorder: false,
-                          borderDash: [5, 5],
                           color: '#e5e7eb',
                         },
                         ticks: {
@@ -644,8 +660,6 @@ export default function AgentDetailPage() {
                         max: 35,
                         grid: {
                           display: true,
-                          drawBorder: false,
-                          borderDash: [5, 5],
                           color: '#e5e7eb',
                         },
                         ticks: {
@@ -678,16 +692,219 @@ export default function AgentDetailPage() {
       case 'controls':
         return (
           <div className="space-y-6">
-            <h3 className="text-2xl font-bold text-gray-900">Agent Controls</h3>
-            <p className="text-gray-600">Agent control settings will be displayed here.</p>
+            {/* Identity & Voice Section */}
+            <div className="bg-white rounded-lg border border-gray-200 shadow-md p-6">
+              {/* Header */}
+              <div className="mb-6">
+                <h3 className="text-3xl font-bold text-gray-900 mb-2">Identity & Voice</h3>
+                <p className="text-gray-600">Configure call handling rules and behavior</p>
+              </div>
+
+              <div className="space-y-6">
+                {/* Blocked Numbers */}
+                <div>
+                  <label className="block text-md font-manrope font-bold text-gray-700 mb-2">
+                    Blocked Numbers
+                  </label>
+                  <div className="flex items-center space-x-2 mb-3">
+                    <Input
+                      value={newBlockedNumber}
+                      onChange={(e) => setNewBlockedNumber(e.target.value)}
+                      placeholder="Enter number to block"
+                      className="flex-1 border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]"
+                    />
+                    <Button 
+                      onClick={addBlockedNumber}
+                      className="bg-[#4A48FF] hover:bg-[#3a38ef] text-white px-4 py-2 rounded"
+                    >
+                      + Add
+                    </Button>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {blockedNumbers.map((number, index) => (
+                      <Badge 
+                        key={index} 
+                        variant="secondary" 
+                        className="bg-red-100 text-red-700 px-3 py-1 rounded-full flex items-center space-x-1"
+                      >
+                        <span>{number}</span>
+                        <button
+                          onClick={() => removeBlockedNumber(number)}
+                          className="ml-1 hover:text-red-900 transition-colors"
+                        >
+                          <X className="h-3 w-3" />
+                        </button>
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Maximum Call Duration */}
+                <div>
+                  <label className="block text-md font-manrope font-bold text-gray-700 mb-2">
+                    Maximum Call Duration
+                  </label>
+                  <Select value={maxCallDuration} onValueChange={setMaxCallDuration}>
+                    <SelectTrigger className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="5 Minutes">5 Minutes</SelectItem>
+                      <SelectItem value="10 Minutes">10 Minutes</SelectItem>
+                      <SelectItem value="15 Minutes">15 Minutes</SelectItem>
+                      <SelectItem value="30 Minutes">30 Minutes</SelectItem>
+                      <SelectItem value="No Limit">No Limit</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Detect & Limit Voicemails */}
+                <div className="flex items-center justify-between">
+                  <div>
+                    <label className="block text-md font-manrope font-bold text-gray-700 mb-1">
+                      Detect & Limit Voicemails
+                    </label>
+                    <p className="text-sm text-gray-600">End calls when a voicemail system is detected</p>
+                  </div>
+                  <Switch
+                    checked={detectVoicemails}
+                    onCheckedChange={setDetectVoicemails}
+                  />
+                </div>
+
+                {/* Block Toll-Free Numbers */}
+                <div className="flex items-center justify-between">
+                  <div>
+                    <label className="block text-md font-manrope font-bold text-gray-700 mb-1">
+                      Block Toll-Free Numbers
+                    </label>
+                    <p className="text-sm text-gray-600">Block calls from toll-free prefixes</p>
+                  </div>
+                  <Switch
+                    checked={blockTollFree}
+                    onCheckedChange={setBlockTollFree}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         )
 
       case 'setup-checklist':
         return (
           <div className="space-y-6">
-            <h3 className="text-2xl font-bold text-gray-900">Setup Checklist</h3>
-            <p className="text-gray-600">Setup checklist and completion status will be displayed here.</p>
+            {/* Header with Title and Progress */}
+            <div className="flex items-center justify-between">
+              <h3 className="text-2xl font-bold text-gray-900">Setup Checklist</h3>
+              <span className="text-gray-600">0 of 4 completed</span>
+            </div>
+
+            {/* Checklist Items */}
+            <div className="space-y-4">
+              {/* Item 1: Customize Call Flow */}
+              <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-[#EDEDFF] rounded-lg flex items-center justify-center">
+                      <svg className="w-6 h-6 text-[#4A48FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-bold text-gray-900">Customize Call Flow</h4>
+                      <p className="text-gray-600">Design how your agent handles different conversation paths</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <Badge variant="secondary" className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full">
+                      Not Started
+                    </Badge>
+                    <Button className="bg-[#4A48FF] hover:bg-[#3a38ef] text-white flex items-center space-x-2">
+                      <span>Build Flow</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17l9.2-9.2M17 17V7H7" />
+                      </svg>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Item 2: Upload Knowledge Base Docs */}
+              <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-[#EDEDFF] rounded-lg flex items-center justify-center">
+                      <svg className="w-6 h-6 text-[#4A48FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-bold text-gray-900">Upload Knowledge Base Docs</h4>
+                      <p className="text-gray-600">Add documents to help your agent answer questions accurately</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <Badge variant="secondary" className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full">
+                      Not Started
+                    </Badge>
+                    <Button className="bg-[#4A48FF] hover:bg-[#3a38ef] text-white flex items-center space-x-2">
+                      <span>Upload Docs</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17l9.2-9.2M17 17V7H7" />
+                      </svg>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Item 3: Connect CRM/Calendar */}
+              <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-[#EDEDFF] rounded-lg flex items-center justify-center">
+                      <svg className="w-6 h-6 text-[#4A48FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-bold text-gray-900">Connect CRM/Calendar</h4>
+                      <p className="text-gray-600">Link with your existing tools for seamless workflow</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <Badge variant="secondary" className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full">
+                      Not Started
+                    </Badge>
+                    <Button className="bg-[#4A48FF] hover:bg-[#3a38ef] text-white flex items-center space-x-2">
+                      <span>Go to Integrations</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17l9.2-9.2M17 17V7H7" />
+                      </svg>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Item 4: Test Agent Live */}
+              <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-[#EDEDFF] rounded-lg flex items-center justify-center">
+                      <svg className="w-6 h-6 text-[#4A48FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-bold text-gray-900">Test Agent Live</h4>
+                      <p className="text-gray-600">Make a test call to ensure everything works perfectly</p>
+                    </div>
+                  </div>
+                  <Button className="bg-[#4A48FF] hover:bg-[#3a38ef] text-white flex items-center space-x-2">
+                    <span>Call Now</span>
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
         )
 
