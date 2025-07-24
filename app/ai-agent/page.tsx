@@ -51,6 +51,7 @@ export default function AIAgentPage() {
   const [language, setLanguage] = useState('English')
   const [agentprofileStep, setAgentProfileStep] = React.useState(1)
   const [avatarImage, setAvatarImage] = useState<string | null>(null)
+  const [agentInstructions, setAgentInstructions] = useState('')
 
   // Business Details State
   const [businessName, setBusinessName] = useState('GreenTech Services')
@@ -67,7 +68,6 @@ export default function AIAgentPage() {
   const [alternativeLink, setAlternativeLink] = useState('')
   const [isCalendarDropdownOpen, setIsCalendarDropdownOpen] = useState(false)
   const [connectedPlatforms, setConnectedPlatforms] = useState<string[]>([])
-  const [connectionStatus, setConnectionStatus] = useState<'connected' | 'not-connected'>('not-connected')
 
   // Call Transfer State
   const [callTransferNumber, setCallTransferNumber] = useState('+1 (647) 444-')
@@ -147,14 +147,14 @@ export default function AIAgentPage() {
     setTimeout(() => {
       if (!connectedPlatforms.includes(platform)) {
         setConnectedPlatforms([...connectedPlatforms, platform])
-        setConnectionStatus('connected')
       } else {
         setConnectedPlatforms(connectedPlatforms.filter(p => p !== platform))
-        if (connectedPlatforms.length === 1) {
-          setConnectionStatus('not-connected')
-        }
       }
     }, 1000)
+  }
+
+  const getConnectionStatus = () => {
+    return connectedPlatforms.length > 0 ? 'connected' : 'not-connected'
   }
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -512,84 +512,73 @@ export default function AIAgentPage() {
                   {/* Calendar Platform Dropdown Menu */}
                   {isCalendarDropdownOpen && (
                     <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
-                      <div
-                        onClick={() => handleCalendarPlatformSelect('Google Calendar')}
-                        className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer"
-                      >
+                      <div className="flex items-center justify-between px-3 py-2 hover:bg-gray-100">
                         <span className="text-gray-700">Google Calendar</span>
+                        <Button 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleConnectPlatform('Google Calendar');
+                          }}
+                          className={`px-3 py-1 text-xs font-manrope font-bold ${
+                            connectedPlatforms.includes('Google Calendar') 
+                              ? 'bg-green-600 hover:bg-green-700 text-white' 
+                              : 'bg-[#4A48FF] hover:bg-[#3a38ef] text-white'
+                          }`}
+                        >
+                          {connectedPlatforms.includes('Google Calendar') ? 'Google Calendar connected' : 'Connect'}
+                        </Button>
                       </div>
-                      <div
-                        onClick={() => handleCalendarPlatformSelect('Calendly')}
-                        className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer"
-                      >
+                      <div className="flex items-center justify-between px-3 py-2 hover:bg-gray-100">
                         <span className="text-gray-700">Calendly</span>
+                        <Button 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleConnectPlatform('Calendly');
+                          }}
+                          className={`px-3 py-1 text-xs font-manrope font-bold ${
+                            connectedPlatforms.includes('Calendly') 
+                              ? 'bg-green-600 hover:bg-green-700 text-white' 
+                              : 'bg-[#4A48FF] hover:bg-[#3a38ef] text-white'
+                          }`}
+                        >
+                          {connectedPlatforms.includes('Calendly') ? 'Calendly connected' : 'Connect'}
+                        </Button>
                       </div>
-                      <div
-                        onClick={() => handleCalendarPlatformSelect('GoHighLevel')}
-                        className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer"
-                      >
+                      <div className="flex items-center justify-between px-3 py-2 hover:bg-gray-100">
                         <span className="text-gray-700">GoHighLevel</span>
+                        <Button 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleConnectPlatform('GoHighLevel');
+                          }}
+                          className={`px-3 py-1 text-xs font-manrope font-bold ${
+                            connectedPlatforms.includes('GoHighLevel') 
+                              ? 'bg-green-600 hover:bg-green-700 text-white' 
+                              : 'bg-[#4A48FF] hover:bg-[#3a38ef] text-white'
+                          }`}
+                        >
+                          {connectedPlatforms.includes('GoHighLevel') ? 'GoHighLevel connected' : 'Connect'}
+                        </Button>
                       </div>
                     </div>
                   )}
                 </div>
                 
-                {/* Platform List */}
-                <div className="space-y-2 mt-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-700">Google Calendar</span>
-                    <Button 
-                      onClick={() => handleConnectPlatform('Google Calendar')}
-                      className={`px-4 py-1 text-sm ${
-                        connectedPlatforms.includes('Google Calendar') 
-                          ? 'bg-green-600 hover:bg-green-700 text-white' 
-                          : 'bg-[#4A48FF] hover:bg-[#3a38ef] text-white'
-                      }`}
-                    >
-                      {connectedPlatforms.includes('Google Calendar') ? 'Connected' : 'Connect'}
-                    </Button>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-700">Calendly</span>
-                    <Button 
-                      onClick={() => handleConnectPlatform('Calendly')}
-                      className={`px-4 py-1 text-sm ${
-                        connectedPlatforms.includes('Calendly') 
-                          ? 'bg-green-600 hover:bg-green-700 text-white' 
-                          : 'bg-[#4A48FF] hover:bg-[#3a38ef] text-white'
-                      }`}
-                    >
-                      {connectedPlatforms.includes('Calendly') ? 'Connected' : 'Connect'}
-                    </Button>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-700">GoHighLevel</span>
-                    <Button 
-                      onClick={() => handleConnectPlatform('GoHighLevel')}
-                      className={`px-4 py-1 text-sm ${
-                        connectedPlatforms.includes('GoHighLevel') 
-                          ? 'bg-green-600 hover:bg-green-700 text-white' 
-                          : 'bg-[#4A48FF] hover:bg-[#3a38ef] text-white'
-                      }`}
-                    >
-                      {connectedPlatforms.includes('GoHighLevel') ? 'Connected' : 'Connect'}
-                    </Button>
-                  </div>
-                </div>
+
                 
                 {/* Status Indicator */}
                 <div className="flex items-center mt-2">
                   <div className={`w-4 h-4 rounded-full flex items-center justify-center mr-2 ${
-                    connectionStatus === 'connected' ? 'bg-green-500' : 'bg-red-500'
+                    getConnectionStatus() === 'connected' ? 'bg-green-500' : 'bg-red-500'
                   }`}>
-                    {connectionStatus === 'connected' ? (
+                    {getConnectionStatus() === 'connected' ? (
                       <Check className="h-3 w-3 text-white" />
                     ) : (
                       <X className="h-3 w-3 text-white" />
                     )}
                   </div>
                   <span className="text-sm text-gray-600">
-                    {connectionStatus === 'connected' ? 'Platform connected' : 'Not connected'}
+                    {getConnectionStatus() === 'connected' ? 'Platform connected' : 'Not connected'}
                   </span>
                 </div>
               </div>
@@ -824,81 +813,49 @@ export default function AIAgentPage() {
       case 3:
         return (
           <div className="space-y-6">
-            {/* Review Summary */}
-            <div className="bg-gray-50 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Review Your Agent Setup</h3>
-
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Agent Profile Summary */}
-                <div className="space-y-4">
-                  <h4 className="font-medium text-gray-900 flex items-center">
-                    <Check className="h-5 w-5 text-green-500 mr-2" />
-                    Agent Profile
-                  </h4>
-                  <div className="space-y-2 text-sm text-gray-600">
-                    <p><span className="font-medium">Name:</span> {agentName}</p>
-                    <p><span className="font-medium">Roles:</span> {roles.join(', ')}</p>
-                    <p><span className="font-medium">Voice:</span> {voiceOptions.find(v => v.value === selectedVoice)?.label}</p>
-                    <p><span className="font-medium">Language:</span> {language}</p>
-                  </div>
+            {/* Agent Behavior Header */}
+            <div className="flex items-center justify-between mt-6">
+              <div className="flex items-center space-x-2">
+                <h3 className="text-2xl font-bold font-manrope text-gray-900">Agent Behavior</h3>
+                <div className="w-5 h-5 bg-gray-200 rounded-full flex items-center justify-center">
+                  <span className="text-xs text-gray-600">i</span>
                 </div>
-
-                {/* Business Details Summary */}
-                <div className="space-y-4">
-                  <h4 className="font-medium text-gray-900 flex items-center">
-                    <Check className="h-5 w-5 text-green-500 mr-2" />
-                    Business Details
-                  </h4>
-                  <div className="space-y-2 text-sm text-gray-600">
-                    <p><span className="font-medium">Business:</span> {businessName || 'Not provided'}</p>
-                    <p><span className="font-medium">Phone:</span> {businessPhone || 'Not provided'}</p>
-                    <p><span className="font-medium">Email:</span> {businessEmail || 'Not provided'}</p>
-                    <p><span className="font-medium">Website:</span> {businessWebsite || 'Not provided'}</p>
-                  </div>
-                </div>
-
-                {/* Agent Availability Summary */}
-                <div className="space-y-4">
-                  <h4 className="font-medium text-gray-900 flex items-center">
-                    <Check className="h-5 w-5 text-green-500 mr-2" />
-                    Agent Availability
-                  </h4>
-                  <div className="space-y-2 text-sm text-gray-600">
-                    <p><span className="font-medium">Mode:</span> {customHours ? 'Custom Hours' : '24/7 Available'}</p>
-                    {customHours && (
-                      <div className="mt-2">
-                        <p className="font-medium mb-1">Daily Schedule:</p>
-                        {Object.entries(dailyHours).map(([day, hours]) => (
-                          <p key={day} className="ml-2">
-                            <span className="capitalize">{day}:</span> {hours.enabled ?
-                              `${formatTimeForDisplay(hours.startTime)} - ${formatTimeForDisplay(hours.endTime)}` :
-                              'Closed'
-                            }
-                          </p>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
+              </div>
+              <div className="flex space-x-3">
+                <Button variant="outline" className="bg-gray-100 text-gray-700 hover:bg-gray-200 font-manrope font-bold">
+                  Test my Agent
+                </Button>
+                <Button className="bg-[#4A48FF] hover:bg-[#4A48FF] text-white font-manrope font-bold">
+                  Launch my Agent
+                </Button>
               </div>
             </div>
 
-            {/* Launch Confirmation */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <div className="flex items-start">
-                <div className="flex-shrink-0">
-                  <Check className="h-5 w-5 text-blue-600" />
-                </div>
-                <div className="ml-3">
-                  <h3 className="text-md font-bold font-manrope text-blue-800">
-                    Ready to Launch
-                  </h3>
-                  <div className="mt-2 text-sm text-blue-700">
-                    <p>
-                      Your AI agent is configured and ready to start handling calls.
-                      Click "Launch Campaign" to activate your agent and begin receiving calls.
-                    </p>
+            {/* Note Section */}
+            <div className="bg-gray-50 rounded-lg p-4">
+              <p className="text-sm font-manrope font-bold text-gray-600">
+                Note: This is your AI agent's default behavior — automatically generated based on your setup. You can tweak it below or launch your agent as is.
+              </p>
+            </div>
+
+            <hr className="border-gray-200" />
+
+            {/* Agent Instructions */}
+            <div className="space-y-4">
+              <h4 className="text-2xl font-bold font-manrope text-gray-900">Agent Instructions</h4>
+              <div className="relative">
+                <Textarea
+                  value={agentInstructions || `${agentName}, ${roles.join(', ')}, ${selectedServices.join(', ')}, You are a helpful customer service representative. Be professional, friendly, and efficient. Always ask for clarification if you're unsure about what the customer needs.`}
+                  onChange={(e) => setAgentInstructions(e.target.value)}
+                  className="min-h-[200px] border-gray-300 focus:border-blue-500 focus:ring-blue-500 resize-none"
+                  placeholder="Enter agent instructions..."
+                  maxLength={2000}
+                />
+                <div className="absolute bottom-3 left-3 flex items-center space-x-1">
+                  <div className="w-4 h-4 bg-red-100 rounded-full flex items-center justify-center">
+                    <span className="text-xs text-red-600">i</span>
                   </div>
+                  <span className="text-sm font-manrope font-bold text-gray-500">2000-character limit</span>
                 </div>
               </div>
             </div>
@@ -935,7 +892,9 @@ export default function AIAgentPage() {
                 <div className="flex flex-col space-y-8">
                   {/* Title */}
                   <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">
-                    Let's Finalize Your Agent Setup!
+                    {agentprofileStep === 1 && "Let's Finalize Your Agent Setup!"}
+                    {agentprofileStep === 2 && "Business Details & Availability"}
+                    {agentprofileStep === 3 && "Final Review & Launch"}
                   </h1>
 
                   {/* Progress Steps */}
@@ -1017,7 +976,7 @@ export default function AIAgentPage() {
                       <Button
                         className="w-full sm:w-auto px-6 py-2 rounded-lg bg-[#4A48FF] hover:bg-[#3a38ef] text-white"
                       >
-                        Launch Campaign
+                        Launch my Agent
                       </Button>
                     )}
                   </div>
