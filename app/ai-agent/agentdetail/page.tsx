@@ -770,8 +770,8 @@ export default function AgentDetailPage() {
           <div className="space-y-6">
             {/* Header with Title and Progress */}
             <div className="flex items-center justify-between">
-              <h3 className="text-2xl font-bold text-gray-900">Setup Checklist</h3>
-              <span className="text-gray-600">0 of 4 completed</span>
+              <h3 className="text-3xl font-bold font-manrope   text-gray-900">Setup Checklist</h3>
+              <span className="text-gray-600 font-bold font-manrope">0 of 4 completed</span>
             </div>
 
             {/* Checklist Items */}
@@ -786,15 +786,15 @@ export default function AgentDetailPage() {
                       </svg>
                     </div>
                     <div>
-                      <h4 className="text-lg font-bold text-gray-900">Customize Call Flow</h4>
-                      <p className="text-gray-600">Design how your agent handles different conversation paths</p>
+                      <h4 className="text-lg font-bold font-manrope text-gray-900">Customize Call Flow</h4>
+                      <p className="text-gray-600 font-semibold font-manrope">Design how your agent handles different conversation paths</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <Badge variant="secondary" className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full">
+                    <Badge variant="secondary" className="bg-[#FAFAFA] text-[#4A48FF] px-3 py-1 rounded-full">
                       Not Started
                     </Badge>
-                    <Button className="bg-[#4A48FF] hover:bg-[#3a38ef] text-white flex items-center space-x-2">
+                    <Button className="bg-[#4A48FF] hover:bg-[#3a38ef] text-white flex items-center space-x-2 font-bold font-manrope">
                       <span>Build Flow</span>
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17l9.2-9.2M17 17V7H7" />
@@ -815,14 +815,14 @@ export default function AgentDetailPage() {
                     </div>
                     <div>
                       <h4 className="text-lg font-bold text-gray-900">Upload Knowledge Base Docs</h4>
-                      <p className="text-gray-600">Add documents to help your agent answer questions accurately</p>
+                      <p className="font-semibold font-manrope text-gray-600">Add documents to help your agent answer questions accurately</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <Badge variant="secondary" className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full">
+                    <Badge variant="secondary" className="bg-[#FAFAFA] text-[#4A48FF] px-3 py-1 rounded-full">
                       Not Started
                     </Badge>
-                    <Button className="bg-[#4A48FF] hover:bg-[#3a38ef] text-white flex items-center space-x-2">
+                    <Button className="bg-[#4A48FF] hover:bg-[#3a38ef] text-white flex items-center space-x-2 font-bold font-manrope">
                       <span>Upload Docs</span>
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17l9.2-9.2M17 17V7H7" />
@@ -843,14 +843,14 @@ export default function AgentDetailPage() {
                     </div>
                     <div>
                       <h4 className="text-lg font-bold text-gray-900">Connect CRM/Calendar</h4>
-                      <p className="text-gray-600">Link with your existing tools for seamless workflow</p>
+                      <p className="font-semibold font-manrope text-gray-600">Link with your existing tools for seamless workflow</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <Badge variant="secondary" className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full">
+                    <Badge variant="secondary" className="bg-[#FAFAFA] text-[#4A48FF] px-3 py-1 rounded-full">
                       Not Started
                     </Badge>
-                    <Button className="bg-[#4A48FF] hover:bg-[#3a38ef] text-white flex items-center space-x-2">
+                    <Button className="bg-[#4A48FF] hover:bg-[#3a38ef] text-white flex items-center space-x-2 font-bold font-manrope">
                       <span>Go to Integrations</span>
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17l9.2-9.2M17 17V7H7" />
@@ -871,10 +871,10 @@ export default function AgentDetailPage() {
                     </div>
                     <div>
                       <h4 className="text-lg font-bold text-gray-900">Test Agent Live</h4>
-                      <p className="text-gray-600">Make a test call to ensure everything works perfectly</p>
+                      <p className="font-semibold font-manrope text-gray-600">Make a test call to ensure everything works perfectly</p>
                     </div>
                   </div>
-                  <Button className="bg-[#4A48FF] hover:bg-[#3a38ef] text-white flex items-center space-x-2">
+                  <Button className="bg-[#4A48FF] hover:bg-[#3a38ef] text-white flex items-center space-x-2 font-manrope font-bold">
                     <span>Call Now</span>
                   </Button>
                 </div>

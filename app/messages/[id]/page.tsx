@@ -173,15 +173,15 @@ export default function MessageDetailPage({ params }: { params: { id: string } }
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-xl font-bold text-gray-900 mb-1">
+                      <h3 className="text-xl font-bold text-gray-900 mb-1 font-manrope">
                         Julio Caesar
                       </h3>
-                      <p className="text-base text-gray-600 mb-1">
+                      <p className="text-base text-gray-600 mb-1 font-bold">
                         +1 (555) 123-4567
                       </p>
                       <div className="flex items-center space-x-2">
                         <div className="w-3 h-3 bg-green-500 rounded-full flex-shrink-0"></div>
-                        <span className="text-sm text-gray-500">
+                        <span className="text-sm text-gray-500 font-bold font-manrope">
                           Last active: 1h ago
                         </span>
                       </div>
@@ -190,10 +190,10 @@ export default function MessageDetailPage({ params }: { params: { id: string } }
 
                   {/* Tags */}
                   <div className="flex flex-wrap gap-2 mb-6">
-                    <Badge className="bg-red-100 text-red-700 text-sm px-3 py-1 rounded-full">
+                    <Badge className="bg-red-100 text-red-700 text-sm px-3 py-1 rounded-full font-manrope font-semibold">
                       High Priority
                     </Badge>
-                    <Badge className="bg-blue-100 text-blue-700 text-sm px-3 py-1 rounded-full">
+                    <Badge className="bg-blue-100 text-blue-700 text-sm px-3 py-1 rounded-full font-manrope font-semibold">
                       <Calendar className="h-3 w-3 mr-1" />
                       Appointment
                     </Badge>
@@ -201,7 +201,7 @@ export default function MessageDetailPage({ params }: { params: { id: string } }
 
                   {/* View Message Button */}
                   <div className="mt-auto">
-                    <Button className="w-full bg-[#4A48FF] hover:bg-[#3a38ef] text-white">
+                    <Button className="w-full bg-[#4A48FF] hover:bg-[#3a38ef] text-white font-manrope font-bold">
                       View message
                     </Button>
                   </div>
@@ -222,17 +222,17 @@ export default function MessageDetailPage({ params }: { params: { id: string } }
                         </AvatarFallback>
                       </Avatar>
                       <div>
-                        <h3 className="text-lg font-bold text-gray-900 mb-1">
+                        <h3 className="text-lg font-bold text-gray-900 mb-1  font-manrope">
                           Julio Caesar
                         </h3>
-                        <p className="text-sm text-gray-600 mb-2">
+                        <p className="text-sm text-gray-600 mb-2 font-bold font-manrope">
                           +1 (555) 123-4567
                         </p>
                         <div className="flex flex-wrap gap-2">
-                          <Badge className="bg-red-100 text-red-700 text-xs px-2 py-1 rounded-full">
+                          <Badge className="bg-red-100 text-red-700 text-xs px-2 py-1 rounded-full font-manrope font-bold">
                             High Priority
                           </Badge>
-                          <Badge className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full">
+                          <Badge className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full font-manrope font-bold">
                             <Calendar className="h-3 w-3 mr-1" />
                             Appointment
                           </Badge>
@@ -251,7 +251,7 @@ export default function MessageDetailPage({ params }: { params: { id: string } }
 
                   {/* Call Transcript Label */}
                   <div className="mb-4">
-                    <h4 className="text-lg font-bold text-gray-900">Call Transcript</h4>
+                    <h4 className="text-2xl font-manrope font-bold text-gray-900">Call Transcript</h4>
                   </div>
 
                   {/* Chat Messages */}

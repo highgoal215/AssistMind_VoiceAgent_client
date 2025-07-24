@@ -223,7 +223,7 @@ export default function CallDetailPage() {
                         </Badge>
                       </div>
                       <h1 className="text-xl lg:text-2xl font-bold text-gray-900 mb-1">{call.caller}</h1>
-                      <p className="text-gray-600 mb-4">{call.dateTime} • {call.duration}</p>
+                      <p className="text-gray-600 mb-4 font-bold font-manrope">{call.dateTime} • {call.duration}</p>
 
                       {/* Audio Player */}
                       <div className="bg-gray-50 rounded-lg p-3 lg:p-4 mb-4">
@@ -231,7 +231,7 @@ export default function CallDetailPage() {
                           <Button
                             onClick={handlePlayPause}
                             size="sm"
-                            className="bg-blue-600 hover:bg-blue-700"
+                            className="bg-blue-600 hover:bg-blue-700 font-bold font-manrope"
                           >
                             {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
                           </Button>
@@ -243,7 +243,7 @@ export default function CallDetailPage() {
                               className="w-full"
                             />
                           </div>
-                          <Button variant="ghost" size="sm">
+                          <Button variant="ghost" size="sm" className='font-bold font-manrope'>
                             <Volume2 className="w-4 h-4" />
                           </Button>
                         </div>
@@ -251,17 +251,17 @@ export default function CallDetailPage() {
 
                       {/* Action Buttons */}
                       <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
-                        <Button variant="outline" size="sm" className="flex-1">
+                        <Button variant="outline" size="sm" className="flex-1 font-bold font-manrope">
                           Audio
                         </Button>
                         <Button
                           variant="outline"
                           size="sm"
-                          className="flex-1 bg-blue-50 border-blue-200 text-blue-700"
+                          className="flex-1 bg-blue-50 border-blue-200 text-blue-700 font-bold font-manrope"
                         >
                           Transcript
                         </Button>
-                        <Button variant="destructive" size="sm" className="flex-1 sm:flex-none">
+                        <Button variant="destructive" size="sm" className="flex-1 sm:flex-none font-bold font-manrope">
                           <Trash2 className="w-4 h-4 mr-2" />
                           Delete
                         </Button>
@@ -274,18 +274,18 @@ export default function CallDetailPage() {
               {/* Caller Information Card */}
               <Card className="bg-white shadow-sm lg:col-span-7">
                 <CardHeader>
-                  <CardTitle className="text-lg">Caller information</CardTitle>
+                  <CardTitle className="text-3xl font-bold font-manrope">Caller information</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-manrope text-gray-700">Status</span>
-                    <Badge className={getStatusColor(call.status)}>
+                  <div className="flex items-center justify-between ">
+                    <span className="text-md font-bold font-manrope text-gray-700">Status</span>
+                    <Badge className={getStatusColor(call.status)} >
                       {call.status.charAt(0).toUpperCase() + call.status.slice(1)}
                     </Badge>
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-manrope text-gray-700">Call sentiment</span>
+                    <span className="text-md font-bold font-manrope text-gray-700">Call sentiment</span>
                     <Badge className="bg-purple-100 text-purple-800">
                       <ThumbsDown className="w-3 h-3 mr-1" />
                       {call.sentiment.charAt(0).toUpperCase() + call.sentiment.slice(1)}
@@ -294,7 +294,7 @@ export default function CallDetailPage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-sm font-manrope text-gray-700 mb-1">Name</label>
+                      <label className="block text-sm font-manrope text-gray-700 mb-1 font-bold">Name</label>
                       <Input
                         value={callerName}
                         onChange={(e) => setCallerName(e.target.value)}
@@ -302,7 +302,7 @@ export default function CallDetailPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-manrope text-gray-700 mb-1">Phone number</label>
+                      <label className="block text-sm font-manrope text-gray-700 mb-1 font-bold">Phone number</label>
                       <Input
                         value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value)}
@@ -314,7 +314,7 @@ export default function CallDetailPage() {
                   <div className="pt-2">
                     <Button 
                       onClick={handleSaveToContacts}
-                      className="bg-[#4A48FF] hover:bg-[#3A38FF] text-white"
+                      className="bg-[#4A48FF] hover:bg-[#3A38FF] text-white font-bold font-manrope"
                     >
                       <Save className="w-4 h-4 mr-2" />
                       Save to contacts
@@ -376,11 +376,11 @@ export default function CallDetailPage() {
 
                   <TabsContent value="summary" className="p-4 lg:p-6">
                     <div className="prose max-w-none">
-                      <h3 className="text-lg font-semibold mb-4">Call Summary</h3>
-                      <p className="text-gray-700 leading-relaxed">
+                      <h3 className="text-3xl font-bold font-manrope mb-4">Call Summary</h3>
+                      <p className="text-gray-700 leading-relaxed font-bold font-manrope">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                       </p>
-                      <p className="text-gray-700 leading-relaxed mt-4">
+                      <p className="text-gray-700 leading-relaxed mt-4 font-bold font-manrope">
                         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                       </p>
                     </div>
