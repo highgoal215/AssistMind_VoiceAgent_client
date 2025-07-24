@@ -143,9 +143,9 @@ export default function DashboardSidebar({
         {!isCollapsed && (
           <div className="p-4">
             <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg p-4 text-white">
-              <h3 className="text-lg font-bold mb-2">7 Day Free Trial</h3>
-              <p className="text-sm mb-2">30 minutes of free usage.</p>
-              <p className="text-sm mb-3">3 days left</p>
+              <h3 className="text-lg font-bold font-manrope mb-2">7 Day Free Trial</h3>
+              <p className="text-sm font-bold font-manrope mb-2">30 minutes of free usage.</p>
+              <p className="text-sm font-bold font-manrope mb-3">3 days left</p>
 
               {/* Progress Bar */}
               <div className="w-full bg-white/20 rounded-full h-2 mb-2">
@@ -155,10 +155,10 @@ export default function DashboardSidebar({
                 ></div>
               </div>
 
-              <p className="text-sm mb-4">18 / 30 minutes used</p>
+              <p className="text-sm font-bold font-manrope mb-4">18 / 30 minutes used</p>
 
               <Button
-                className="w-full bg-white text-gray-900 hover:bg-gray-100 font-manrope"
+                className="w-full bg-white text-gray-900 hover:bg-gray-100 font-manrope font-bold"
                 size="sm"
               >
                 Upgrade Plan
