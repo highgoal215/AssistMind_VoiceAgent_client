@@ -10,6 +10,8 @@ import Header from '@/components/header/header'
 import Image from 'next/image'
 import GoogleCalendarConfigModal, { GoogleCalendarConfig } from '@/components/modals/GoogleCalendarConfigModal'
 import CalendlyConfigModal, { CalendlyConfig } from '@/components/modals/CalendlyConfigModal'
+import GoHighLevelConfigModal, { GoHighLevelConfig } from '@/components/modals/GoHighLevelConfigModal'
+import WebhooksConfigModal, { WebhooksConfig } from '@/components/modals/WebhooksConfigModal'
 
 interface IntegrationCard {
   id: string
@@ -32,6 +34,8 @@ export default function IntegrationsPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isGoogleCalendarModalOpen, setIsGoogleCalendarModalOpen] = useState(false)
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false)
+  const [isGoHighLevelModalOpen, setIsGoHighLevelModalOpen] = useState(false)
+  const [isWebhooksModalOpen, setIsWebhooksModalOpen] = useState(false)
 
   const integrations: IntegrationCard[] = [
     {
@@ -136,6 +140,10 @@ export default function IntegrationsPage() {
       setIsGoogleCalendarModalOpen(true)
     } else if (integrationId === 'calendly') {
       setIsCalendlyModalOpen(true)
+    } else if (integrationId === 'gohighlevel') {
+      setIsGoHighLevelModalOpen(true)
+    } else if (integrationId === 'webhooks') {
+      setIsWebhooksModalOpen(true)
     }
   }
 
@@ -149,6 +157,30 @@ export default function IntegrationsPage() {
     // Handle saving the Calendly configuration
     console.log('Calendly config saved:', config)
     // You can add API calls or state updates here
+  }
+
+  const handleGoHighLevelSave = (config: GoHighLevelConfig) => {
+    // Handle saving the GoHighLevel configuration
+    console.log('GoHighLevel config saved:', config)
+    // You can add API calls or state updates here
+  }
+
+  const handleGoHighLevelTest = (config: GoHighLevelConfig) => {
+    // Handle testing the GoHighLevel integration
+    console.log('Testing GoHighLevel integration:', config)
+    // You can add API test calls here
+  }
+
+  const handleWebhooksSave = (config: WebhooksConfig) => {
+    // Handle saving the Webhooks configuration
+    console.log('Webhooks config saved:', config)
+    // You can add API calls or state updates here
+  }
+
+  const handleWebhooksTest = (config: WebhooksConfig) => {
+    // Handle testing the Webhooks integration
+    console.log('Testing Webhooks integration:', config)
+    // You can add API test calls here
   }
 
   return (
@@ -303,6 +335,30 @@ export default function IntegrationsPage() {
         isOpen={isCalendlyModalOpen}
         onClose={() => setIsCalendlyModalOpen(false)}
         onSave={handleCalendlySave}
+      />
+
+      {/* GoHighLevel Configuration Modal */}
+      <GoHighLevelConfigModal
+        isOpen={isGoHighLevelModalOpen}
+        onClose={() => setIsGoHighLevelModalOpen(false)}
+        onSave={handleGoHighLevelSave}
+        onTest={handleGoHighLevelTest}
+      />
+
+      {/* Webhooks Configuration Modal */}
+      <WebhooksConfigModal
+        isOpen={isWebhooksModalOpen}
+        onClose={() => setIsWebhooksModalOpen(false)}
+        onSave={handleWebhooksSave}
+        onTest={handleWebhooksTest}
+      />
+
+      {/* Webhooks Configuration Modal */}
+      <WebhooksConfigModal
+        isOpen={isWebhooksModalOpen}
+        onClose={() => setIsWebhooksModalOpen(false)}
+        onSave={handleWebhooksSave}
+        onTest={handleWebhooksTest}
       />
     </div>
   )

@@ -5,8 +5,8 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
-import { Calendar, ExternalLink } from 'lucide-react'
-
+import {  ExternalLink } from 'lucide-react'
+import Image from 'next/image'
 interface GoogleCalendarConfigModalProps {
   isOpen: boolean
   onClose: () => void
@@ -20,10 +20,10 @@ export interface GoogleCalendarConfig {
   emailConfirmationsEnabled: boolean
 }
 
-export default function GoogleCalendarConfigModal({ 
-  isOpen, 
-  onClose, 
-  onSave 
+export default function GoogleCalendarConfigModal({
+  isOpen,
+  onClose,
+  onSave
 }: GoogleCalendarConfigModalProps) {
   const [selectedCalendar, setSelectedCalendar] = useState('')
   const [selectedDuration, setSelectedDuration] = useState('30')
@@ -37,7 +37,7 @@ export default function GoogleCalendarConfigModal({
       bufferTimeEnabled,
       emailConfirmationsEnabled
     }
-    
+
     if (onSave) {
       onSave(config)
     }
@@ -50,7 +50,7 @@ export default function GoogleCalendarConfigModal({
         <div className="p-6">
           {/* Header */}
           <div className="flex  items-center space-x-2 mb-6">
-            <Calendar className="w-5 h-5 text-[#4A48FF]" />
+            <Image src="images/integration/modal_canlendar.svg" alt='calendar' width={40} height={40} className='w-10 h-10' />
             <DialogTitle className="text-3xl font-semibold text-gray-900">
               Configure Google Calendar
             </DialogTitle>
@@ -63,7 +63,7 @@ export default function GoogleCalendarConfigModal({
               <p className="text-sm font-semibold font-manrope text-gray-600 mb-4">You'll be redirected to Google to authorize access.</p>
               <Button className="w-full bg-[#4A48FF] hover:bg-[#4A48FF] text-white font-medium">
                 <div className="flex items-center space-x-2">
-                  <ExternalLink className="w-4 h-4"/>
+                  <Image src="images/integration/googlesign.svg" alt='calendar'width={40} height={40} className='w-6 h-6' />
                   <span className='font-bold font-manrope'>Sign in with Google</span>
                 </div>
               </Button>
@@ -107,8 +107,8 @@ export default function GoogleCalendarConfigModal({
                   <h3 className="font-bold font-manrope text-gray-900 mb-1">Buffer Time</h3>
                   <p className="text-sm font-manrope font-semibold text-gray-600">Add 15 minutes before/after appointments</p>
                 </div>
-                <Switch 
-                  checked={bufferTimeEnabled} 
+                <Switch
+                  checked={bufferTimeEnabled}
                   onCheckedChange={setBufferTimeEnabled}
                   className="data-[state=checked]:bg-[#4A48FF]"
                 />
@@ -122,8 +122,8 @@ export default function GoogleCalendarConfigModal({
                   <h3 className="font-bold font-manrope text-gray-900 mb-1">Email Confirmations</h3>
                   <p className="text-sm font-manrope font-semibold text-gray-600">Send automatic confirmation emails</p>
                 </div>
-                <Switch 
-                  checked={emailConfirmationsEnabled} 
+                <Switch
+                  checked={emailConfirmationsEnabled}
                   onCheckedChange={setEmailConfirmationsEnabled}
                   className="data-[state=checked]:bg-[#4A48FF]"
                 />
@@ -133,14 +133,14 @@ export default function GoogleCalendarConfigModal({
 
           {/* Footer Buttons */}
           <div className="flex space-x-2 mt-8">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="flex-1 bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
               onClick={onClose}
             >
               Cancel
             </Button>
-            <Button 
+            <Button
               className="flex-1 bg-[#4A48FF] hover:bg-[#4A48FF] text-white"
               onClick={handleSave}
             >

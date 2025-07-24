@@ -5,8 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
-import { Calendar } from 'lucide-react'
-
+import Image from 'next/image'
 interface CalendlyConfigModalProps {
   isOpen: boolean
   onClose: () => void
@@ -23,10 +22,10 @@ export interface CalendlyConfig {
   emailConfirmations: boolean
 }
 
-export default function CalendlyConfigModal({ 
-  isOpen, 
-  onClose, 
-  onSave 
+export default function CalendlyConfigModal({
+  isOpen,
+  onClose,
+  onSave
 }: CalendlyConfigModalProps) {
   const [bookingLink, setBookingLink] = useState('https://calendly.com/satyajeet/maurya')
   const [discoveryCall, setDiscoveryCall] = useState(true)
@@ -44,7 +43,7 @@ export default function CalendlyConfigModal({
       },
       emailConfirmations
     }
-    
+
     if (onSave) {
       onSave(config)
     }
@@ -57,7 +56,7 @@ export default function CalendlyConfigModal({
         <div className="p-6">
           {/* Header */}
           <div className="flex items-center space-x-2 mb-6">
-            <Calendar className="w-5 h-5 text-[#4A48FF]" />
+            <Image src="images/integration/modal_canlendar.svg" alt='calendar' width={40} height={40} className='w-10 h-10' />
             <DialogTitle className="text-3xl font-semibold text-gray-900">
               Configure Calendly
             </DialogTitle>
@@ -80,33 +79,40 @@ export default function CalendlyConfigModal({
               <h3 className="font-bold font-manrope text-gray-900 mb-4">Available Event Types</h3>
               <div className="space-y-3">
                 {/* 15-minute Discovery Call */}
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-manrope font-semibold text-gray-700">15-minute Discovery Call</span>
-                  <Switch 
-                    checked={discoveryCall} 
-                    onCheckedChange={setDiscoveryCall}
-                    className="data-[state=checked]:bg-[#4A48FF]"
-                  />
-                </div>
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-manrope font-semibold text-gray-700">15-minute Discovery Call</span>
+                    <Switch
+                      checked={discoveryCall}
+                      onCheckedChange={setDiscoveryCall}
+                      className="data-[state=checked]:bg-[#4A48FF]"
+                    />
+                  </div>
+               </div>
 
                 {/* 30-minute Consultation */}
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-manrope font-semibold text-gray-700">30-minute Consultation</span>
-                  <Switch 
-                    checked={consultation} 
-                    onCheckedChange={setConsultation}
-                    className="data-[state=checked]:bg-[#4A48FF]"
-                  />
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-manrope font-semibold text-gray-700">30-minute Consultation</span>
+                    <Switch
+                      checked={consultation}
+                      onCheckedChange={setConsultation}
+                      className="data-[state=checked]:bg-[#4A48FF]"
+                    />
+                  </div>
+
                 </div>
 
                 {/* 60-minute Strategy Session */}
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-manrope font-semibold text-gray-700">60-minute Strategy Session</span>
-                  <Switch 
-                    checked={strategySession} 
-                    onCheckedChange={setStrategySession}
-                    className="data-[state=checked]:bg-[#4A48FF]"
-                  />
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-manrope font-semibold text-gray-700">60-minute Strategy Session</span>
+                    <Switch
+                      checked={strategySession}
+                      onCheckedChange={setStrategySession}
+                      className="data-[state=checked]:bg-[#4A48FF]"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -118,8 +124,8 @@ export default function CalendlyConfigModal({
                   <h3 className="font-bold font-manrope text-gray-900 mb-1">Email Confirmations</h3>
                   <p className="text-sm font-manrope font-semibold text-gray-600">Send automatic confirmation emails</p>
                 </div>
-                <Switch 
-                  checked={emailConfirmations} 
+                <Switch
+                  checked={emailConfirmations}
                   onCheckedChange={setEmailConfirmations}
                   className="data-[state=checked]:bg-[#4A48FF]"
                 />
@@ -129,14 +135,14 @@ export default function CalendlyConfigModal({
 
           {/* Footer Buttons */}
           <div className="flex space-x-2 mt-8">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="flex-1 bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
               onClick={onClose}
             >
               Cancel
             </Button>
-            <Button 
+            <Button
               className="flex-1 bg-[#4A48FF] hover:bg-[#4A48FF] text-white"
               onClick={handleSave}
             >
