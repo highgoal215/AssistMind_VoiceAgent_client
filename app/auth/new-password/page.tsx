@@ -44,72 +44,77 @@ export default function NewPasswordPage() {
               </div>
             </div>
 
-            <div className="flex flex-col w-full gap-[40px]">
-              {/* Header */}
-              <div className="text-center lg:text-left mb-8">
-                <h1 className="text-3xl lg:text-2xl xl:text-3xl font-bold text-gray-900 mb-2 font-manrope">
-                  Choose a new password
-                </h1>
-                <p className="text-gray-600 text-2xl lg:text-base xl:text-lg pt-[12px] font-manrope font-semibold">
-                  Don't worry, we'll help you get back in.
-                </p>
-              </div>
+            {/* Modal-style container for desktop */}
+            <div className="lg:flex lg:items-center lg:justify-center lg:h-full lg:pr-[52px]">
+              <div className="lg:bg-white lg:rounded-2xl lg:shadow-2xl lg:p-8 lg:w-full lg:max-w-md lg:border lg:border-gray-100 lg:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)]">
+                <div className="flex flex-col w-full gap-[40px]">
+                  {/* Header */}
+                  <div className="text-center lg:text-left mb-8">
+                    <h1 className="text-3xl lg:text-2xl xl:text-3xl font-bold text-gray-900 mb-2 font-manrope">
+                      Choose a new password
+                    </h1>
+                    <p className="text-gray-600 text-2xl lg:text-base xl:text-lg pt-[12px] font-manrope font-semibold">
+                      Don't worry, we'll help you get back in.
+                    </p>
+                  </div>
 
-              {/* Form */}
-              <div className="space-y-6">
-                <div className="flex flex-col gap-4">
-                  <Label htmlFor="password" className="text-md font-bold font-manrope text-gray-700 mb-2 block">
-                    Choose a new Password
-                  </Label>
-                  <div className="relative">
-                    <Input
-                      id="password"
-                      type={showPassword ? "text" : "password"}
-                      placeholder="••••••••••••"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="w-full h-12 lg:h-auto border border-gray-300 rounded-lg pr-12 font-manrope font-bold"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  {/* Form */}
+                  <div className="space-y-6">
+                    <div className="flex flex-col gap-4">
+                      <Label htmlFor="password" className="text-md font-bold font-manrope text-gray-700 mb-2 block">
+                        Choose a new Password
+                      </Label>
+                      <div className="relative">
+                        <Input
+                          id="password"
+                          type={showPassword ? "text" : "password"}
+                          placeholder="••••••••••••"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          className="w-full h-12 lg:h-auto border border-gray-300 rounded-lg pr-12 font-manrope font-bold"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                        >
+                          {showPassword ? <EyeOff className="w-5 h-5 lg:w-4 lg:h-4" /> : <Eye className="w-5 h-5 lg:w-4 lg:h-4" />}
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-4">
+                      <Label htmlFor="confirm-password" className="text-md font-bold font-manrope text-gray-700 mb-2 block">
+                        Confirm Password
+                      </Label>
+                      <div className="relative">
+                        <Input
+                          id="confirm-password"
+                          type={showConfirmPassword ? "text" : "password"}
+                          placeholder="••••••••••••"
+                          value={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          className="w-full h-12 lg:h-auto border border-gray-300 rounded-lg pr-12 font-manrope font-bold"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                        >
+                          {showConfirmPassword ? <EyeOff className="w-5 h-5 lg:w-4 lg:h-4" /> : <Eye className="w-5 h-5 lg:w-4 lg:h-4" />}
+                        </button>
+                      </div>
+                    </div>
+
+                    <Button
+                      onClick={handleResetPassword}
+                      className="w-full bg-[#4A48FF] hover:bg-[#4A48FF] text-white py-3 h-12 lg:h-auto rounded-lg text-base font-manrope font-bold"
+                      disabled={!password || !confirmPassword}
                     >
-                      {showPassword ? <EyeOff className="w-5 h-5 lg:w-4 lg:h-4" /> : <Eye className="w-5 h-5 lg:w-4 lg:h-4" />}
-                    </button>
+                      Reset Password
+                    </Button>
                   </div>
                 </div>
-
-                <div className="flex flex-col gap-4">
-                  <Label htmlFor="confirm-password" className="text-md font-bold font-manrope text-gray-700 mb-2 block">
-                    Confirm Password
-                  </Label>
-                  <div className="relative">
-                    <Input
-                      id="confirm-password"
-                      type={showConfirmPassword ? "text" : "password"}
-                      placeholder="••••••••••••"
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      className="w-full h-12 lg:h-auto border border-gray-300 rounded-lg pr-12 font-manrope font-bold"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                    >
-                      {showConfirmPassword ? <EyeOff className="w-5 h-5 lg:w-4 lg:h-4" /> : <Eye className="w-5 h-5 lg:w-4 lg:h-4" />}
-                    </button>
-                  </div>
-                </div>
-
-                <Button
-                  onClick={handleResetPassword}
-                  className="w-full bg-[#4A48FF] hover:bg-[#4A48FF] text-white py-3 h-12 lg:h-auto rounded-lg text-base font-manrope font-bold"
-                  disabled={!password || !confirmPassword}
-                >
-                  Reset Password
-                </Button>
               </div>
             </div>
           </div>

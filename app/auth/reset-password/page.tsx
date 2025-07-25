@@ -36,40 +36,45 @@ export default function ResetPasswordPage() {
               </div>
             </div>
 
-            <div className="flex flex-col w-full gap-[40px]">
-              {/* Header */}
-              <div className="text-center lg:text-left mb-8">
-                <h1 className="text-3xl lg:text-2xl xl:text-3xl font-bold text-gray-900 mb-2 font-manrope ">
-                  Reset Your password
-                </h1>
-                <p className="text-gray-600 text-2xl lg:text-base xl:text-lg pt-[12px] font-manrope font-semibold">
-                  Don't worry, we'll help you get back in.
-                </p>
-              </div>
+            {/* Modal-style container for desktop */}
+            <div className="lg:flex lg:items-center lg:justify-center lg:h-full lg:pr-[52px]">
+              <div className="lg:bg-white lg:rounded-2xl lg:shadow-2xl lg:p-8 lg:w-full lg:max-w-md lg:border lg:border-gray-100 lg:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)]">
+                <div className="flex flex-col w-full gap-[40px]">
+                  {/* Header */}
+                  <div className="text-center lg:text-left mb-8">
+                    <h1 className="text-3xl lg:text-2xl xl:text-3xl font-bold text-gray-900 mb-2 font-manrope ">
+                      Reset Your password
+                    </h1>
+                    <p className="text-gray-600 text-2xl lg:text-base xl:text-lg pt-[12px] font-manrope font-semibold">
+                      Don't worry, we'll help you get back in.
+                    </p>
+                  </div>
 
-              {/* Form */}
-              <div className="space-y-6">
-                <div className="flex flex-col gap-4">
-                  <Label htmlFor="email" className="text-md font-semibold font-manrope text-gray-700 mb-2 block">
-                    Email Address
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="Email address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full h-12 lg:h-auto border border-gray-300 rounded-lg font-manrope font-medium"
-                  />
+                  {/* Form */}
+                  <div className="space-y-6">
+                    <div className="flex flex-col gap-4">
+                      <Label htmlFor="email" className="text-md font-semibold font-manrope text-gray-700 mb-2 block">
+                        Email Address
+                      </Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="Email address"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full h-12 lg:h-auto border border-gray-300 rounded-lg font-manrope font-medium"
+                      />
+                    </div>
+
+                    <Button
+                      onClick={handleSendLink}
+                      className="w-full bg-[#4A48FF] hover:bg-[#2b29b1] text-white py-3 h-12 lg:h-auto rounded-lg text-base font-manrope font-semibold"
+                      disabled={!email}
+                    >
+                      Send Link
+                    </Button>
+                  </div>
                 </div>
-
-                <Button
-                  onClick={handleSendLink}
-                  className="w-full bg-[#4A48FF] hover:bg-[#2b29b1] text-white py-3 h-12 lg:h-auto rounded-lg text-base font-manrope font-semibold"
-                  disabled={!email}
-                >
-                  Send Link
-                </Button>
               </div>
             </div>
           </div>
