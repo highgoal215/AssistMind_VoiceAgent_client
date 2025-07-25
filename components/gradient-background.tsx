@@ -8,8 +8,8 @@ interface GradientBackgroundProps {
 export function GradientBackground({ children }: GradientBackgroundProps) {
   return (
     <div className="min-h-screen flex p-[21px] ">
-      {/* Left side - Video background */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden rounded-2xl ">
+      {/* Left side - Video background with enhanced modal styling */}
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden rounded-2xl lg:shadow-2xl lg:border lg:border-gray-100 lg:mr-4 lg:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)]">
         <video
           autoPlay
           loop
@@ -21,7 +21,7 @@ export function GradientBackground({ children }: GradientBackgroundProps) {
         </video>
         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-600/20" />
         <div
-          className="relative z-10 flex flex-col  items-start text-white"
+          className="relative z-10 flex flex-col items-start text-white"
         >
           <div className="flex items-center mb-12 pt-[52.24px] pl-[37.93px]" >
             <Image 

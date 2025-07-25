@@ -78,24 +78,29 @@ const CallIntentChart = () => {
   ]
 
   return (
-    <div className="flex items-center justify-between h-64 lg:h-80">
-      <div className="flex-1 flex justify-center">
-        <div className="w-52 h-52">
+    <div className="flex flex-col lg:flex-row items-center justify-between h-auto lg:h-80">
+      {/* Chart Container */}
+      <div className="flex-1 flex justify-center mb-6 lg:mb-0">
+        <div className="w-48 h-48 sm:w-52 sm:h-52">
           <Doughnut data={data} options={options as any} />
         </div>
       </div>
 
-      {/* Legend */}
-      <div className="flex-shrink-0 ml-8 space-y-4">
-        {legendData.map((item, index) => (
-          <div key={index} className="flex items-center space-x-3 text-md">
-            <div
-              className="w-3 h-3 rounded-full"
-              style={{ backgroundColor: item.color }}
-            />
-            <span className="text-gray-700 font-manrope font-bold">{item.name}</span>
-          </div>
-        ))}
+      {/* Legend - Below chart on medium screens, to the right on large screens */}
+      <div className="flex-shrink-0 lg:ml-8 w-full lg:w-auto">
+        <div className="grid grid-cols-2 lg:grid-cols-1 gap-3 lg:gap-4">
+          {legendData.map((item, index) => (
+            <div key={index} className="flex items-center space-x-3 text-sm lg:text-md">
+              <div
+                className="w-3 h-3 rounded-full flex-shrink-0"
+                style={{ backgroundColor: item.color }}
+              />
+              <span className="text-gray-700 font-manrope font-bold truncate">
+                {item.name}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )
