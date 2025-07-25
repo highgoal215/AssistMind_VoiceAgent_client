@@ -18,13 +18,13 @@ export default function CampaignDetailTabs({
   onTabChange
 }: CampaignDetailTabsProps) {
   return (
-    <div className="flex space-x-4 bg-white rounded-lg p-1 shadow-sm w-fit h-12">
+    <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 bg-white rounded-lg p-1 shadow-sm w-full sm:w-fit h-auto sm:h-12">
       {tabs.map((tab) => (
         <Button
           key={tab.id}
           variant="ghost"
           onClick={() => onTabChange(tab.id)}
-          className={`rounded-lg px-4 py-2 text-lg font-manrope transition-colors ${
+          className={`rounded-lg px-3 sm:px-4 py-2 text-sm sm:text-lg font-manrope transition-colors flex-1 sm:flex-none ${
             activeTab === tab.id
               ? "bg-[#EDEDFF] text-[#4A48FF]"
               : "text-gray-900 hover:bg-gray-50"

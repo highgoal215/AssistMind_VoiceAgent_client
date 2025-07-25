@@ -58,7 +58,7 @@ export default function CallRecordsTable({
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <CardTitle className="text-3xl font-bold font-manrope">Call Records</CardTitle>
+              <CardTitle className="text-xl sm:text-3xl font-bold font-manrope">Call Records</CardTitle>
               <Button
                 variant="ghost"
                 size="icon"
@@ -75,26 +75,31 @@ export default function CallRecordsTable({
             <table className="w-full">
               <thead>
                 <tr className="border-b border-gray-200">
-                  <th className="text-left py-3 px-4 text-lg font-semibold font-manrope text-gray-700 uppercase tracking-wider">NAME</th>
-                  <th className="text-left py-3 px-4 text-lg font-semibold font-manrope text-gray-700 uppercase tracking-wider">NUMBER</th>
-                  <th className="text-left py-3 px-4 text-lg font-semibold font-manrope text-gray-700 uppercase tracking-wider">STATUS</th>
-                  <th className="text-left py-3 px-4 text-lg font-semibold font-manrope text-gray-700 uppercase tracking-wider">DURATION</th>
-                  <th className="text-left py-3 px-4 text-lg font-semibold font-manrope text-gray-700 uppercase tracking-wider">ACTIONS</th>
+                  <th className="text-left py-3 px-2 sm:px-4 text-sm sm:text-lg font-semibold font-manrope text-gray-700 uppercase tracking-wider">NAME</th>
+                  <th className="text-left py-3 px-2 sm:px-4 text-sm sm:text-lg font-semibold font-manrope text-gray-700 uppercase tracking-wider hidden sm:table-cell">NUMBER</th>
+                  <th className="text-left py-3 px-2 sm:px-4 text-sm sm:text-lg font-semibold font-manrope text-gray-700 uppercase tracking-wider">STATUS</th>
+                  <th className="text-left py-3 px-2 sm:px-4 text-sm sm:text-lg font-semibold font-manrope text-gray-700 uppercase tracking-wider hidden sm:table-cell">DURATION</th>
+                  <th className="text-left py-3 px-2 sm:px-4 text-sm sm:text-lg font-semibold font-manrope text-gray-700 uppercase tracking-wider">ACTIONS</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {records.map((record) => (
                   <tr key={record.id} className="hover:bg-gray-50">
-                    <td className="py-3 px-4 text-sm text-gray-900 font-medium">{record.name}</td>
-                    <td className="py-3 px-4 text-sm text-gray-900">{record.number}</td>
-                    <td className="py-3 px-4">
+                    <td className="py-3 px-2 sm:px-4 text-sm text-gray-900 font-medium">
+                      <div className="flex flex-col sm:block">
+                        <span className="font-medium">{record.name}</span>
+                        <span className="text-xs text-gray-500 sm:hidden">{record.number}</span>
+                      </div>
+                    </td>
+                    <td className="py-3 px-2 sm:px-4 text-sm text-gray-900 hidden sm:table-cell">{record.number}</td>
+                    <td className="py-3 px-2 sm:px-4">
                       <Badge className={`text-xs px-2 py-1 rounded-full ${record.statusColor}`}>
                         {record.status}
                       </Badge>
                     </td>
-                    <td className="py-3 px-4 text-sm text-gray-900">{record.duration}</td>
-                    <td className="py-3 px-4">
-                      <div className="flex items-center space-x-2">
+                    <td className="py-3 px-2 sm:px-4 text-sm text-gray-900 hidden sm:table-cell">{record.duration}</td>
+                    <td className="py-3 px-2 sm:px-4">
+                      <div className="flex items-center space-x-1 sm:space-x-2">
                         <Button
                           variant="ghost"
                           size="icon"

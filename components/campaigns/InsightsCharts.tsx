@@ -55,17 +55,17 @@ export default function InsightsCharts({
   chartOptions
 }: InsightsChartsProps) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Time Metrics Chart */}
       <Card className="rounded-lg shadow-sm">
         <CardHeader>
-          <CardTitle className="text-lg font-bold font-manrope">Time Metrics</CardTitle>
+          <CardTitle className="text-base sm:text-lg font-bold font-manrope">Time Metrics</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="h-64 bg-gray-50 rounded-lg p-4 border border-gray-200 relative">
+          <div className="h-48 sm:h-64 bg-gray-50 rounded-lg p-2 sm:p-4 border border-gray-200 relative">
             <Line data={timeMetricsData} options={chartOptions} />
             {/* Date label overlay */}
-            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-gray-500 bg-gray-50 px-2">
+            <div className="absolute bottom-2 sm:bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-gray-500 bg-gray-50 px-2">
               06/25
             </div>
           </div>
@@ -75,13 +75,13 @@ export default function InsightsCharts({
       {/* Call Results Chart */}
       <Card className="rounded-lg shadow-sm">
         <CardHeader>
-          <CardTitle className="text-lg font-bold font-manrope">Call Results</CardTitle>
+          <CardTitle className="text-base sm:text-lg font-bold font-manrope">Call Results</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="h-64 bg-gray-50 rounded-lg p-4 border border-gray-200 relative">
+          <div className="h-48 sm:h-64 bg-gray-50 rounded-lg p-2 sm:p-4 border border-gray-200 relative">
             <Bar data={callResultsData} options={chartOptions} />
             {/* Date label overlay */}
-            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-gray-500 bg-gray-50 px-2">
+            <div className="absolute bottom-2 sm:bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-gray-500 bg-gray-50 px-2">
               06/25
             </div>
           </div>

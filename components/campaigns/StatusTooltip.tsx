@@ -11,8 +11,8 @@ export default function StatusTooltip({ isVisible, onClose }: StatusTooltipProps
   if (!isVisible) return null
 
   return (
-    <div className="absolute top-0 right-0 z-10 bg-white rounded-lg shadow-lg p-4 w-80 border border-gray-200">
-      <div className="flex items-center justify-between mb-3">
+    <div className="absolute top-0 right-0 z-10 bg-white rounded-lg shadow-lg p-3 sm:p-4 w-full sm:w-80 border border-gray-200">
+      <div className="flex items-center justify-between mb-2 sm:mb-3">
         <h3 className="text-sm font-semibold text-gray-900">Call Status</h3>
         <Button
           variant="ghost"
@@ -23,7 +23,7 @@ export default function StatusTooltip({ isVisible, onClose }: StatusTooltipProps
           <X className="h-4 w-4" />
         </Button>
       </div>
-      <div className="space-y-2 text-sm">
+      <div className="space-y-2 text-xs sm:text-sm">
         <div>
           <span className="text-blue-600 font-medium">Completed:</span>
           <span className="text-gray-600 ml-1">Call reached the recipient and was successfully delivered</span>

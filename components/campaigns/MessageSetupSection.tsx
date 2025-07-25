@@ -15,20 +15,20 @@ export default function MessageSetupSection({
   callPrompt
 }: MessageSetupSectionProps) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Campaign Setup Header */}
-      <h2 className="text-3xl font-bold font-manrope text-gray-900">Campaign Setup</h2>
+      <h2 className="text-xl sm:text-3xl font-bold font-manrope text-gray-900">Campaign Setup</h2>
       
       {/* Top Row - Opening Message and Timing */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Opening Message Card */}
         <Card className="rounded-lg shadow-sm">
           <CardHeader>
-            <CardTitle className="text-lg font-bold font-manrope">Opening Message</CardTitle>
+            <CardTitle className="text-base sm:text-lg font-bold font-manrope">Opening Message</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-              <p className="text-gray-700 font-medium">
+            <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200">
+              <p className="text-sm sm:text-base text-gray-700 font-medium">
                 {openingMessage}
               </p>
             </div>
@@ -38,17 +38,17 @@ export default function MessageSetupSection({
         {/* Timing Card */}
         <Card className="rounded-lg shadow-sm">
           <CardHeader>
-            <CardTitle className="text-lg font-bold font-manrope">Timing</CardTitle>
+            <CardTitle className="text-base sm:text-lg font-bold font-manrope">Timing</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600 font-medium">Scheduled:</span>
-                <span className="text-gray-900 font-semibold">{scheduledTime}</span>
+            <div className="space-y-2 sm:space-y-3">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-1 sm:space-y-0">
+                <span className="text-sm sm:text-base text-gray-600 font-medium">Scheduled:</span>
+                <span className="text-sm sm:text-base text-gray-900 font-semibold break-words">{scheduledTime}</span>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600 font-medium">Started:</span>
-                <span className="text-gray-900 font-semibold">{startedTime}</span>
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-1 sm:space-y-0">
+                <span className="text-sm sm:text-base text-gray-600 font-medium">Started:</span>
+                <span className="text-sm sm:text-base text-gray-900 font-semibold break-words">{startedTime}</span>
               </div>
             </div>
           </CardContent>
@@ -58,11 +58,11 @@ export default function MessageSetupSection({
       {/* Bottom Row - Call Prompt */}
       <Card className="rounded-lg shadow-sm">
         <CardHeader>
-          <CardTitle className="text-lg font-bold font-manrope">Call Prompt</CardTitle>
+          <CardTitle className="text-base sm:text-lg font-bold font-manrope">Call Prompt</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-            <p className="text-gray-700 leading-relaxed">
+          <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200">
+            <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
               {callPrompt}
             </p>
           </div>

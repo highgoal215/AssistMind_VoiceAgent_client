@@ -79,7 +79,7 @@ export default function CampaignDetailPage() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden lg:ml-0">
         {/* Header */}
-        <header className="bg-white border-b border-gray-200 px-4 lg:px-6 py-4">
+        <header className="bg-white border-b border-gray-200 px-3 sm:px-4 lg:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             {/* Mobile Menu Button */}
             <Button
@@ -92,7 +92,7 @@ export default function CampaignDetailPage() {
             </Button>
 
             {/* Search Bar */}
-            <div className="flex items-center flex-1 max-w-sm lg:max-w-md">
+            <div className="flex items-center flex-1 max-w-sm lg:max-w-md mx-2 sm:mx-0">
               <div className="relative w-full">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <Input
@@ -103,7 +103,7 @@ export default function CampaignDetailPage() {
             </div>
 
             {/* Right Side Actions */}
-            <div className="flex items-center space-x-2 lg:space-x-4">
+            <div className="flex items-center space-x-1 sm:space-x-2 lg:space-x-4">
               {/* Dark Mode Button - Hidden on mobile */}
               <Button variant="outline" className="hidden lg:flex bg-gray-100 border-gray-200 text-gray-900 hover:bg-gray-200">
                 <Moon className="h-4 w-4 mr-2" />
@@ -119,7 +119,7 @@ export default function CampaignDetailPage() {
               </Button>
 
               {/* User Profile */}
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-1 sm:space-x-2">
                 <Avatar className="h-8 w-8">
                   <AvatarImage src="/images/user-profile.jpg" />
                   <AvatarFallback>U</AvatarFallback>
@@ -131,8 +131,8 @@ export default function CampaignDetailPage() {
         </header>
 
         {/* Campaign Detail Content */}
-        <main className="flex-1 overflow-auto p-4 lg:p-6">
-          <div className="space-y-6">
+        <main className="flex-1 overflow-auto p-3 sm:p-4 lg:p-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Campaign Header */}
             <CampaignDetailHeader
               campaignName={campaignName}
