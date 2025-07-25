@@ -38,7 +38,7 @@ export default function CheckoutPage() {
     // Handle Stripe payment
     console.log("Processing payment...")
     // Redirect to success page or dashboard
-    router.push("/dashboard")
+    router.push("/ai-agent")
   }
 
   const handleApplePay = () => {
