@@ -1,28 +1,6 @@
 import React from 'react'
-import { Phone, MessageSquare, HelpCircle, ArrowRight, Zap } from 'lucide-react'
-
-interface CallFlowNodeProps {
-  id: string
-  type: 'start' | 'response' | 'question' | 'transfer' | 'action'
-  title: string
-  description: string
-  color: string
-  x: number
-  y: number
-  content?: string
-  isSelected?: boolean
-  isDragging?: boolean
-  onClick?: () => void
-  onMouseDown?: (e: React.MouseEvent) => void
-}
-
-const nodeIcons = {
-  start: <Phone className="w-5 h-5" />,
-  response: <MessageSquare className="w-5 h-5" />,
-  question: <HelpCircle className="w-5 h-5" />,
-  transfer: <ArrowRight className="w-5 h-5" />,
-  action: <Zap className="w-5 h-5" />
-}
+import { CallFlowNodeProps } from './types'
+import { NODE_ICONS } from './constants'
 
 export default function CallFlowNode({
   id,
@@ -49,7 +27,7 @@ export default function CallFlowNode({
       <div className={`p-4 rounded-lg border-2 min-w-[200px] max-w-[300px] ${color} text-white shadow-lg hover:shadow-xl transition-shadow ${isSelected ? 'shadow-2xl' : ''
         }`}>
         <div className="flex items-center space-x-2 mb-2">
-          {nodeIcons[type]}
+          {NODE_ICONS[type]}
           <span className="font-manrope">{title}</span>
         </div>
         {content && (

@@ -277,7 +277,7 @@ export default function AIAgentPage() {
               is247Available={is247Available}
               on247AvailableChange={setIs247Available}
               dailyHours={dailyHours}
-              onDailyHoursChange={setDailyHours}
+              // onDailyHoursChange={setDailyHours}
             />
           </div>
         )

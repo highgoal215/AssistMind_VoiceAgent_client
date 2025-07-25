@@ -1,58 +1,14 @@
 import React from 'react'
-import { Phone, MessageSquare, HelpCircle, ArrowRight, Zap, Plus } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-
-interface NodeType {
-  type: 'start' | 'response' | 'question' | 'transfer' | 'action'
-  title: string
-  description: string
-  color: string
-  icon: React.ReactNode
-}
+import { NodeType } from './types'
+import { NODE_TYPES } from './constants'
 
 interface NodePaletteProps {
   onDragStart?: (e: React.DragEvent, nodeType: NodeType) => void
   onCreateCustomNode?: () => void
   isReadOnly?: boolean
 }
-
-const nodeTypes: NodeType[] = [
-  {
-    type: 'start',
-    title: 'Start Call',
-    description: 'Call starts here',
-    color: 'bg-green-500',
-    icon: <Phone className="w-5 h-5" />
-  },
-  {
-    type: 'response',
-    title: 'Response',
-    description: 'AI delivers a message',
-    color: 'bg-blue-500',
-    icon: <MessageSquare className="w-5 h-5" />
-  },
-  {
-    type: 'question',
-    title: 'Ask Question',
-    description: 'Ask & wait for caller\'s answer',
-    color: 'bg-yellow-500',
-    icon: <HelpCircle className="w-5 h-5" />
-  },
-  {
-    type: 'transfer',
-    title: 'Transfer to Human',
-    description: 'Transfers the call to a phone number',
-    color: 'bg-purple-500',
-    icon: <ArrowRight className="w-5 h-5" />
-  },
-  {
-    type: 'action',
-    title: 'Trigger Action',
-    description: 'Executes external actions',
-    color: 'bg-red-500',
-    icon: <Zap className="w-5 h-5" />
-  }
-]
 
 export default function NodePalette({ onDragStart, onCreateCustomNode, isReadOnly = false }: NodePaletteProps) {
   return (
@@ -66,7 +22,7 @@ export default function NodePalette({ onDragStart, onCreateCustomNode, isReadOnl
         <div>
           <h3 className="text-2xl font-bold font-manrope text-gray-700 mb-3">Logic Blocks</h3>
           <div className="space-y-3">
-            {nodeTypes.map((nodeType) => (
+            {NODE_TYPES.map((nodeType) => (
               <div
                 key={nodeType.type}
                 draggable={!isReadOnly && !!onDragStart}
