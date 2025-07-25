@@ -36,7 +36,7 @@ export default function CreateAccountPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="w-full max-w-[1400px] h-[880px] bg-white rounded-2xl shadow-2xl overflow-hidden">
+      <div className="w-full max-w-[1400px] h-[880px] bg-white rounded-2xl shadow-2xl overflow-y-auto ">
         <div className="flex h-full">
           {/* Left Column - Video Background */}
           <div className="hidden lg:flex lg:w-1/2 h-full relative overflow-hidden">

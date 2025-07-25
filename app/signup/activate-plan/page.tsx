@@ -54,7 +54,7 @@ export default function ActivatePlanPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="w-full max-w-[1400px] h-[880px] bg-white rounded-2xl shadow-2xl overflow-hidden">
+      <div className="w-full max-w-[1400px] h-[880px] bg-white rounded-2xl shadow-2xl overflow-y-auto">
         <div className="flex h-full">
           {/* Left Column - Video Background */}
           <div className="hidden lg:flex lg:w-1/2 h-full relative overflow-hidden">
@@ -125,7 +125,7 @@ export default function ActivatePlanPage() {
             </div>
 
             {/* Plans Grid */}
-            <div className="space-y-2 lg:space-y-0 lg:grid lg:grid-cols-1 lg:gap-6 lg:max-w-4xl lg:h-min-screen">
+            <div className="space-y-2 lg:space-y-0 lg:grid lg:grid-cols-1 lg:gap-6 lg:max-w-4xl lg:h-1/4">
               {/* Basic Plan */}
               <div className="relative bg-white rounded-2xl border border-gray-200 p-6 lg:px-6 lg:py-1">
                 <div className="absolute top-6 right-6">
@@ -133,14 +133,14 @@ export default function ActivatePlanPage() {
                 </div>
 
                 <div className="mb-2">
-                  <h3 className="text-lg font-bold text-gray-900 mb-4 font-manrope">Basic plan</h3>
+                  <h3 className="text-lg  font-bold text-gray-900 mb-4 font-manrope">Basic plan</h3>
                   <div className="flex items-baseline mb-6">
-                    <span className="text-4xl font-bold text-gray-900 font-manrope">$10</span>
+                    <span className=" sm:text-4xl font-bold text-gray-900 font-manrope">$10</span>
                     <span className="text-gray-500 ml-2 font-manrope">per month</span>
                   </div>
                   <Button
                     onClick={() => handleGetStarted("basic")}
-                    className="w-full bg-[#4A48FF] hover:bg-[#4A48FF] text-white py-3 h-12 rounded-xl font-manrope font-bold"
+                    className="w-full  bg-[#4A48FF] hover:bg-[#4A48FF] text-white py-3 h-12 rounded-xl font-manrope font-bold"
                   >
                     Get started
                   </Button>
@@ -153,7 +153,7 @@ export default function ActivatePlanPage() {
                   <span className="bg-white text-[#4A48FF] text-md px-3 py-1 rounded-full font-manrope font-semibold">Most popular</span>
                 </div>
 
-                <div className="mb-6">
+                <div className="mb-2">
                   <h3 className="text-lg font-bold mb-4 font-manrope">Business plan</h3>
                   <div className="flex items-baseline mb-6">
                     <span className="text-4xl font-bold font-manrope">$50</span>
@@ -170,7 +170,7 @@ export default function ActivatePlanPage() {
 
               {/* Enterprise Plan */}
               <div className="relative bg-white rounded-2xl border border-gray-200 p-6 lg:px-6 lg:py-2">
-                <div className="mb-6">
+                <div className="mb-2">
                   <h3 className="text-lg font-bold text-gray-900 mb-4 font-manrope">Enterprise plan</h3>
                   <div className="flex items-baseline mb-6">
                     <span className="text-4xl font-bold text-gray-900 font-manrope">$99</span>
