@@ -119,7 +119,7 @@ export default function MeetAgentPage() {
           {/* Right Column - Meet Agent Form */}
           <div className="w-full h-full lg:w-1/2 p-8 lg:p-12">
             {/* Mobile Logo */}
-            <div className="flex items-center justify-center mt-16 mb-16 lg:hidden">
+            <div className="flex items-center justify-center mt-16 mb-8 lg:hidden">
               <div className="flex items-center">
                 <div>
                   <Image
@@ -134,7 +134,7 @@ export default function MeetAgentPage() {
             </div>
 
             {/* Progress Indicator */}
-            <div className="mb-8">
+            <div className="mt-16 mb-16">
               <SignupProgress currentStep={1} />
             </div>
 
