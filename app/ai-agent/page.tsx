@@ -416,11 +416,11 @@ export default function AIAgentPage() {
               </div>
 
               {/* Preview Voice */}
-              <div className='flex flex-col'>
+              <div className='flex flex-col '>
                 <label className="block text-sm font-manrope font-bold text-gray-700 mb-2 ">
                   Preview Voice
                 </label>
-                <div className="flex items-center space-x-4 border border-gray-300 shadow-lg h-10 rounded-md">
+                <div className="flex items-center space-x-4 border border-gray-300 shadow-lg h-10 rounded-md px-1">
                   <Button
                     size="icon"
                     className="w-8 h-8 bg-[#4A48FF] hover:bg-[#3a39e8] rounded-full"
@@ -599,7 +599,7 @@ export default function AIAgentPage() {
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-semibold font-manrope text-gray-500">Enable</span>
                   <div
-                    className={`w-10 h-6 rounded-full relative cursor-pointer transition-colors ${isAlternativeLinkEnabled ? 'bg-blue-500' : 'bg-gray-300'}`}
+                    className={`w-10 h-6 rounded-full relative cursor-pointer transition-colors ${isAlternativeLinkEnabled ? 'bg-[#34C759]' : 'bg-gray-300'}`}
                     onClick={() => setIsAlternativeLinkEnabled(!isAlternativeLinkEnabled)}
                   >
                     <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${isAlternativeLinkEnabled ? 'right-1' : 'left-1'}`}></div>
@@ -649,35 +649,37 @@ export default function AIAgentPage() {
                     <Image src="/images/agent/tooltip.svg" alt='check' width={30} height={30} className='w-4 h-4' />
                   </div>
                   <div>
-                    <div className="flex items-center space-x-2">
-                      <Select value={newService} onValueChange={setNewService}>
-                        <SelectTrigger className="border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]">
-                          <SelectValue placeholder="Select service" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {availableServices.map((service) => (
-                            <SelectItem key={service} value={service}>
-                              {service}
-                            </SelectItem>
+                    <div className="flex items-center space-x-2 ">
+                      <div className="flex-1 relative">
+                        <div className="flex flex-wrap items-center gap-2 px-1 border border-gray-300 rounded-md bg-white focus-within:border-[#4A48FF] focus-within:ring-1 focus-within:ring-[#4A48FF] min-h-[40px]">
+                          {selectedServices.map((service, index) => (
+                            <Badge key={index} variant="secondary" className="bg-gray-100  text-gray-700 px-2 py-1 rounded-full flex items-center space-x-1 text-sm">
+                              <span>{service}</span>
+                              <button
+                                onClick={() => removeService(service)}
+                                className="ml-1 hover:text-red-500 transition-colors"
+                              >
+                                <X className="h-3 w-3" />
+                              </button>
+                            </Badge>
                           ))}
-                        </SelectContent>
-                      </Select>
+                          <Input
+                            value={newService}
+                            onChange={(e) => setNewService(e.target.value)}
+                            className="flex-1 border-none focus:ring-0 focus:border-none p-0 min-w-[120px]"
+                            placeholder={selectedServices.length === 0 ? "Select service" : ""}
+                            onKeyPress={(e) => {
+                              if (e.key === 'Enter') {
+                                e.preventDefault();
+                                addService();
+                              }
+                            }}
+                          />
+                        </div>
+                      </div>
                       <Button onClick={addService} className="bg-[#4A48FF] hover:bg-[#4A48FF] text-white px-3 py-2 rounded">
                         + Add
                       </Button>
-                    </div>
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {selectedServices.map((service, index) => (
-                        <Badge key={index} variant="secondary" className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full flex items-center space-x-1">
-                          <span>{service}</span>
-                          <button
-                            onClick={() => removeService(service)}
-                            className="ml-1 hover:text-red-500 transition-colors"
-                          >
-                            <X className="h-3 w-3" />
-                          </button>
-                        </Badge>
-                      ))}
                     </div>
                   </div>
                 </div>
@@ -751,92 +753,64 @@ export default function AIAgentPage() {
                   </div>
                 </div>
 
-                {/* Show all days when custom hours is disabled */}
-                {!customHours && (
-                  <div className="space-y-3">
-                    {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day) => (
-                      <div key={day} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
-                        <div className="flex items-center space-x-4 flex-1">
-                          <span className="font-medium text-gray-900 capitalize min-w-[80px]">
-                            {day.charAt(0).toUpperCase() + day.slice(1)}
-                          </span>
-                          <span className="text-gray-500">24/7 Available</span>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                          <span className="text-sm text-green-600">Opened</span>
-                          <div className="w-10 h-6 rounded-full bg-green-500 relative">
-                            <div className="w-4 h-4 bg-white rounded-full absolute top-1 right-1"></div>
-                          </div>
-                          <span className="text-sm text-green-600">Opened</span>
-                        </div>
+                {/* Weekly Schedule List */}
+                <div className="space-y-4">
+                  {Object.entries(dailyHours).map(([day, hours]) => (
+                    <div key={day} className="flex w-full justify-between items-center border border-gray-300  shadow-lg p-2 rounded-md">
+                      {/* Day Name */}
+                      <span className="font-bold text-gray-900 capitalize min-w-[80px]">
+                        {day.charAt(0).toUpperCase() + day.slice(1)}
+                      </span>
+
+                      {/* Time Inputs */}
+                      <div className="flex w-1/3 justify-between">
+                        <Select
+                          value={hours.startTime}
+                          onValueChange={(value) => updateDailyHours(day, 'startTime', value)}
+                        >
+                          <SelectTrigger className="w-32 border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {generateTimeOptions().map((option) => (
+                              <SelectItem key={option.value} value={option.value}>
+                                {option.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+
+                        <Select
+                          value={hours.endTime}
+                          onValueChange={(value) => updateDailyHours(day, 'endTime', value)}
+                        >
+                          <SelectTrigger className="w-32 border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {generateTimeOptions().map((option) => (
+                              <SelectItem key={option.value} value={option.value}>
+                                {option.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </div>
-                    ))}
-                  </div>
-                )}
 
-                {/* Custom Hours List - Only show when custom hours is enabled */}
-                {customHours && (
-                  <div className="space-y-3">
-                    {Object.entries(dailyHours).map(([day, hours]) => (
-                      <div key={day} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
-                        <div className="flex items-center space-x-4 flex-1">
-                          <span className="font-medium text-gray-900 capitalize min-w-[80px]">
-                            {day.charAt(0).toUpperCase() + day.slice(1)}
-                          </span>
-
-                          <Select
-                            value={hours.startTime}
-                            onValueChange={(value) => updateDailyHours(day, 'startTime', value)}
-                          >
-                            <SelectTrigger className="w-32 border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {generateTimeOptions().map((option) => (
-                                <SelectItem key={option.value} value={option.value}>
-                                  {option.label}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-
-                          <span className="text-gray-500">to</span>
-
-                          <Select
-                            value={hours.endTime}
-                            onValueChange={(value) => updateDailyHours(day, 'endTime', value)}
-                          >
-                            <SelectTrigger className="w-32 border-gray-300 focus:border-[#4A48FF] focus:ring-[#4A48FF]">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {generateTimeOptions().map((option) => (
-                                <SelectItem key={option.value} value={option.value}>
-                                  {option.label}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
+                      {/* Toggle Section */}
+                      <div className="flex w-1/3 justify-between ">
+                        <span className="text-sm text-red-600">Closed</span>
+                        <div
+                          className={`w-10 h-6 rounded-full relative cursor-pointer transition-colors ${hours.enabled ? 'bg-blue-500' : 'bg-gray-300'}`}
+                          onClick={() => updateDailyHours(day, 'enabled', !hours.enabled)}
+                        >
+                          <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${hours.enabled ? 'right-1' : 'left-1'}`}></div>
                         </div>
-
-                        <div className="flex items-center space-x-3">
-                          <span className={`text-sm ${hours.enabled ? 'text-green-600' : 'text-red-600'}`}>
-                            {hours.enabled ? 'Opened' : 'Closed'}
-                          </span>
-                          <div
-                            className={`w-10 h-6 rounded-full relative cursor-pointer transition-colors ${hours.enabled ? 'bg-blue-500' : 'bg-gray-300'}`}
-                            onClick={() => updateDailyHours(day, 'enabled', !hours.enabled)}
-                          >
-                            <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${hours.enabled ? 'right-1' : 'left-1'}`}></div>
-                          </div>
-                          <span className={`text-sm ${hours.enabled ? 'text-green-600' : 'text-red-600'}`}>
-                            {hours.enabled ? 'Opened' : 'Closed'}
-                          </span>
-                        </div>
+                        <span className="text-sm text-green-600">Opened</span>
                       </div>
-                    ))}
-                  </div>
-                )}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
