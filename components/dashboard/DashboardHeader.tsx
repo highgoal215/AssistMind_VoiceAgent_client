@@ -21,12 +21,14 @@ export function DashboardHeader({
   isExporting = false
 }: DashboardHeaderProps) {
   return (
-    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
-      <h2 className="text-3xl font-bold text-gray-900">Analytics Dashboard</h2>
+    <div className="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0">
+      <div className="text-center lg:text-left">
+        <h2 className="text-2xl lg:text-3xl font-bold text-gray-900">Analytics Dashboard</h2>
+      </div>
 
-      <div className="flex items-center space-x-2">
+      <div className="flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-2">
         <Select value={timeRange} onValueChange={onTimeRangeChange}>
-          <SelectTrigger className="h-9 px-3 bg-white border-gray-200 text-sm font-semibold">
+          <SelectTrigger className="w-full sm:w-auto h-9 px-3 bg-white border-gray-200 text-sm font-semibold">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -35,26 +37,30 @@ export function DashboardHeader({
             <SelectItem value="90days">Last 90 Days</SelectItem>
           </SelectContent>
         </Select>
-        <Button 
-          variant="outline" 
-          size="sm" 
-          className="h-9 px-3 bg-white border-gray-200 text-sm font-semibold font-manrope"
-          onClick={onRefresh}
-          disabled={isRefreshing}
-        >
-          <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
-          {isRefreshing ? 'Refreshing...' : 'Refresh'}
-        </Button>
-        <Button 
-          variant="outline" 
-          size="sm" 
-          className="h-9 px-3 bg-white border-gray-200 text-sm font-semibold font-manrope"
-          onClick={onExport}
-          disabled={isExporting}
-        >
-          <Download className={`h-4 w-4 mr-2 ${isExporting ? 'animate-spin' : ''}`} />
-          {isExporting ? 'Exporting...' : 'Export'}
-        </Button>
+        <div className="flex w-full sm:w-auto space-x-2">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="flex-1 sm:flex-none h-9 px-3 bg-white border-gray-200 text-sm font-semibold font-manrope"
+            onClick={onRefresh}
+            disabled={isRefreshing}
+          >
+            <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
+            <span className="hidden sm:inline">{isRefreshing ? 'Refreshing...' : 'Refresh'}</span>
+            <span className="sm:hidden">{isRefreshing ? '...' : 'Refresh'}</span>
+          </Button>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="flex-1 sm:flex-none h-9 px-3 bg-white border-gray-200 text-sm font-semibold font-manrope"
+            onClick={onExport}
+            disabled={isExporting}
+          >
+            <Download className={`h-4 w-4 mr-2 ${isExporting ? 'animate-spin' : ''}`} />
+            <span className="hidden sm:inline">{isExporting ? 'Exporting...' : 'Export'}</span>
+            <span className="sm:hidden">{isExporting ? '...' : 'Export'}</span>
+          </Button>
+        </div>
       </div>
     </div>
   )

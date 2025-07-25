@@ -80,26 +80,26 @@ export function CallRecordsTable({ records, onViewMore }: CallRecordsTableProps)
 
   const SortIcon = ({ field }: { field: SortField }) => {
     if (sortField !== field) {
-      return <ChevronUp className="h-4 w-4 text-gray-400" />
+      return <ChevronUp className="h-3 w-3 sm:h-4 sm:w-4 text-gray-400" />
     }
     return sortDirection === 'asc' 
-      ? <ChevronUp className="h-4 w-4 text-gray-600" />
-      : <ChevronDown className="h-4 w-4 text-gray-600" />
+      ? <ChevronUp className="h-3 w-3 sm:h-4 sm:w-4 text-gray-600" />
+      : <ChevronDown className="h-3 w-3 sm:h-4 sm:w-4 text-gray-600" />
   }
 
   return (
     <div className='flex flex-col w-full'>
       <Card className='flex flex-col'>
         <CardHeader>
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
-            <div>
-              <CardTitle className="text-3xl font-manrope font-bold">Call Records</CardTitle>
-              <p className="text-md font-semibold text-gray-500">Latest call interactions</p>
+          <div className="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0">
+            <div className="text-center lg:text-left">
+              <CardTitle className="text-xl sm:text-2xl lg:text-3xl font-manrope font-bold">Call Records</CardTitle>
+              <p className="text-sm sm:text-md font-semibold text-gray-500 mt-1">Latest call interactions</p>
             </div>
             <Button 
               variant="outline" 
               size="sm" 
-              className='font-bold text-md font-manrope'
+              className='font-bold text-sm sm:text-md font-manrope w-full sm:w-auto'
               onClick={onViewMore}
             >
               View More
@@ -107,39 +107,42 @@ export function CallRecordsTable({ records, onViewMore }: CallRecordsTableProps)
           </div>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col justify-between items-center overflow-x-auto">
-            <table className="w-full">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[600px]">
               <thead>
                 <tr className="bg-gray-50">
                   <th 
-                    className="text-left py-3 px-4 text-md font-bold font-manrope text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
+                    className="text-left py-2 sm:py-3 px-2 sm:px-4 text-xs sm:text-sm lg:text-md font-bold font-manrope text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
                     onClick={() => handleSort('callerId')}
                   >
                     <div className="flex items-center space-x-1">
-                      <span>CALLER ID</span>
+                      <span className="hidden sm:inline">CALLER ID</span>
+                      <span className="sm:hidden">CALLER</span>
                       <SortIcon field="callerId" />
                     </div>
                   </th>
                   <th 
-                    className="text-left py-3 px-4 text-md font-bold font-manrope text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
+                    className="text-left py-2 sm:py-3 px-2 sm:px-4 text-xs sm:text-sm lg:text-md font-bold font-manrope text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
                     onClick={() => handleSort('dateTime')}
                   >
                     <div className="flex items-center space-x-1">
-                      <span>DATE & TIME</span>
+                      <span className="hidden lg:inline">DATE & TIME</span>
+                      <span className="hidden sm:inline lg:hidden">DATE</span>
+                      <span className="sm:hidden">TIME</span>
                       <SortIcon field="dateTime" />
                     </div>
                   </th>
                   <th 
-                    className="text-left py-3 px-4 text-md font-bold font-manrope text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
+                    className="text-left py-2 sm:py-3 px-2 sm:px-4 text-xs sm:text-sm lg:text-md font-bold font-manrope text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
                     onClick={() => handleSort('duration')}
                   >
                     <div className="flex items-center space-x-1">
-                      <span>DURATION</span>
+                      <span>DUR</span>
                       <SortIcon field="duration" />
                     </div>
                   </th>
                   <th 
-                    className="text-left py-3 px-4 text-md font-bold font-manrope text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
+                    className="text-left py-2 sm:py-3 px-2 sm:px-4 text-xs sm:text-sm lg:text-md font-bold font-manrope text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
                     onClick={() => handleSort('status')}
                   >
                     <div className="flex items-center space-x-1">
@@ -148,7 +151,7 @@ export function CallRecordsTable({ records, onViewMore }: CallRecordsTableProps)
                     </div>
                   </th>
                   <th 
-                    className="text-left py-3 px-4 text-md font-bold font-manrope text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
+                    className="text-left py-2 sm:py-3 px-2 sm:px-4 text-xs sm:text-sm lg:text-md font-bold font-manrope text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
                     onClick={() => handleSort('result')}
                   >
                     <div className="flex items-center space-x-1">
@@ -161,27 +164,30 @@ export function CallRecordsTable({ records, onViewMore }: CallRecordsTableProps)
               <tbody className="bg-white divide-y divide-gray-200">
                 {sortedRecords.map((record, index) => (
                   <tr key={index} className="hover:bg-gray-50 transition-colors">
-                    <td className="py-3 px-4 text-sm font-bold font-manrope text-gray-900">
-                      {record.callerId}
+                    <td className="py-2 sm:py-3 px-2 sm:px-4 text-xs sm:text-sm font-bold font-manrope text-gray-900">
+                      <span className="hidden sm:inline">{record.callerId}</span>
+                      <span className="sm:hidden">{record.callerId.split(' ').pop()}</span>
                     </td>
-                    <td className="py-3 px-4 text-sm font-bold font-manrope text-gray-900">
-                      {record.dateTime}
+                    <td className="py-2 sm:py-3 px-2 sm:px-4 text-xs sm:text-sm font-bold font-manrope text-gray-900">
+                      <span className="hidden lg:inline">{record.dateTime}</span>
+                      <span className="hidden sm:inline lg:hidden">{record.dateTime.split(' ')[0]}</span>
+                      <span className="sm:hidden">{record.dateTime.split(' ').slice(-2).join(' ')}</span>
                     </td>
-                    <td className="py-3 px-4 text-sm font-bold font-manrope text-gray-900">
+                    <td className="py-2 sm:py-3 px-2 sm:px-4 text-xs sm:text-sm font-bold font-manrope text-gray-900">
                       {record.duration}
                     </td>
-                    <td className="py-3 px-4">
+                    <td className="py-2 sm:py-3 px-2 sm:px-4">
                       <Badge
                         variant="secondary"
-                        className={`text-xs px-2 py-1 rounded-full ${getStatusBadgeClass(record.status)}`}
+                        className={`text-xs px-1 sm:px-2 py-1 rounded-full ${getStatusBadgeClass(record.status)}`}
                       >
                         {record.status}
                       </Badge>
                     </td>
-                    <td className="py-3 px-4">
+                    <td className="py-2 sm:py-3 px-2 sm:px-4">
                       <Badge
                         variant="secondary"
-                        className={`text-xs px-2 py-1 rounded-full ${getResultBadgeClass(record.result)}`}
+                        className={`text-xs px-1 sm:px-2 py-1 rounded-full ${getResultBadgeClass(record.result)}`}
                       >
                         {record.result}
                       </Badge>

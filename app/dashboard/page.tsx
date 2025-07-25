@@ -165,8 +165,8 @@ export default function DashboardPage() {
         <Header onMobileMenuToggle={() => setIsMobileMenuOpen(true)} />
 
         {/* Dashboard Content */}
-        <main className="flex-1 overflow-auto p-4 lg:p-6">
-          <div className="space-y-6">
+        <main className="flex-1 overflow-auto p-3 sm:p-4 lg:p-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Analytics Dashboard Header */}
             <DashboardHeader
               timeRange={timeRange}

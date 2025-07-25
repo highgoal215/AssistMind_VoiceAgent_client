@@ -27,34 +27,37 @@ export function ChartsSection({
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
       <div className="lg:col-span-2">
         {/* Call Volume Over Time */}
         <Card>
           <CardHeader>
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
-              <div>
-                <CardTitle className="text-3xl font-bold font-manrope">Call Volume Over Time</CardTitle>
-                <p className="text-md font-semibold font-manrope text-gray-500">Long-term trends in call volume</p>
+            <div className="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0">
+              <div className="text-center lg:text-left">
+                <CardTitle className="text-xl sm:text-2xl lg:text-3xl font-bold font-manrope">Call Volume Over Time</CardTitle>
+                <p className="text-sm sm:text-md font-semibold font-manrope text-gray-500 mt-1">Long-term trends in call volume</p>
               </div>
               <ToggleGroup 
                 type="single" 
                 value={callVolumeView} 
                 onValueChange={(value) => value && onCallVolumeViewChange(value)}
+                className="flex w-full sm:w-auto"
               >
                 <ToggleGroupItem
                   value="weekly"
                   size="sm"
-                  className="px-4 py-2 text-md font-semibold rounded-md transition-all data-[state]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 hover:data-[state=off]:bg-gray-50"
+                  className="flex-1 sm:flex-none px-3 sm:px-4 py-2 text-sm sm:text-md font-semibold rounded-md transition-all data-[state]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 hover:data-[state=off]:bg-gray-50"
                 >
-                  Weekly View
+                  <span className="hidden sm:inline">Weekly View</span>
+                  <span className="sm:hidden">Weekly</span>
                 </ToggleGroupItem>
                 <ToggleGroupItem
                   value="monthly"
                   size="sm"
-                  className="px-4 py-2 text-md font-semibold rounded-md transition-all data-[state=on]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 hover:data-[state=off]:bg-gray-50"
+                  className="flex-1 sm:flex-none px-3 sm:px-4 py-2 text-sm sm:text-md font-semibold rounded-md transition-all data-[state=on]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 hover:data-[state=off]:bg-gray-50"
                 >
-                  Monthly View
+                  <span className="hidden sm:inline">Monthly View</span>
+                  <span className="sm:hidden">Monthly</span>
                 </ToggleGroupItem>
               </ToggleGroup>
             </div>
@@ -66,7 +69,7 @@ export function ChartsSection({
                 <AlertDescription>{chartError}</AlertDescription>
               </Alert>
             )}
-            <div className="min-h-[300px]">
+            <div className="min-h-[250px] sm:min-h-[300px]">
               <CallVolumeChart timeRange={timeRange} />
             </div>
           </CardContent>
@@ -77,11 +80,13 @@ export function ChartsSection({
         {/* Call Intent Breakdown */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-3xl font-manrope font-bold">Call Intent Breakdown</CardTitle>
-            <p className="text-md font-semibold text-gray-500">Breakdown of common call reasons</p>
+            <div className="text-center lg:text-left">
+              <CardTitle className="text-xl sm:text-2xl lg:text-3xl font-manrope font-bold">Call Intent Breakdown</CardTitle>
+              <p className="text-sm sm:text-md font-semibold text-gray-500 mt-1">Breakdown of common call reasons</p>
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="min-h-[300px]">
+            <div className="min-h-[250px] sm:min-h-[300px]">
               <CallIntentChart />
             </div>
           </CardContent>
