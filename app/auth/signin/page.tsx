@@ -23,7 +23,7 @@ export default function SignInPage() {
   const handleSignIn = () => {
     // Handle sign in logic
     console.log("Sign in with:", { email, password, rememberMe })
-    router.push("/dashboard")
+    router.push("/ai-agent")
   }
 
   const handleGoogleSignIn = () => {
