@@ -84,7 +84,7 @@ export default function HearAgentPage() {
             </div>
 
             {/* Progress Indicator */}
-            <div className="mt-16 mb-16">
+            <div className="mt-10 mb-16">
               <SignupProgress currentStep={2} />
             </div>
 

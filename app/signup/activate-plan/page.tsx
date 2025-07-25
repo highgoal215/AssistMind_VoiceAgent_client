@@ -110,7 +110,7 @@ export default function ActivatePlanPage() {
             </div>
 
             {/* Progress Indicator */}
-            <div className="mt-16 mb-16">
+            <div className="mt-10 mb-16">
               <SignupProgress currentStep={4} />
             </div>
 
@@ -125,14 +125,14 @@ export default function ActivatePlanPage() {
             </div>
 
             {/* Plans Grid */}
-            <div className="space-y-6 lg:space-y-0 lg:grid lg:grid-cols-1 lg:gap-6 lg:max-w-4xl lg:h-full">
+            <div className="space-y-2 lg:space-y-0 lg:grid lg:grid-cols-1 lg:gap-6 lg:max-w-4xl lg:h-min-screen">
               {/* Basic Plan */}
-              <div className="relative bg-white rounded-2xl border border-gray-200 p-6 lg:px-6 lg:py-2">
+              <div className="relative bg-white rounded-2xl border border-gray-200 p-6 lg:px-6 lg:py-1">
                 <div className="absolute top-6 right-6">
                   <span className="bg-[#a3a3cf] text-[#4A48FF] text-md px-3 py-1 rounded-full font-manrope font-semibold">Popular</span>
                 </div>
 
-                <div className="mb-6">
+                <div className="mb-2">
                   <h3 className="text-lg font-bold text-gray-900 mb-4 font-manrope">Basic plan</h3>
                   <div className="flex items-baseline mb-6">
                     <span className="text-4xl font-bold text-gray-900 font-manrope">$10</span>

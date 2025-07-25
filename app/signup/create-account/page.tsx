@@ -92,7 +92,7 @@ export default function CreateAccountPage() {
             </div>
 
             {/* Progress Indicator */}
-            <div className="mt-16 mb-16">
+            <div className="mt-10 mb-16">
               <SignupProgress currentStep={3} />
             </div>
 

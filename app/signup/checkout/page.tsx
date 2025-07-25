@@ -104,7 +104,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Progress Indicator */}
-            <div className="mt-16 mb-16">
+            <div className="mt-10 mb-16">
               <SignupProgress currentStep={4} />
             </div>
 
@@ -119,7 +119,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Payment Form */}
-            <div className="space-y-6">
+            <div className="space-y-2">
               {/* Apple Pay Button */}
               <button
                 onClick={handleApplePay}

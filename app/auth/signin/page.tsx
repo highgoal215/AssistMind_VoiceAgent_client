@@ -79,7 +79,7 @@ export default function SignInPage() {
           {/* Right Column - Signin Form */}
           <div className="w-full h-full lg:w-1/2 p-8 lg:p-12 ">
             {/* Mobile Logo */}
-            <div className="flex items-center justify-center mt-16 mb-16 lg:hidden">
+            <div className="flex items-center justify-center mt-10 mb-16 lg:hidden">
               <div className="flex items-center">
                 <div>
                   <Image
