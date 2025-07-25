@@ -42,92 +42,100 @@ export default function BusinessDetailsPage() {
         {/* Main Content Container */}
         <GradientBackground>
           <div className="px-6 lg:px-0  lg:pt-[70px] pt-[50px] pb-6 lg:pb-0 h-full overflow-y-auto lg:flex-1 lg:flex lg:flex-col lg:pl-[52px]">
-            <SignupProgress currentStep={1} />
-
-            <div className="space-y-6 lg:space-y-0 lg:flex lg:flex-col lg:pt-[40px]">
-              {/* Header Section */}
-              <div className="flex flex-col justify-center items-center pt-[20px] lg:pt-0 lg:items-start">
-                <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2 font-manrope text-center lg:text-left">Enter Your Business Details</h2>
-                <p className="text-gray-600 mb-8 lg:mb-8 font-manrope lg:text-[18px] text-center lg:text-left">Let's manually set up your business details to connect your AI agent</p>
-              </div>
-
-              {/* Form Fields */}
-              <div className="space-y-6 lg:space-y-10 lg:flex lg:flex-col">
-                {/* Business Name Field */}
-                <div className="flex flex-col gap-[14px] lg:gap-[14px]">
-                  <Label htmlFor="business-name" className="text-[16px] lg:text-[18px] font-bold text-gray-700 mb-2 block font-manrope">
-                    Business Name
-                  </Label>
-                  <Input
-                    id="business-name"
-                    placeholder="Business name"
-                    value={businessName}
-                    onChange={(e) => setBusinessName(e.target.value)}
-                    className="w-full h-12 lg:h-[56px] border-2 border-blue-600 lg:border-gray-300 rounded-lg font-manrope"
-                  />
+            {/* Modal-style container for desktop */}
+            <div className="lg:flex lg:items-center lg:justify-center lg:h-full lg:pr-[52px] lg:pt-0">
+              <div className="lg:bg-white lg:rounded-2xl lg:shadow-2xl lg:p-8 lg:w-full lg:max-w-lg lg:border lg:border-gray-100 lg:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)]">
+                {/* Progress indicator inside modal */}
+                <div className="lg:mb-6">
+                  <SignupProgress currentStep={1} />
                 </div>
 
-                {/* Website Field */}
-                <div className="flex flex-col gap-[14px] lg:gap-[14px]">
-                  <Label htmlFor="website" className="text-[16px] lg:text-[18px] font-bold text-gray-700 mb-2 block font-manrope">
-                    Website
-                  </Label>
-                  <Input
-                    id="website"
-                    placeholder="https://yourbusiness.com"
-                    value={website}
-                    onChange={(e) => setWebsite(e.target.value)}
-                    className="w-full h-12 lg:h-[56px] border border-gray-300 lg:border-gray-300 rounded-lg font-manrope"
-                  />
-                </div>
+                <div className="space-y-6 lg:space-y-0 lg:flex lg:flex-col lg:pt-[40px]">
+                  {/* Header Section */}
+                  <div className="flex flex-col justify-center items-center pt-[20px] lg:pt-0 lg:items-start">
+                    <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2 font-manrope text-center lg:text-left">Enter Your Business Details</h2>
+                    <p className="text-gray-600 mb-8 lg:mb-8 font-manrope lg:text-[18px] text-center lg:text-left">Let's manually set up your business details to connect your AI agent</p>
+                  </div>
 
-                {/* Phone Number Field */}
-                <div className="flex flex-col gap-[14px] lg:gap-[14px]">
-                  <Label htmlFor="phone" className="text-[16px] lg:text-[18px] font-bold text-gray-700 mb-2 block font-manrope">
-                    Business Phone number
-                  </Label>
-                  <Input
-                    id="phone"
-                    placeholder="Phone number"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                    className="w-full h-12 lg:h-[56px] border border-gray-300 lg:border-gray-300 rounded-lg font-manrope"
-                  />
-                </div>
-              </div>
+                  {/* Form Fields */}
+                  <div className="space-y-6 lg:space-y-10 lg:flex lg:flex-col">
+                    {/* Business Name Field */}
+                    <div className="flex flex-col gap-[14px] lg:gap-[14px]">
+                      <Label htmlFor="business-name" className="text-[16px] lg:text-[18px] font-bold text-gray-700 mb-2 block font-manrope">
+                        Business Name
+                      </Label>
+                      <Input
+                        id="business-name"
+                        placeholder="Business name"
+                        value={businessName}
+                        onChange={(e) => setBusinessName(e.target.value)}
+                        className="w-full h-12 lg:h-[56px] border-2 border-blue-600 lg:border-gray-300 rounded-lg font-manrope"
+                      />
+                    </div>
 
-              {/* Action Buttons */}
-              <div className="space-y-4 lg:space-y-0 lg:pt-[40px]">
-                {/* Mobile: Stacked buttons */}
-                <div className="lg:hidden space-y-4">
-                  <Button
-                    onClick={handleNext}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 h-12 rounded-lg text-base font-manrope font-manrope"
-                    disabled={!businessName}
-                  >
-                    Next
-                  </Button>
-                  <Button
-                    onClick={handleBack}
-                    variant="outline"
-                    className="w-full py-3 h-12 rounded-lg text-base font-manrope bg-transparent border-gray-300 font-manrope"
-                  >
-                    Back
-                  </Button>
-                </div>
+                    {/* Website Field */}
+                    <div className="flex flex-col gap-[14px] lg:gap-[14px]">
+                      <Label htmlFor="website" className="text-[16px] lg:text-[18px] font-bold text-gray-700 mb-2 block font-manrope">
+                        Website
+                      </Label>
+                      <Input
+                        id="website"
+                        placeholder="https://yourbusiness.com"
+                        value={website}
+                        onChange={(e) => setWebsite(e.target.value)}
+                        className="w-full h-12 lg:h-[56px] border border-gray-300 lg:border-gray-300 rounded-lg font-manrope"
+                      />
+                    </div>
 
-                {/* Desktop: Side by side buttons */}
-                <div className="hidden lg:flex justify-center items-center w-full space-x-4">
-                  <Button onClick={handleBack} variant="outline" className="w-[193px] h-[56px] bg-transparent font-manrope">
-                    Back
-                  </Button>
-                  <Button
-                    onClick={handleNext}
-                    className="w-[193px] h-[56px] bg-blue-600 hover:bg-blue-700 text-white font-manrope"
-                    disabled={!businessName}
-                  >
-                    Next
-                  </Button>
+                    {/* Phone Number Field */}
+                    <div className="flex flex-col gap-[14px] lg:gap-[14px]">
+                      <Label htmlFor="phone" className="text-[16px] lg:text-[18px] font-bold text-gray-700 mb-2 block font-manrope">
+                        Business Phone number
+                      </Label>
+                      <Input
+                        id="phone"
+                        placeholder="Phone number"
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                        className="w-full h-12 lg:h-[56px] border border-gray-300 lg:border-gray-300 rounded-lg font-manrope"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="space-y-4 lg:space-y-0 lg:pt-[40px]">
+                    {/* Mobile: Stacked buttons */}
+                    <div className="lg:hidden space-y-4">
+                      <Button
+                        onClick={handleNext}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 h-12 rounded-lg text-base font-manrope font-manrope"
+                        disabled={!businessName}
+                      >
+                        Next
+                      </Button>
+                      <Button
+                        onClick={handleBack}
+                        variant="outline"
+                        className="w-full py-3 h-12 rounded-lg text-base font-manrope bg-transparent border-gray-300 font-manrope"
+                      >
+                        Back
+                      </Button>
+                    </div>
+
+                    {/* Desktop: Side by side buttons */}
+                    <div className="hidden lg:flex justify-center items-center w-full space-x-4">
+                      <Button onClick={handleBack} variant="outline" className="w-[193px] h-[56px] bg-transparent font-manrope">
+                        Back
+                      </Button>
+                      <Button
+                        onClick={handleNext}
+                        className="w-[193px] h-[56px] bg-blue-600 hover:bg-blue-700 text-white font-manrope"
+                        disabled={!businessName}
+                      >
+                        Next
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
