@@ -110,17 +110,22 @@ export default function HearAgentPage() {
                   {isPlaying ? <Pause className="w-4 h-4 lg:w-5 lg:h-5" /> : <Play className="w-4 h-4 lg:w-5 lg:h-5 ml-0.5" />}
                 </button>
 
-                <div className="flex-1 flex flex-col lg:flex-row lg:justify-between lg:items-center space-y-2 lg:space-y-0">
-                  <div className="w-full lg:w-auto bg-gray-300 rounded-full h-2 relative">
+                <div className="w-full flex flex-col lg:flex-row lg:justify-between lg:items-center space-y-2 lg:space-y-0">
+                  {/* Progress Track */}
+                  <div className="w-full flex bg-gray-300 rounded-full h-2 relative ">
+                    {/* Progress Fill */}
                     <div
-                      className="bg-gray-400 h-2 rounded-full transition-all duration-300"
+                      className="bg-[#9DA3A8] h-2 rounded-full transition-all duration-300"
                       style={{ width: '65%' }}
-                    >
-                      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-2.5 h-2.5 lg:w-3 lg:h-3 bg-gray-200 rounded-full shadow-sm border border-gray-300"></div>
-                    </div>
+                    />
+                    {/* Draggable Knob */}
+                    <div 
+                      className="absolute w-3 h-3 bg-gray-200 border border-gray-400 rounded-full shadow-sm -top-0.5 transition-all duration-300"
+                      style={{ left: 'calc(65% - 6px)' }}
+                    />
                   </div>
                   <div className="flex justify-end text-xs lg:text-sm text-gray-600">
-                    <span className="font-manrope font-medium">1m 12s</span>
+                    <span className="font-manrope font-medium ">1m 12s</span>
                   </div>
                 </div>
               </div>

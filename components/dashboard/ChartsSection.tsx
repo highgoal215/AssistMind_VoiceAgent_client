@@ -46,7 +46,7 @@ export function ChartsSection({
                 <ToggleGroupItem
                   value="weekly"
                   size="sm"
-                  className="flex-1 sm:flex-none px-3 sm:px-4 py-2 text-sm sm:text-md font-semibold rounded-md transition-all data-[state]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 hover:data-[state=off]:bg-gray-50"
+                  className="flex-1 sm:flex-none px-3 sm:px-4 py-2 text-sm sm:text-md font-semibold rounded-md transition-all data-[state=on]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 bg-[#FFFFFF]"
                 >
                   <span className="hidden sm:inline">Weekly View</span>
                   <span className="sm:hidden">Weekly</span>
@@ -54,7 +54,7 @@ export function ChartsSection({
                 <ToggleGroupItem
                   value="monthly"
                   size="sm"
-                  className="flex-1 sm:flex-none px-3 sm:px-4 py-2 text-sm sm:text-md font-semibold rounded-md transition-all data-[state=on]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 hover:data-[state=off]:bg-gray-50"
+                  className="flex-1 sm:flex-none px-3 sm:px-4 py-2 text-sm sm:text-md font-semibold rounded-md transition-all data-[state=on]:bg-[#4A48FF] data-[state=on]:text-white data-[state=off]:bg-white data-[state=off]:text-gray-700 data-[state=off]:border data-[state=off]:border-gray-200 bg-[#FFFFFF]"
                 >
                   <span className="hidden sm:inline">Monthly View</span>
                   <span className="sm:hidden">Monthly</span>

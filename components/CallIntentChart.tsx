@@ -7,26 +7,26 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js'
+import ChartDataLabels from 'chartjs-plugin-datalabels'
 import { Doughnut } from 'react-chartjs-2'
 
+// Register chart components & plugins
 ChartJS.register(
   ArcElement,
   Tooltip,
-  Legend
+  Legend,
+  ChartDataLabels
 )
 
 const CallIntentChart = () => {
+  const chartColors = ['#4A48FF', '#F36666', '#0EB770', '#FAA65D']
+
   const data = {
     labels: ['Appointments', 'Inquiries', 'Messages', 'Transfers'],
     datasets: [
       {
         data: [30, 45, 15, 10],
-        backgroundColor: [
-          '#3B82F6', // Blue for Appointments (30%)
-          '#EF4444', // Red for Inquiries (45%)
-          '#10B981', // Green for Messages (15%)
-          '#F59E0B', // Orange for Transfers (10%)
-        ],
+        backgroundColor: chartColors,
         borderWidth: 0,
         cutout: '60%',
       },
@@ -35,6 +35,8 @@ const CallIntentChart = () => {
 
   const options = {
     responsive: true,
+    rotation: -Math.PI-50,
+    // circumference: Math.PI * 2,
     maintainAspectRatio: false,
     plugins: {
       legend: {
@@ -57,9 +59,7 @@ const CallIntentChart = () => {
           weight: '400',
         },
         callbacks: {
-          title: (context: any) => {
-            return context[0].label
-          },
+          title: (context: any) => context[0].label,
           label: (context: any) => {
             const total = context.dataset.data.reduce((a: number, b: number) => a + b, 0)
             const percentage = ((context.parsed / total) * 100).toFixed(1)
@@ -67,14 +67,27 @@ const CallIntentChart = () => {
           },
         },
       },
+      datalabels: {
+        color: '#ffffff',
+        font: {
+          weight: 'bold',
+          size: 14,
+        },
+        formatter: (value: number, context: any) => {
+          const dataArr = context.chart.data.datasets[0].data;
+          const total = dataArr.reduce((acc: number, cur: number) => acc + cur, 0);
+          const percentage = ((value / total) * 100).toFixed(0);
+          return `${percentage}%`;
+        },
+      },
     },
   }
 
   const legendData = [
-    { name: 'Appointments', color: '#3B82F6', value: 30, percentage: 30 },
-    { name: 'Inquiries', color: '#EF4444', value: 45, percentage: 45 },
-    { name: 'Messages', color: '#10B981', value: 15, percentage: 15 },
-    { name: 'Transfers', color: '#F59E0B', value: 10, percentage: 10 },
+    { name: 'Appointments', color: chartColors[0], value: 30, percentage: 30 },
+    { name: 'Inquiries', color: chartColors[1], value: 45, percentage: 45 },
+    { name: 'Messages', color: chartColors[2], value: 15, percentage: 15 },
+    { name: 'Transfers', color: chartColors[3], value: 10, percentage: 10 },
   ]
 
   return (
@@ -86,7 +99,7 @@ const CallIntentChart = () => {
         </div>
       </div>
 
-      {/* Legend - Below chart on medium screens, to the right on large screens */}
+      {/* Legend */}
       <div className="flex-shrink-0 lg:ml-8 w-full lg:w-auto">
         <div className="grid grid-cols-2 lg:grid-cols-1 gap-3 lg:gap-4">
           {legendData.map((item, index) => (
@@ -106,4 +119,4 @@ const CallIntentChart = () => {
   )
 }
 
-export default CallIntentChart 
+export default CallIntentChart
