@@ -78,7 +78,7 @@ export function SignupPaymentSection({
             placeholder="Card number"
             value={cardNumber}
             onChange={(e) => onCardNumberChange(e.target.value)}
-            className="w-full h-12 lg:h-[56px] border-2 border-gray-300 lg:border-gray-300 rounded-lg pl-12 lg:pl-16 font-manrope font-semibold"
+            className="w-full h-12 lg:h-[56px] border-2 border-gray-300 lg:border-gray-300 rounded-lg pl-14 lg:pl-16 font-manrope font-semibold"
           />
           <div className="absolute left-1 top-1/2 transform -translate-y-1/2 flex space-x-1">
             <div className="w-6 h-4 bg-red-500 rounded-sm"></div>

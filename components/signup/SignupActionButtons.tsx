@@ -20,9 +20,9 @@ export function SignupActionButtons({
   className = "" 
 }: SignupActionButtonsProps) {
   return (
-    <div className={`space-y-4 lg:space-y-0 lg:pt-[20px] ${className}`}>
+    <div className={`space-y-1 lg:space-y-0  ${className}`}>
       {/* Mobile: Stacked buttons */}
-      <div className="lg:hidden space-y-4">
+      <div className="lg:hidden space-y-1">
         <SignupButton onClick={onNext} disabled={nextDisabled}>
           {nextText}
         </SignupButton>
@@ -34,7 +34,7 @@ export function SignupActionButtons({
       </div>
 
       {/* Desktop: Side by side buttons */}
-      <div className="hidden lg:flex justify-between items-center w-full pt-[26px]">
+      <div className="hidden lg:flex justify-between items-center w-full  ">
         {showBack && (
           <SignupButton onClick={onBack} variant="outline" fullWidth={false}>
             {backText}

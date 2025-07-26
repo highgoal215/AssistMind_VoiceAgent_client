@@ -7,7 +7,7 @@ interface SignupFormSectionProps {
 
 export function SignupFormSection({ children, className = "" }: SignupFormSectionProps) {
   return (
-    <div className={`space-y-6 ${className}`}>
+    <div className={`space-y-4 ${className}`}>
       {children}
     </div>
   )

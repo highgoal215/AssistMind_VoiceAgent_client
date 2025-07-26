@@ -25,7 +25,7 @@ export function SignupPageLayout({ children, className = "" }: SignupPageLayoutP
             </video>
 
             {/* Content Overlay */}
-            <div className="relative z-10 p-12 flex flex-col w-full">
+            <div className="relative z-10 p-10 flex flex-col w-full">
               {/* Logo */}
               <div className="flex items-center mb-24">
                 <Image
@@ -50,7 +50,7 @@ export function SignupPageLayout({ children, className = "" }: SignupPageLayoutP
           {/* Right Column - Content */}
           <div className="w-full h-full lg:w-1/2 p-8 lg:p-12">
             {/* Mobile Logo */}
-            <div className="flex items-center justify-center mt-16 mb-8 lg:hidden">
+            <div className="flex items-center justify-center mt-8 mb-8 lg:hidden">
               <div className="flex items-center">
                 <Image
                   src="/images/logo2.svg"

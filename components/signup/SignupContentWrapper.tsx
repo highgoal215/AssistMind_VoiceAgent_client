@@ -17,9 +17,9 @@ export function SignupContentWrapper({
   className = "" 
 }: SignupContentWrapperProps) {
   return (
-    <div className={`space-y-6 ${className}`}>
+    <div className={`space-y-4 ${className}`}>
       {/* Progress Indicator */}
-      <div className="mt-10 mb-16">
+      <div className="mt-10 mb-14">
         <SignupProgress currentStep={currentStep} />
       </div>
 

@@ -17,7 +17,7 @@ export function SignupButton({
   className = "",
   fullWidth = true
 }: SignupButtonProps) {
-  const baseClasses = "h-12 lg:h-[56px] rounded-lg text-base font-manrope font-bold"
+  const baseClasses = "h-10 lg:h-[56px] rounded-lg text-base font-manrope font-bold"
   const widthClasses = fullWidth ? "w-full" : "lg:w-[193px]"
   const variantClasses = variant === "default" 
     ? "bg-[#4A48FF] hover:bg-[#4A48FF] text-white" 
