@@ -17,7 +17,7 @@ export function AuthButton({
 }: AuthButtonProps) {
   const baseClasses = "w-full font-semibold py-3 h-12 lg:h-auto rounded-lg text-base font-manrope"
   const variantClasses = variant === "default" 
-    ? "bg-[#4A48FF] hover:bg-blue-700 text-white" 
+    ? "bg-[#4A48FF] hover:bg-[#4A48FF] text-white" 
     : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
 
   return (

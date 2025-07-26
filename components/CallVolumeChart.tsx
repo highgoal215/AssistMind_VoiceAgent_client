@@ -36,13 +36,28 @@ const CallVolumeChart = ({ timeRange }: CallVolumeChartProps) => {
       {
         label: 'Call Volume',
         data: [15, 25, 35, 30, 55, 40, 20],
-        borderColor: '#3B82F6',
-        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+        borderColor: '#4A48FF',
+        // backgroundColor: '#4A48FF',
+        backgroundColor: (context :any) => {
+          const chart = context.chart;
+          const { ctx, chartArea } = chart;
+
+          if (!chartArea) {
+            // This ensures gradients are rendered correctly on first draw
+            return null;
+          }
+
+          // Create vertical gradient
+          const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+          gradient.addColorStop(0, '#4A48FF'); // Start color
+          gradient.addColorStop(1, '#4A48FF00'); // End transparent
+          return gradient;
+        },
         borderWidth: 2,
         fill: true,
         tension: 0.4,
-        pointBackgroundColor: '#3B82F6',
-        pointBorderColor: '#ffffff',
+        pointBackgroundColor: 'white',
+        pointBorderColor: '#4A48FF',
         pointBorderWidth: 2,
         pointRadius: 5,
         pointHoverRadius: 6,

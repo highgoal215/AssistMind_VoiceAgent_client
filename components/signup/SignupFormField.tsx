@@ -12,18 +12,18 @@ interface SignupFormFieldProps {
   required?: boolean
 }
 
-export function SignupFormField({ 
-  id, 
-  label, 
-  type = "text", 
-  placeholder, 
-  value, 
-  onChange, 
+export function SignupFormField({
+  id,
+  label,
+  type = "text",
+  placeholder,
+  value,
+  onChange,
   className = "",
-  required = false 
+  required = false
 }: SignupFormFieldProps) {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col ">
       <Label htmlFor={id} className="text-[16px] lg:text-[18px] font-bold text-gray-700 mb-2 block font-manrope">
         {label}
         {required && <span className="text-red-500 ml-1">*</span>}
@@ -34,8 +34,9 @@ export function SignupFormField({
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`w-full h-12 lg:h-[56px] border-2 border-blue-600 lg:border-gray-300 rounded-lg font-manrope font-bold ${className}`}
+        className={`w-full h-12 lg:h-[56px] border-2 border-blue-600 lg:border-gray-300  rounded-lg font-manrope  font-semibold text-[18px] placeholder:font-medium placeholder:text-[18px] ${className}`}
         required={required}
+        style={{ fontSize: '18px' }}
       />
     </div>
   )

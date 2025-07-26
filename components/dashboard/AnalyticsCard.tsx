@@ -1,4 +1,7 @@
+'use client'
+
 import React from 'react'
+import Image from 'next/image'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 interface AnalyticsCardProps {
@@ -19,26 +22,22 @@ export function AnalyticsCard({ title, value, description, trend }: AnalyticsCar
           <CardTitle className="text-sm lg:text-md font-manrope text-gray-600 font-bold leading-tight">
             {title}
           </CardTitle>
-          <div className={`flex items-center space-x-1 px-2 py-1 rounded-full text-xs lg:text-sm font-manrope font-semibold ${
-            trend.isPositive 
-              ? 'bg-green-100 text-green-600' 
-              : 'bg-red-100 text-red-600'
-          }`}>
+
+          <div
+            className={`flex items-center space-x-1 px-2 py-1 rounded-full text-xs lg:text-sm font-manrope font-semibold ${trend.isPositive ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
+              }`}
+          >
             <span>{trend.value}</span>
-            <svg 
-              className={`w-3 h-3 ${trend.isPositive ? '' : 'transform rotate-180'}`} 
-              fill="currentColor" 
-              viewBox="0 0 20 20"
-            >
-              <path 
-                fillRule="evenodd" 
-                d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" 
-                clipRule="evenodd" 
-              />
-            </svg>
+            <Image
+              src={trend.isPositive ? 'images/dashboard/up.svg' : 'images/dashboard/down.svg'}
+              alt={trend.isPositive ? 'Up' : 'Down'}
+              width={12}
+              height={12}
+            />
           </div>
         </div>
       </CardHeader>
+
       <CardContent>
         <div>
           <div className="text-2xl sm:text-3xl lg:text-[36px] font-bold text-gray-900 font-manrope leading-tight">
@@ -51,4 +50,4 @@ export function AnalyticsCard({ title, value, description, trend }: AnalyticsCar
       </CardContent>
     </Card>
   )
-} 
+}

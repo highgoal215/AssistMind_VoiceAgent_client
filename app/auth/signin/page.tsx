@@ -130,7 +130,6 @@ export default function SignInPage() {
 
               <AuthButton
                 onClick={handleSignIn}
-                disabled={!email || !password}
               >
                 Sign in
               </AuthButton>

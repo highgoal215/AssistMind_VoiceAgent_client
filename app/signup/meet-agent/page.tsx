@@ -143,13 +143,13 @@ export default function MeetAgentPage() {
               <h1 className="text-3xl font-bold text-gray-900 mb-2">
                 Meet Your AI Agent
               </h1>
-              <p className="text-gray-600">
+              <p className="text-gray-600 font-semibold">
                 Pick a name, voice and connect your business
               </p>
             </div>
 
             {/* Form Fields */}
-            <div className="space-y-6">
+            <div className="space-y-6 font-manrope font-medium text-md">
               {/* Agent Name Field */}
               <SignupFormField
                 id="agent-name"
@@ -161,12 +161,12 @@ export default function MeetAgentPage() {
 
               {/* Voice & Tone Field */}
               <div className="flex flex-col gap-[14px] lg:gap-[14px]">
-                <Label htmlFor="voice-tone" className="text-[16px] lg:text-[18px] font-bold text-gray-700 mb-2 block font-manrope">
+                <Label htmlFor="voice-tone" className="text-[16px] lg:text-[18px] font-bold text-gray-700 mb-2 block font-manrope  ">
                   Voice & Tone
                 </Label>
                 <Select value={voiceTone} onValueChange={setVoiceTone}>
-                  <SelectTrigger className="w-full h-12 lg:h-[56px] border border-gray-300 lg:border-gray-300 rounded-lg font-manrope font-semibold">
-                    <SelectValue placeholder="Female - Calm & Professional" />
+                  <SelectTrigger className="w-full h-12 lg:h-[56px] border border-gray-300 lg:border-gray-300 rounded-lg font-manrope text-[18px] font-medium placeholder:font-medium placeholder:text-[18px] placeholder:font-manrope">
+                    <SelectValue placeholder="Female - Calm & Professional"/>
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="female-calm">Female - Calm & Professional</SelectItem>
@@ -188,7 +188,8 @@ export default function MeetAgentPage() {
                     placeholder="Start typing to find your business"
                     value={businessSearch}
                     onChange={(e) => handleBusinessSearch(e.target.value)}
-                    className="w-full h-12 lg:h-[56px] border border-gray-300 lg:border-gray-300 rounded-lg pr-10 font-manrope"
+                    className="w-full h-12 lg:h-[56px] border border-gray-300 lg:border-gray-300 rounded-lg pr-10 font-manrope font-semibold text-[18px]"
+                    style={{fontSize:"18px"}}
                   />
                   <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 </div>
@@ -211,6 +212,13 @@ export default function MeetAgentPage() {
                           <div className="flex-1 min-w-0">
                             <h3 className=" text-gray-900 text-sm mb-1 lg:mb-0 lg:mt-0 font-manrope">{business.name}</h3>
                             <p className="text-xs text-gray-500 mb-2 lg:mb-1 lg:mt-1 font-manrope">{business.address}</p>
+                            <div className="flex flex-wrap gap-1 lg:mt-2">
+                              {business.tags.map((tag, index) => (
+                                <span key={index} className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded font-manrope">
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
                             <div className="flex items-center space-x-4 mb-2 lg:mb-0 lg:mt-2">
                               <div className="flex items-center">
                                 <Star className="w-3 h-3 text-yellow-400 fill-current" />
@@ -223,13 +231,7 @@ export default function MeetAgentPage() {
                                 <span className="text-xs text-red-600 ml-1 font-manrope">{business.status}</span>
                               </div>
                             </div>
-                            <div className="flex flex-wrap gap-1 lg:mt-2">
-                              {business.tags.map((tag, index) => (
-                                <span key={index} className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded font-manrope">
-                                  {tag}
-                                </span>
-                              ))}
-                            </div>
+                            
                           </div>
                         </div>
                       </div>
@@ -250,7 +252,6 @@ export default function MeetAgentPage() {
               <div className="flex justify-center items-center w-full pt-[40px] lg:pt-[40px]">
                 <SignupButton
                   onClick={handleNext}
-                  disabled={!agentName || !businessSearch}
                   fullWidth={false}
                   className="lg:w-[193px]"
                 >

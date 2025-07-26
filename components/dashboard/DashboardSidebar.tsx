@@ -53,16 +53,16 @@ export default function DashboardSidebar({
       
       {/* Sidebar */}
       <div className={cn(
-        "bg-[#FFFFFF] flex flex-col h-full transition-all duration-300 fixed lg:relative z-50 border border-gray-200",
+        "bg-[#FFFFFF] flex flex-col h-full transition-all duration-300 fixed lg:relative z-50 border-b border-gray-200",
         isCollapsed ? "w-16" : "w-64",
         isMobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
       )}>
         {/* Logo Section */}
-        <div className="p-[20px] border border-gray-200">
-          <div className="flex items-center justify-between gap-1">
+        <div className="py-3 border border-gray-300">
+          <div className="flex items-center justify-center gap-1 px-4">
             {!isCollapsed && (
               <div className="flex items-center space-x-2">
-                <Image src="/images/logo2.svg" alt="AssistMind AI" width={30} height={30} className='w-full h-full' />
+                <Image src="/images/logo2.svg" alt="AssistMind AI" width={30} height={30} className='w-3/4 min-h-min' />
               </div>
             )}
             <Tooltip>
@@ -78,7 +78,7 @@ export default function DashboardSidebar({
                     alt="Toggle sidebar"
                     width={isCollapsed ? 32 : 20}
                     height={isCollapsed ? 32 : 20}
-                    className="filter brightness-0"
+                    className="filter brightness-0 "
                   />
                 </Button>
               </TooltipTrigger>
@@ -91,7 +91,7 @@ export default function DashboardSidebar({
 
         {/* Navigation */}
         <nav className={cn(
-          "flex-1 py-6",
+          "flex-1 py-6 ",
           isCollapsed ? "px-2" : "px-4  "
         )}>
           <div className="mb-1 ">
@@ -112,7 +112,7 @@ export default function DashboardSidebar({
                           isCollapsed ? "px-2 py-3 justify-center" : "px-3 py-2",
                           isActive
                             ? "bg-[#4A48FF] text-white shadow-lg"
-                            : "text-gray-800 hover:bg-gray-300 hover:text-black font-manrope font-bold"
+                            : "text-[#212123] hover:bg-gray-300 hover:text-black font-manrope font-bold"
                         )}
                       >
                         <Image 
@@ -142,24 +142,29 @@ export default function DashboardSidebar({
         {/* Trial Plan Card */}
         {!isCollapsed && (
           <div className="p-4">
-            <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg p-4 text-white">
+            <div
+              className="rounded-[16px] p-4 text-white"
+              style={{
+                background: 'linear-gradient(135deg, #4A48FF, #4A48FF, #43CBFF)',
+              }}
+            >
               <h3 className="text-lg font-bold font-manrope mb-2">7 Day Free Trial</h3>
-              <p className="text-sm font-bold font-manrope mb-2">30 minutes of free usage.</p>
-              <p className="text-sm font-bold font-manrope mb-3">3 days left</p>
+              <p className="text-sm font-medium font-manrope mb-2">30 minutes of free usage.</p>
+              <p className="text-sm font-medium font-manrope mb-3">3 days left</p>
 
               {/* Progress Bar */}
-              <div className="w-full bg-white/20 rounded-full h-2 mb-2">
+              <div className="w-full bg-white/20 rounded-[70px] h-2 mb-2">
                 <div
-                  className="bg-gradient-to-r from-blue-400 to-purple-400 h-2 rounded-full transition-all duration-300"
+                  className="bg-gradient-to-r from-[#EEEEFF] to-[#4A48FF] h-2 rounded-full transition-all duration-300"
                   style={{ width: '60%' }}
                 ></div>
               </div>
 
-              <p className="text-sm font-bold font-manrope mb-4">18 / 30 minutes used</p>
+              <p className="text-sm font-medium font-manrope mb-4">18 / 30 minutes used</p>
 
               <Button
-                className="w-full bg-white text-gray-900 hover:bg-gray-100 font-manrope font-bold"
-                size="sm"
+                className="w-full bg-white text-gray-900 hover:bg-gray-100 font-manrope font-bold rounded-[12px]"
+              size="sm" 
               >
                 Upgrade Plan
               </Button>

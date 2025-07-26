@@ -16,13 +16,13 @@ export default function Header({ onMobileMenuToggle }: HeaderProps) {
     const pathname = usePathname()
     
     // Pages that should show search input
-    const pagesWithSearch = ['/dashboard', '/ai-agent', '/ai-agent/agentdetail']
+    const pagesWithSearch = ['/dashboard', '/ai-agent/agentdetail']
     const shouldShowSearch = pagesWithSearch.includes(pathname)
     
     return (
         <>
         {/* Header */}
-        <header className="bg-white border border-gray-300 px-4 lg:px-6 py-4">
+        <header className="bg-white border border-gray-300 px-4 lg:px-6 py-2">
           <div className="flex items-center justify-between">
             {/* Mobile Menu Button - Always on left */}
             <Button
