@@ -17,32 +17,32 @@ const businessResults = [
   {
     id: 1,
     name: "Canadian Renovator & Technical Services Inc.",
-    address: "63 Thorncliffe Park Dr #307, Toronto, ON M4H 1L4",
+    address: " Thorncliffe Park Dr #307, Toronto, ON M4H 1L4",
     rating: 5,
     reviews: 201,
     status: "Closed",
     tags: ["Plumber", "Electrician", "+4 more"],
-    image: "/placeholder.svg?height=80&width=80",
+    image: "/images/signup/sample1.svg",
   },
   {
     id: 2,
     name: "Canadian Renovator & Technical Services Inc.",
-    address: "63 Thorncliffe Park Dr #307, Toronto, ON M4H 1L4",
+    address: "Thorncliffe Park Dr #307, Toronto, ON M4H 1L4",
     rating: 5,
     reviews: 201,
     status: "Closed",
     tags: ["Plumber", "Electrician", "+4 more"],
-    image: "/placeholder.svg?height=80&width=80",
+    image: "/images/signup/sample2.svg",
   },
   {
     id: 3,
     name: "Canadian Renovator & Technical Services Inc.",
-    address: "63 Thorncliffe Park Dr #307, Toronto, ON M4H 1L4",
+    address: "Thorncliffe Park Dr #307, Toronto, ON M4H 1L4",
     rating: 5,
     reviews: 201,
     status: "Closed",
     tags: ["Plumber", "Electrician", "+4 more"],
-    image: "/placeholder.svg?height=80&width=80",
+    image: "/images/signup/sample3.svg",
   },
 ]
 
@@ -203,16 +203,18 @@ export default function MeetAgentPage() {
                         className="bg-white border border-gray-200 lg:border-b lg:border-gray-100 lg:last:border-b-0 rounded-lg lg:rounded-none p-4 lg:p-4 hover:bg-gray-50 cursor-pointer font-bold"
                         onClick={() => handleBusinessSelect(business.id)}
                       >
-                        <div className="flex items-start space-x-3">
-                          <img
-                            src={business.image || "/placeholder.svg"}
-                            alt={business.name}
-                            className="w-16 h-16 rounded-lg object-cover"
-                          />
-                          <div className="flex-1 min-w-0">
-                            <h3 className=" text-gray-900 text-sm mb-1 lg:mb-0 lg:mt-0 font-manrope">{business.name}</h3>
-                            <p className="text-xs text-gray-500 mb-2 lg:mb-1 lg:mt-1 font-manrope">{business.address}</p>
-                            <div className="flex flex-wrap gap-1 lg:mt-2">
+                        <div className="flex items-start space-x-3  ">
+                          <div className="flex h-full">
+                            <img
+                              src={business.image || "/placeholder.svg"}
+                              alt={business.name}
+                              className="w-full h-full rounded-lg object-cover border"
+                            />
+                          </div>
+                          <div className="flex flex-col h-full ">
+                            <h3 className=" text-gray-900 text-md mb-1 lg:mb-0 lg:mt-0 font-manrope font-bold">{business.name}</h3>
+                            <p className="text-xs text-gray-500 mb-2 lg:mb-1 lg:mt-1 font-manrope font-semibold">{business.address}</p>
+                            <div className="flex flex-wrap gap-1 lg:mt-2 ">
                               {business.tags.map((tag, index) => (
                                 <span key={index} className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded font-manrope">
                                   {tag}
